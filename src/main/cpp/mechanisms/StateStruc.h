@@ -18,19 +18,8 @@
        
 enum StateType
 {
-    LEFT_INTAKE,
-    LEFT_INTAKE_MANUAL,
-    RIGHT_INTAKE,
-    RIGHT_INTAKE_MANUAL,
-    INDEXER,
-    LIFT,
-    BALL_TRANSFER,
-    SHOOTER,
-    SHOOTER_MANUAL,
-    SHOOTER_AUTO,
-    CLIMBER,
-    CLIMBER_MANUAL,
-    CAMERA_SERVO,
+    // @ADDMECH Add your states
+
     MAX_STATE_TYPES
 };
 

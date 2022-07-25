@@ -30,6 +30,7 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <chassis/swerve/SwerveModule.h>
 #include <chassis/swerve/SwerveChassis.h>
+#include <chassis/differential/DifferentialChassis.h>
 
 namespace ctre
 {
@@ -59,6 +60,7 @@ class ChassisFactory
 			IChassis* GetIChassis();
 
 			inline SwerveChassis* GetSwerveChassis() {return (SwerveChassis*) m_chassis; };
+			inline DifferentialChassis* GetDifferentialChassis() {return (DifferentialChassis*) m_chassis; };
 
 			//=======================================================================================
 			// Method:  		CreateChassis

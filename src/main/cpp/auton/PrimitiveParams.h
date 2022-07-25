@@ -24,8 +24,8 @@
 
 // Team 302 includes
 #include <auton/PrimitiveEnums.h>
-#include <mechanisms/intake/IntakeStateMgr.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
+// @ADDMECH include for your mechanism 
+
 #include <chassis/IChassis.h>
 
 // Third Party Includes
@@ -46,10 +46,8 @@ class PrimitiveParams
                 float                                               heading,
                 float                                               startDriveSpeed,
                 float                                               endDriveSpeed,
-                std::string                                         pathName,
-                IntakeStateMgr::INTAKE_STATE                        leftIntakeState,
-                IntakeStateMgr::INTAKE_STATE                        rightIntakeState,
-                ShooterStateMgr::SHOOTER_STATE                      shooterState
+                std::string                                         pathName
+                // @ADDMECH add parameter for your mechanism state 
         );//Constructor. Takes in all parameters
 
         PrimitiveParams() = delete;
@@ -67,9 +65,9 @@ class PrimitiveParams
         float GetDriveSpeed() const {return m_startDriveSpeed;};
         float GetEndDriveSpeed() const {return m_endDriveSpeed;};
         std::string GetPathName() const {return m_pathName;};
-        IntakeStateMgr::INTAKE_STATE GetLeftIntakeState() const {return m_leftIntakeState;};
-        IntakeStateMgr::INTAKE_STATE GetRightIntakeState() const {return m_rightIntakeState;};
-        ShooterStateMgr::SHOOTER_STATE GetShooterState() const {return m_shooterState;};
+        
+        // @ADDMECH Add methods to get the state mgr for mechanism 
+
 
 
         //Setters
@@ -87,9 +85,7 @@ class PrimitiveParams
         float                                               m_startDriveSpeed;
         float                                               m_endDriveSpeed;
         std::string                                         m_pathName;
-        IntakeStateMgr::INTAKE_STATE                        m_leftIntakeState;
-        IntakeStateMgr::INTAKE_STATE                        m_rightIntakeState;
-        ShooterStateMgr::SHOOTER_STATE                      m_shooterState;
+        // @ADDMECH add attribute for your mechanism state 
 
 };
 

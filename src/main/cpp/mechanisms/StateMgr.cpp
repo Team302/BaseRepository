@@ -28,21 +28,12 @@
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/cameraServo/CameraServoState.h>
-#include <mechanisms/climber/ClimberManualState.h>
-#include <mechanisms/climber/ClimberState.h>
-#include <mechanisms/indexer/IndexerState.h>
-#include <mechanisms/intake/IntakeState.h>
-#include <mechanisms/intake/ManualLeftIntakeState.h>
-#include <mechanisms/intake/ManualRightIntakeState.h>
 #include <basemechanisms/interfaces/IMech.h>
 #include <basemechanisms/interfaces/IState.h>
-#include <mechanisms/lift/LiftState.h>
-#include <mechanisms/shooter/ShooterState.h>
-#include <mechanisms/shooter/ShooterStateAutoHigh.h>
-#include <mechanisms/shooter/ShooterStateManual.h>
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
+
+// @ADDMECH include for your mechanism state(s)
 
 // Third Party Includes
 
@@ -102,89 +93,7 @@ void StateMgr::Init
                         IState* thisState = nullptr;
                         switch (type)
                         {
-                            case StateType::LEFT_INTAKE:
-                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetLeftIntake(),
-                                                            controlData,
-                                                            controlData2, 
-                                                            target, 
-                                                            secondaryTarget);
-                        	    break;
-
-                            case StateType::LEFT_INTAKE_MANUAL:
-                        	    thisState = new ManualLeftIntakeState(MechanismFactory::GetMechanismFactory()->GetLeftIntake(),
-                                                                                                controlData,
-                                                                                                controlData2, 
-                                                                                                target, 
-                                                                                                secondaryTarget);
-                        	    break;
-
-                            case StateType::RIGHT_INTAKE:
-                        	    thisState = new IntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
-                                                            controlData,
-                                                            controlData2, 
-                                                            target, 
-                                                            secondaryTarget);
-                        	    break;
-
-                            case StateType::RIGHT_INTAKE_MANUAL:
-                        	    thisState = new ManualRightIntakeState(MechanismFactory::GetMechanismFactory()->GetRightIntake(),
-                                                                                                controlData,
-                                                                                                controlData2, 
-                                                                                                target, 
-                                                                                                secondaryTarget);
-                        	    break;
-                        	    
-                    	    case StateType::SHOOTER:
-                       		    thisState = new ShooterState(controlData, 
-                                                             controlData2, 
-                                                             target, 
-                                                             secondaryTarget);
-                       		    break;
-
-                    	    case StateType::SHOOTER_MANUAL:
-                       		    thisState = new ShooterStateManual();
-                       		    break;
-
-                    	    case StateType::SHOOTER_AUTO:
-                       		    thisState = new ShooterStateAutoHigh(controlData, 
-                                                                     controlData2, 
-                                                                     target, 
-                                                                     secondaryTarget, 
-                                                                     function1Coeff, 
-                                                                     function2Coeff);
-                       		    break;
-
-                            case StateType::CAMERA_SERVO:
-                                thisState = new CameraServoState(target);
-                                break;
-                                
-                            case StateType::CLIMBER:
-                                thisState = new ClimberState(controlData, 
-                                                             controlData2, 
-                                                             target, 
-                                                             secondaryTarget,
-                                                             robotPitch);
-                                break;
-
-                            case StateType::CLIMBER_MANUAL:
-                                thisState = new ClimberManualState(controlData, 
-                                                                   controlData2, 
-                                                                   target, 
-                                                                   secondaryTarget);
-                                break;
-
-
-                            case StateType::INDEXER:
-                                thisState = new IndexerState(MechanismFactory::GetMechanismFactory()->GetIndexer(), 
-                                                             controlData, 
-                                                             controlData2,
-                                                             target,
-                                                             secondaryTarget);
-                                break;
-                                
-                            case StateType::LIFT:
-                                thisState = new LiftState(MechanismFactory::GetMechanismFactory()->GetLift(), controlData, target);
-                                break;
+                            // @ADDMECH Add case(s) tto create your state(s) 
 
                     	    default:
                         	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));

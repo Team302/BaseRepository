@@ -34,14 +34,8 @@ class MechanismTypes
         enum MECHANISM_TYPE
         {
             UNKNOWN_MECHANISM = -1,
-            LEFT_INTAKE,
-            RIGHT_INTAKE,
-            BALL_TRANSFER,
-            INDEXER,
-            LIFT,
-            SHOOTER,
-            CLIMBER,    
-            CAMERA_SERVO,             
+            // @ADDMECH add your mechanism 
+
             MAX_MECHANISM_TYPES
         };
 

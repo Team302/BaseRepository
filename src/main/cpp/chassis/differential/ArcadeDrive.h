@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -14,26 +13,33 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <mechanisms/intake/IntakeState.h>
-#include <basemechanisms/Mech2MotorState.h>
-#include <mechanisms/MechanismFactory.h>
-#include <mechanisms/controllers/ControlData.h>
-#include <basemechanisms/interfaces/IMech2IndMotors.h>
-#include <mechanisms/intake/Intake.h>
+#pragma once
 
-IntakeState::IntakeState
-(
-    Intake*      intake,
-    ControlData* controlSpin,
-    ControlData* controlExtend, 
-    double       spinTarget,
-    double       extendTarget
-) : Mech2MotorState (intake, 
-                     controlSpin, 
-                     controlExtend, 
-                     spinTarget,
-                     extendTarget),
-    m_intake(intake)
+//C++ Libraries
+#include <memory>
+
+#include <frc/drive/Vector2d.h>
+
+//Team 302 includes
+#include <chassis/differential/DifferentialChassis.h>
+#include <TeleopControl.h>
+#include <basemechanisms/interfaces/IState.h>
+
+class ArcadeDrive : public IState
 {
-}
+    public:
 
+        ArcadeDrive();
+        ~ArcadeDrive() = default;
+
+        void Init() override;
+        void Run() override;
+        void Exit() override;
+        bool AtTarget() const override;
+
+    private:
+        inline TeleopControl* GetController() const { return m_controller; }
+        std::shared_ptr<DifferentialChassis>        m_chassis;
+        TeleopControl*                              m_controller;
+        frc::Vector2d                               m_offset;     
+};

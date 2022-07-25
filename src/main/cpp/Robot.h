@@ -10,14 +10,11 @@
 
 #include <auton/CyclePrimitives.h>
 #include <TeleopControl.h>
+#include <chassis/differential/ArcadeDrive.h>
 #include <chassis/swerve/SwerveDrive.h>
 #include <hw/DragonLimelight.h>
-#include <mechanisms/climber/ClimberStateMgr.h>
-#include <mechanisms/indexer/IndexerStateMgr.h>
-#include <mechanisms/intake/IntakeStateMgr.h>
-#include <mechanisms/lift/LiftStateMgr.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <chassis/IChassis.h>
+// @ADDMECH add your mechanism state mgr include 
 
 
 
@@ -41,12 +38,8 @@ class Robot : public frc::TimedRobot
   CyclePrimitives*      m_cyclePrims;
   frc::Timer*           m_timer;
   SwerveDrive*          m_swerve;
+  ArcadeDrive*          m_arcade;
 
-  IntakeStateMgr*       m_leftIntakeStateMgr;
-  IntakeStateMgr*       m_rightIntakeStateMgr;
-  IndexerStateMgr*      m_indexerStateMgr;
-  LiftStateMgr*         m_liftStateMgr;
-  ShooterStateMgr*      m_shooterStateMgr;
-  ClimberStateMgr*      m_climberStateMgr;
+// @ADDMECH add your mechanism  
   DragonLimelight*      m_dragonLimeLight;
 };

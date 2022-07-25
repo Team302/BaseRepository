@@ -17,8 +17,9 @@
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveParams.h>
 #include <chassis/IChassis.h>
-#include <mechanisms/intake/IntakeStateMgr.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
+// @ADDMECH include for your mechanism state mgr
+
+
 
 PrimitiveParams::PrimitiveParams
 (
@@ -31,10 +32,8 @@ PrimitiveParams::PrimitiveParams
     float                       						heading,
     float                       						startDriveSpeed,
     float                       						endDriveSpeed,
-	std::string											pathName,
-	IntakeStateMgr::INTAKE_STATE                        leftIntakeState,
-	IntakeStateMgr::INTAKE_STATE                        rightIntakeState,
-	ShooterStateMgr::SHOOTER_STATE                      shooterState
+	std::string											pathName
+	// @ADDMECH mechanism state for mech as parameter
 ):	//Pass over parameters to class variables
 		m_id(id), //Primitive ID
 		m_time(time),
@@ -45,10 +44,8 @@ PrimitiveParams::PrimitiveParams
 		m_heading(heading),
 		m_startDriveSpeed(startDriveSpeed),
 		m_endDriveSpeed(endDriveSpeed),
-		m_pathName (pathName),
-		m_leftIntakeState(leftIntakeState),
-		m_rightIntakeState(rightIntakeState),
-		m_shooterState(shooterState)
+		m_pathName (pathName)
+		// @ADDMECH initilize intake state mgr attribute
 {
 }
 

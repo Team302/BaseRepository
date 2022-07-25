@@ -23,10 +23,8 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/drivePrimitives/IPrimitive.h>
-#include <mechanisms/intake/LeftIntakeStateMgr.h>
-#include <mechanisms/intake/RightIntakeStateMgr.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
+// @ADDMECH include for your mechanism state
 
 #include <pugixml/pugixml.hpp>
 
@@ -91,9 +89,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                     auto xloc = 0.0;
                     auto yloc = 0.0;
                     std::string pathName;
-                    auto leftIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
-                    auto rightIntakeState = IntakeStateMgr::INTAKE_STATE::OFF;
-                    auto shooterState = ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT;                    
+                    // @ADDMECH Initialize your mechanism state
                     
                     for (xml_attribute attr = primitiveNode.first_attribute(); attr; attr = attr.next_attribute())
                     {
@@ -155,45 +151,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         {
                             pathName = attr.value();
                         }                
-                        else if ( strcmp( attr.name(), "leftIntake" ) == 0 )
-                        {
-                            auto leftItr = LeftIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.find( attr.value() );
-                            if ( leftItr != LeftIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.end() )
-                            {
-                                leftIntakeState = leftItr->second;
-                            }
-                            else
-                            {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid left intake state"), attr.value());
-                                hasError = true;
-                            }
-                        }
-                        else if ( strcmp( attr.name(), "rightIntake" ) == 0 )
-                        {
-                            auto rightItr = RightIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.find( attr.value() );
-                            if ( rightItr != RightIntakeStateMgr::GetInstance()->m_intakeXmlStringToStateEnumMap.end() )
-                            {
-                                rightIntakeState = rightItr->second;
-                            }
-                            else
-                            {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid right intake state"), attr.value());
-                                hasError = true;
-                            }
-                        }
-                        else if ( strcmp( attr.name(), "shooter" ) == 0 )
-                        {
-                            auto shootItr = ShooterStateMgr::GetInstance()->m_shooterXmlStringToStateEnumMap.find( attr.value() );
-                            if ( shootItr != ShooterStateMgr::GetInstance()->m_shooterXmlStringToStateEnumMap.end() )
-                            {
-                                shooterState = shootItr->second;
-                            }
-                            else
-                            {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid shooter state"), attr.value());
-                                hasError = true;
-                            }
-                        }
+                        // @ADDMECH add case for your mechanism state to get the statemgr / state
+
                         else
                         {
                             Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid attribute"), attr.name());
@@ -211,10 +170,10 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                                                                        heading,
                                                                        startDriveSpeed,
                                                                        endDriveSpeed,
-                                                                       pathName,
-                                                                       leftIntakeState,
-                                                                       rightIntakeState,
-                                                                       shooterState ) );
+                                                                       pathName
+                                                                       // @ADDMECH add parameter for your mechanism state
+
+                                                                       ) );
                         string ntName = string("Primitive ") + to_string(paramVector.size());
                         int slot = paramVector.size() - 1;
                         auto logger = Logger::GetLogger();
@@ -229,9 +188,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Drive Speed"), param->GetDriveSpeed());
                         logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("End Drive Speed"), param->GetEndDriveSpeed());
                         logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Path Name"), param->GetPathName());
-                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Left Intake"), to_string(param->GetLeftIntakeState()));
-                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Right Intake"), to_string(param->GetRightIntakeState()));
-                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Shooter"), to_string(param->GetShooterState()));
+                        // @ADDMECH Log state data
                     }
                     else 
                     {

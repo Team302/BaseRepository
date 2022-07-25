@@ -31,14 +31,9 @@
 #include <auton/PrimitiveParser.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/indexer/IndexerStateMgr.h>
-#include <mechanisms/intake/Intake.h>
-#include <mechanisms/intake/LeftIntakeStateMgr.h>
-#include <mechanisms/intake/RightIntakeStateMgr.h>
-#include <mechanisms/lift/LiftStateMgr.h>
-#include <mechanisms/shooter/Shooter.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
+
+// @ADDMECH include for your mechanism state
 
 // Third Party Includes
 
@@ -75,35 +70,9 @@ void CyclePrimitives::Run()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Run();
-		
-		auto leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
-		if (leftIntakeStateMgr != nullptr)
-		{
-			leftIntakeStateMgr->RunCurrentState();
-		}
-		auto rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-		if (rightIntakeStateMgr != nullptr)
-		{
-			rightIntakeStateMgr->RunCurrentState();
-		}
 
-		auto shooterStateMgr = ShooterStateMgr::GetInstance();
-		if (shooterStateMgr != nullptr)
-		{
-			shooterStateMgr->RunCurrentState();
-		}
+		// @ADDMECH get your statemgr and run its current state
 
-		auto indexerStateMgr = IndexerStateMgr::GetInstance();
-		if (indexerStateMgr != nullptr)
-		{
-			indexerStateMgr->RunCurrentState();
-		}
-
-		auto liftStateMgr = LiftStateMgr::GetInstance();
-		if (liftStateMgr != nullptr)
-		{
-			liftStateMgr->RunCurrentState();
-		}
 
 		if (m_currentPrim->IsDone())
 		{
@@ -138,33 +107,7 @@ void CyclePrimitives::GetNextPrim()
 	{
 		m_currentPrim->Init(currentPrimParam);
 
-		auto leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
-		if (leftIntakeStateMgr != nullptr)
-		{
-			leftIntakeStateMgr->SetCurrentState(currentPrimParam->GetLeftIntakeState(), true);
-		}
-		auto rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-		if (rightIntakeStateMgr != nullptr)
-		{
-			rightIntakeStateMgr->SetCurrentState(currentPrimParam->GetRightIntakeState(), true);
-		}
-		auto shooterStateMgr = ShooterStateMgr::GetInstance();
-		if (shooterStateMgr != nullptr)
-		{
-			shooterStateMgr->SetCurrentState(currentPrimParam->GetShooterState(), true);
-		}
-
-		auto indexerStateMgr = IndexerStateMgr::GetInstance();
-		if (indexerStateMgr != nullptr)
-		{
-			indexerStateMgr->RunCurrentState();
-		}
-
-		auto liftStateMgr = LiftStateMgr::GetInstance();
-		if (liftStateMgr != nullptr)
-		{
-			liftStateMgr->RunCurrentState();
-		}
+		// @ADDMECH Get your stateMgr, set its current state to match the current primitive parameter and run it
 
 
 		m_maxTime = currentPrimParam->GetTime();
@@ -190,10 +133,9 @@ void CyclePrimitives::RunDoNothing()
 		                                   0.0,                 // heading
 		                                   0.0,                 // start drive speed
 		                                   0.0,					// end drive speed
-										  std::string(),
-										  IntakeStateMgr::INTAKE_STATE::OFF,
-										  IntakeStateMgr::INTAKE_STATE::OFF,
-										  ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT );             
+										  std::string()
+										  // @ADDMECH mechanism state
+										 );             
 		m_doNothing = m_primFactory->GetIPrimitive(params);
 		m_doNothing->Init(params);
 	}

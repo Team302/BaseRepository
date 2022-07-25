@@ -39,13 +39,9 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/cameraServo/CameraServo.h>
-#include <mechanisms/climber/Climber.h>
-#include <mechanisms/indexer/Indexer.h>
-#include <mechanisms/intake/Intake.h>
 #include <basemechanisms/interfaces/IMech.h>
-#include <mechanisms/lift/Lift.h>
-#include <mechanisms/shooter/Shooter.h>
+
+// @ADDMECH include for your mechanism 
 
 // Third Party Includes
 
@@ -93,19 +89,13 @@ class MechanismFactory
 			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
 		);
 		
-		inline Intake* GetLeftIntake() const { return m_leftIntake;};
-		inline Intake* GetRightIntake() const { return m_rightIntake;};
-		inline Shooter* GetShooter() const { return m_shooter;};
-		inline Indexer* GetIndexer() const { return m_indexer;};
-		inline Lift* GetLift() const { return m_lift;};
-		inline CameraServo* GetCameraServo() const { return m_cameraServo; };
+		// @ADDMECH  Add inline Get method for your mechanism
 
 		IMech* GetMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE	type
 		) const;
 
-		inline Climber* GetClimber() const {return m_climber;}
 
 	private:
 		std::shared_ptr<IDragonMotorController> GetMotorController
@@ -140,14 +130,9 @@ class MechanismFactory
 
 		static MechanismFactory*	m_mechanismFactory;
 		
+		// @ADDMECH  Add your mechanism here
 
-		Intake* 		m_leftIntake;
-		Intake* 		m_rightIntake;
-		Shooter* 		m_shooter;
-		Climber*		m_climber;
-		Indexer* 		m_indexer;
-		Lift* 			m_lift;
-		CameraServo*    m_cameraServo;
+
 		
 
 };

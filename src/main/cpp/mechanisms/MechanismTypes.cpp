@@ -25,6 +25,9 @@
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 
+// @ADDMECH add your mechanism include 
+
+
 // Third Party Includes
 
 using namespace std;
@@ -41,14 +44,8 @@ MechanismTypes* MechanismTypes::GetInstance()
 
 MechanismTypes::MechanismTypes()
 {
-    m_typeMap["LEFT_INTAKE"]    = MECHANISM_TYPE::LEFT_INTAKE;
-    m_typeMap["RIGHT_INTAKE"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["BALL_TRANSFER"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["INDEXER"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["LIFT"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["SHOOTER"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["CLIMBER"]   = MECHANISM_TYPE::RIGHT_INTAKE;
-    m_typeMap["CAMERASERVO"]   = MECHANISM_TYPE::RIGHT_INTAKE;
+    // @ADDMECH add your mechanism to m_typeMap 
+    //m_typeMap["LEFT_INTAKE"]    = MECHANISM_TYPE::LEFT_INTAKE;
 }
 
 MechanismTypes::~MechanismTypes()

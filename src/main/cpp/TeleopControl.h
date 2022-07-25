@@ -25,7 +25,7 @@
 #include <frc/Driverstation.h>
 
 // Team 302 includes
-#include <gamepad/IDragonGamePad.h>
+#include <gamepad/IDragonGamepad.h>
 #include <gamepad/DragonXbox.h>
 #include <gamepad/DragonGamePad.h>
 
@@ -42,65 +42,13 @@ class TeleopControl
             SWERVE_DRIVE_ROTATE,
             SWERVE_DRIVE_STEER,
             REZERO_PIGEON,
-            DRIVE_POLAR,
-            DRIVE_POLAR_INTAKE,         //not used yet?? 2.13.22
-            DRIVE_TO_SHOOTING_SPOT,
-            DRIVE_TO_LAUNCHPAD,
-            INTAKE_LEFT,
-            INTAKE_RIGHT,
-            MANUAL_INDEX,
             HOLD_POSITION,
-            EXPEL_LEFT,
-            EXPEL_RIGHT,
-            INTAKE_RETRACT_LEFT,
-            INTAKE_RETRACT_RIGHT,
-            INTAKE_DISABLE_LIMIT_SWITCHES,
-            AUTO_SHOOT_HIGH,  
-            AUTO_SHOOT_LOW,   
-            AUTO_CLIMB_TRAVERSE,        //not used
-            LIMELIGHT_FEED_TO_DASH,     //not used
-            STOP_LIMELIGHT_FEED_TO_DASH,  //not used
-            CAMERA_FEED_TO_DASH,        //not used
-            STOP_CAMERA_FEED_TO_DASH,   //not used
+            FINDTARGET,        
+            DRIVE_TO_SHOOTING_SPOT,
 
-            // added 2022 Geo3 2.13.22
-            FINDTARGET,         //Rotate to point to target center
-            ENABLE_CLIMBER,     //Put into climb mode
-            PREP_MIDBAR_CLIMB,  //Go to the prepare for Midbar Climb
-            CLIMBER_MAN_UP,     //Button Mapped needs calls at mgrs
-            CLIMBER_MAN_DOWN,   //Button Mapped needs calls to mgrs
-            CLIMBER_MAN_ROTATE,
-            CLIMB_AUTO,         //Button Mapped needs calls to mgrs
-            MANUAL_SHOOT,       //Button Mapped needs calls to mgrs
-            MAN_KICKER,         //Button Mapped needs calls to mgrs
-            SHOOTER_OFF,        //Button Mapped needs calls to mgrs
-            SHOOTER_MTR_ON,     //Button Mapped needs calls to mgrs
-            //Shooter hood manual
-            SHOOTER_HOOD_MAN,   //Button Mapped needs calls to mgrs
-            SELECT_CLIMBER_ARM, //Button Mapped needs calls to mgrs
-
-            // for testing
-            CLIMBER_STATE_OFF,
-            CLIMBER_STATE_MANUAL,
-            CLIMBER_STATE_STARTING,
-            CLIMBER_STATE_PREP_MID,
-            CLIMBER_STATE_MID,
-            CLIMBER_STATE_FRONT_PREP,
-            CLIMBER_STATE_FRONT_ROTATE_A,
-            CLIMBER_STATE_FRONT_ROTATE_B,
-            CLIMBER_STATE_FRONT_ELEVATE,
-            CLIMBER_STATE_FRONT_ROTATE_TO_HOOK,
-            CLIMBER_STATE_FRONT_LIFT_ROBOT,
-            CLIMBER_STATE_ROTATE_ARM,
-            CLIMBER_STATE_BACK_PREP,
-            CLIMBER_STATE_BACK_ROTATE_A,
-            CLIMBER_STATE_BACK_LIFT,
-            CLIMBER_STATE_BACK_REST,
-            // end of for testing
-
-            LOOK_LEFT,
-            LOOK_RIGHT,
-            SCAN,
+            ARCADE_THROTTLE,
+            ARCADE_STEER,            
+		    // @ADDMECH add functions here for robot
             
             MAX_FUNCTIONS
         };

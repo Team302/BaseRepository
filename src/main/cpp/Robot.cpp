@@ -12,17 +12,14 @@
 #include <auton/CyclePrimitives.h>
 #include <chassis/ChassisFactory.h>
 #include <chassis/IChassis.h>
+#include <chassis/differential/ArcadeDrive.h>
 #include <chassis/swerve/SwerveDrive.h>
 #include <TeleopControl.h>
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
-#include <mechanisms/climber/ClimberStateMgr.h>
-#include <mechanisms/indexer/IndexerStateMgr.h>
-#include <mechanisms/Intake/LeftIntakeStateMgr.h>
-#include <mechanisms/Intake/RightIntakeStateMgr.h>
-#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
 #include <RobotXmlParser.h>
+// @ADDMECH add your mechanism state mgr include 
 
 using namespace std;
 
@@ -42,15 +39,17 @@ void Robot::RobotInit()
     m_controller = TeleopControl::GetInstance();
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetIChassis();
-    m_swerve = (m_chassis != nullptr) ? new SwerveDrive() : nullptr;
-        
-    m_leftIntakeStateMgr = LeftIntakeStateMgr::GetInstance();
-    m_rightIntakeStateMgr = RightIntakeStateMgr::GetInstance();
-    m_indexerStateMgr = IndexerStateMgr::GetInstance();
-    m_liftStateMgr = LiftStateMgr::GetInstance();
-    m_shooterStateMgr = ShooterStateMgr::GetInstance();
-    m_climberStateMgr = ClimberStateMgr::GetInstance();
+    m_swerve = nullptr;
+    m_arcade = nullptr;
+    if (m_chassis != nullptr)
+    {
+         m_swerve = m_chassis->GetType() == IChassis::CHASSIS_TYPE::SWERVE ? new SwerveDrive() : nullptr;
+         m_arcade = m_chassis->GetType() == IChassis::CHASSIS_TYPE::DIFFERENTIAL ? new ArcadeDrive() : nullptr;
+    }
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
+        
+    // @ADDMECH get your mechanism statemgr  
+
 
     m_cyclePrims = new CyclePrimitives();
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
@@ -109,68 +108,41 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit() 
 {
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("arrived"));   
-    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    if (m_chassis != nullptr && m_controller != nullptr)
     {
-        m_swerve->Init();
+        if (m_swerve != nullptr)
+        {
+            m_swerve->Init();
+        }
+        else if (m_arcade != nullptr)
+        {
+            m_arcade->Init();
+        }
     }
-    if (m_leftIntakeStateMgr != nullptr)
-    {
-        m_leftIntakeStateMgr->RunCurrentState();
-    }
-    if (m_rightIntakeStateMgr != nullptr)
-    {
-        m_rightIntakeStateMgr->RunCurrentState();
-    }
-    if (m_shooterStateMgr != nullptr)
-    {
-        m_shooterStateMgr->SetCurrentState(ShooterStateMgr::SHOOTER_STATE::PREPARE_TO_SHOOT, true);
-    }
-    if (m_climberStateMgr != nullptr)
-    {
-        m_climberStateMgr->RunCurrentState();
-    }
-    if (m_indexerStateMgr != nullptr)
-    {
-        m_indexerStateMgr->RunCurrentState();
-    }
-    if (m_liftStateMgr != nullptr)
-    {
-        m_liftStateMgr->RunCurrentState();
-    }
+
+    // @ADDMECH check if your state mgr isn't a nullptr and if it isn't run its current state  
+    
+
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
 }
 
 void Robot::TeleopPeriodic() 
 {
-    if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
+    if (m_chassis != nullptr && m_controller != nullptr)
     {
-        m_swerve->Run();
+        if (m_swerve != nullptr)
+        {
+            m_swerve->Run();
+        }
+        else if (m_arcade != nullptr)
+        {
+            m_arcade->Run();
+        }
     }
 
-    if (m_leftIntakeStateMgr != nullptr)
-    {
-        m_leftIntakeStateMgr->RunCurrentState();
-    }
-    if (m_rightIntakeStateMgr != nullptr)
-    {
-        m_rightIntakeStateMgr->RunCurrentState();
-    }
-    if (m_shooterStateMgr != nullptr)
-    {
-        m_shooterStateMgr->RunCurrentState();
-    }
-    if (m_climberStateMgr != nullptr)
-    {
-        m_climberStateMgr->RunCurrentState();
-    }
-    if (m_indexerStateMgr != nullptr)
-    {
-        m_indexerStateMgr->RunCurrentState();
-    }
-    if (m_liftStateMgr != nullptr)
-    {
-        m_liftStateMgr->RunCurrentState();
-    }
+    // @ADDMECH check if your state mgr isn't a nullptr and if it isn't run its current state  
+
+
 }
 
 void Robot::DisabledInit() 

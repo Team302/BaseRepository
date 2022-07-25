@@ -81,9 +81,7 @@ void SwerveDrive::Run()
     auto controller = GetController();
     if (controller != nullptr)
     {
-        IChassis::CHASSIS_DRIVE_MODE mode = controller->IsButtonPressed(TeleopControl::DRIVE_POLAR) ? 
-                                                    IChassis::CHASSIS_DRIVE_MODE::POLAR_DRIVE : 
-                                                    IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
+        IChassis::CHASSIS_DRIVE_MODE mode = IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
         IChassis::HEADING_OPTION headingOpt = IChassis::HEADING_OPTION::MAINTAIN;
         if (controller->IsButtonPressed(TeleopControl::FINDTARGET))
         {

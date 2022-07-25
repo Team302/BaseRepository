@@ -37,8 +37,9 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b74bc373983b90c10540859f240e0191\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\bace3f014002850edd343c7a290124ca\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\89a5ddbec0f491219a12bf1b6c42b2d0\\transformed\\ntcore-cpp-2022.4.1-sources\\",
@@ -84,8 +85,9 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+      "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\"
     ],
     "binaries": [
       {
@@ -94,8 +96,9 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -107,8 +110,9 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -160,8 +164,9 @@
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-          "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+          "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+          "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+          "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -171,8 +176,9 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -206,8 +212,9 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.hpp",
@@ -280,8 +287,9 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\b74bc373983b90c10540859f240e0191\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\bace3f014002850edd343c7a290124ca\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\89a5ddbec0f491219a12bf1b6c42b2d0\\transformed\\ntcore-cpp-2022.4.1-sources\\",
@@ -327,8 +335,9 @@
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-      "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+      "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+      "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\"
     ],
     "binaries": [
       {
@@ -337,8 +346,9 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -350,8 +360,9 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-                "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+                "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+                "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.hpp",
@@ -402,8 +413,9 @@
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\4b2c15168f64d35a1b579495a5014e1e\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\7b53244be03bb0b4044131ce076c8f9c\\transformed\\cscore-cpp-2022.4.1-headers\\",
           "C:\\Users\\joewi\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-          "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+          "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\",
+          "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+          "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -413,8 +425,9 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -447,8 +460,9 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\cpp\\",
-            "C:\\GitRepos\\2022RapidReact_UpdatedStructure\\src\\main\\thirdparty\\"
+            "C:\\GitRepos\\BaseRepository\\SharedGamepad\\src\\main\\cpp\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\thirdparty\\",
+            "C:\\GitRepos\\BaseRepository\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.hpp",
