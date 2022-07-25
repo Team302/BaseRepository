@@ -1,0 +1,3 @@
+[submodule "SharedGamepad"]
+	path = SharedGamepad
+	url = https://github.com/Team302/SharedGamepad.git
