@@ -14,49 +14,43 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#include <gamepad/axis/ScaledAxis.h>
+#pragma once
 
-#include <cmath>
+// C++ Includes
 
-ScaledAxis::ScaledAxis() : m_scale( 1.0 )
+// FRC includes
+
+// Team 302 includes
+
+
+// Third Party Includes
+
+
+//==================================================================================
+/// <summary>
+/// Class:          InvertAxis
+/// Description:    This provides scaling for an axis.
+/// </summary>
+//==================================================================================
+class InvertAxis 
 {
-}
+    public:
 
+        InvertAxis();
+        ~InvertAxis() = default;
+
+        void SetInverted
+        (
+            bool      isInverted           
+        );
+        double ApplyInversion
+        (
+            double value
+        ) const;
         
-//==================================================================================
-/// <summary>
-/// Method:         SetScaleFactor
-/// Description:    Set a scalefactor
-/// </summary>
-//==================================================================================
-void ScaledAxis::SetScaleFactor
-(
-    double      scaleFactor            // <I> - scale factor must be > 0.0 and <= 1.0
-)
-{
-    if ( m_scale > 0.0 )
-    {
-        m_scale = scaleFactor;
-    }
-    else
-    {
-        m_scale = -1.0 * abs(scaleFactor);
-    }
-}
+    private:
 
+        bool m_isInverted;
 
-//==================================================================================
-/// <summary>
-/// Method:         Scale
-/// Description:    Multiply the output by the scale factor
-/// </summary>
-//==================================================================================
-double ScaledAxis::Scale
-(
-    double      inputVal            // <I> - value to scale     
-) const
-{
-    return (inputVal * m_scale);
-}
-
+};
 

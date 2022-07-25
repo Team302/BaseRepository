@@ -61,12 +61,10 @@ AnalogAxis::AnalogAxis
     m_axis( axisID ),
     m_profile( LinearProfile::GetInstance() ),  
     m_deadband( NoDeadbandValue::GetInstance() ), 
-    m_scale( new ScaledAxis()  )
+    m_scale( new ScaledAxis()  ),
+    m_inversion( new InvertAxis())
 {
-    if ( flipAxis )
-    {
-        m_scale->SetScaleFactor( -1.0 );
-    }
+    m_inversion->SetInverted(flipAxis);
 }
 
 //================================================================================================
@@ -84,6 +82,7 @@ double AnalogAxis::GetAxisValue()
         value = m_deadband->ApplyDeadband( value );
         value = m_profile->ApplyProfile( value );
         value = m_scale->Scale( value );
+        value = m_inversion->ApplyInversion(value);
     }
     else
     {

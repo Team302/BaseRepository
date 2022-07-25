@@ -26,6 +26,7 @@
 #include <gamepad/IDragonGamePad.h>
 #include <gamepad/axis/IProfile.h>
 #include <gamepad/axis/IDeadband.h>
+#include <gamepad/axis/InvertAxis.h>
 #include <gamepad/axis/ScaledAxis.h>
 
 // Third Party Includes
@@ -80,6 +81,10 @@ class AnalogAxis
             IDragonGamePad::AXIS_PROFILE    profile         
         );
 
+        void SetInverted
+        (
+            bool        isInverted
+        );
         
 
 
@@ -110,4 +115,5 @@ class AnalogAxis
         IProfile*                           m_profile;
         IDeadband*                          m_deadband;
         ScaledAxis*                         m_scale;
+        InvertAxis*                         m_inversion;
 };
