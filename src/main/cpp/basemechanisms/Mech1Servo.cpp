@@ -16,6 +16,7 @@
 
 
 // C++ Includes
+#include <assert.h>
 #include <memory>
 #include <string>
 
@@ -44,7 +45,8 @@ Mech1Servo::Mech1Servo
     m_type(type),
     m_controlFile(controlFileName),
     m_ntName(networkTableName),
-    m_logging(false) 
+    m_logging(false),
+    m_stateMgr(nullptr) 
 {
     if (m_servo == nullptr )
     {
@@ -101,6 +103,22 @@ double Mech1Servo::GetAngle() const
     }
     return 0.0;
 }
+
+
+void Mech1Servo::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech1Servo::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
+}
+
 
 
 

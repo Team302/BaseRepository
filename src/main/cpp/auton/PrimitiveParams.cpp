@@ -45,7 +45,7 @@ PrimitiveParams::PrimitiveParams
 		m_startDriveSpeed(startDriveSpeed),
 		m_endDriveSpeed(endDriveSpeed),
 		m_pathName (pathName)
-		// @ADDMECH initilize intake state mgr attribute
+		// @ADDMECH initilize state mgr attribute
 {
 }
 

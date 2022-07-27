@@ -14,6 +14,7 @@
 //====================================================================================================================================================
 
 // C++ Includes
+#include <assert.h>
 #include <memory>
 #include <string>
 
@@ -32,6 +33,7 @@
 #include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <basemechanisms/interfaces/IMech1Solenoid.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
 #include <units/time.h>
@@ -53,7 +55,8 @@ Mech1IndMotorSolenoid::Mech1IndMotorSolenoid
     shared_ptr<IDragonMotorController>          motorController,
     shared_ptr<DragonSolenoid>                  solenoid
 ) : m_motorMech(new Mech1IndMotor(type, controlFileName, networkTableName, motorController)),
-    m_solenoidMech(new Mech1Solenoid(type, controlFileName, networkTableName, solenoid))
+    m_solenoidMech(new Mech1Solenoid(type, controlFileName, networkTableName, solenoid)),
+    m_stateMgr(nullptr)
 {
 }
 
@@ -218,3 +221,17 @@ Mech1IndMotorSolenoid::~Mech1IndMotorSolenoid()
     m_solenoidMech = nullptr;
 }
 
+
+void Mech1IndMotorSolenoid::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech1IndMotorSolenoid::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
+}

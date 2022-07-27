@@ -26,6 +26,7 @@
 // Team 302 includes
 #include <hw/DragonServo.h>
 #include <basemechanisms/interfaces/IMech1Servo.h>
+#include <mechanisms/StateMgr.h>
 
 
 // Third Party Includes
@@ -61,6 +62,11 @@ class Mech1Servo : public IMech1Servo
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
+        StateMgr* GetStateMgr() const override;
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
 
         /// @brief      Move servo to the desired angle
         /// @param [in] double angle: Target angle in degrees
@@ -80,6 +86,7 @@ class Mech1Servo : public IMech1Servo
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
         bool                                        m_logging;
+        StateMgr*                                   m_stateMgr;
 
 };
 

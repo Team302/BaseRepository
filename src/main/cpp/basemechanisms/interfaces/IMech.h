@@ -33,6 +33,7 @@
 // Third Party Includes
 #include <units/time.h>
 
+class StateMgr;
 
 
 ///	 @interface IMech
@@ -59,6 +60,13 @@ class IMech
 
         /// @brief log data to the network table if it is activated and time period has past
         virtual void LogData() =0;
+
+        virtual StateMgr* GetStateMgr() const = 0;
+        virtual void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) = 0;
+
 };
 typedef std::vector<IMech*> IMechVector;
 

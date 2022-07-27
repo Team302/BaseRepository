@@ -26,6 +26,7 @@
 // Team 302 includes
 #include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <basemechanisms/Mech1IndMotor.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
 //#include <units/units.h>
@@ -68,6 +69,11 @@ class Mech2IndMotors : public IMech2IndMotors
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
+        StateMgr* GetStateMgr() const override;
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
@@ -123,6 +129,7 @@ class Mech2IndMotors : public IMech2IndMotors
         std::shared_ptr<IDragonMotorController>     m_secondary;
         double                                      m_primaryTarget;
         double                                      m_secondaryTarget;
+        StateMgr*                                   m_stateMgr;
         
 };
 

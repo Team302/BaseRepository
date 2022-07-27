@@ -26,6 +26,7 @@
 // Team 302 includes
 #include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <mechanisms/MechanismTypes.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
 #include <units/time.h>
@@ -74,6 +75,11 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
+        StateMgr* GetStateMgr() const override;
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
@@ -118,6 +124,7 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
     private:
         Mech1IndMotor*              m_motorMech;
         Mech1Solenoid*              m_solenoidMech;
+        StateMgr*                   m_stateMgr;
 };
 
 

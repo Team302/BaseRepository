@@ -14,6 +14,7 @@
 //====================================================================================================================================================
 
 // C++ Includes
+#include <assert.h>
 #include <memory>
 #include <string>
 
@@ -88,3 +89,16 @@ void Mech::LogData()
 {
 }
 
+void Mech::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
+}

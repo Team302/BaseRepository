@@ -19,7 +19,7 @@
 #include <hw/factories/LimelightFactory.h>
 #include <utils/Logger.h>
 #include <RobotXmlParser.h>
-// @ADDMECH add your mechanism state mgr include 
+#include <mechanisms/StateMgrHelper.h>
 
 using namespace std;
 
@@ -48,8 +48,6 @@ void Robot::RobotInit()
     }
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
         
-    // @ADDMECH get your mechanism statemgr  
-
 
     m_cyclePrims = new CyclePrimitives();
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
@@ -119,12 +117,11 @@ void Robot::TeleopInit()
             m_arcade->Init();
         }
     }
-
-    // @ADDMECH check if your state mgr isn't a nullptr and if it isn't run its current state  
-    
+    StateMgrHelper::RunCurrentMechanismStates();
 
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
 }
+
 
 void Robot::TeleopPeriodic() 
 {
@@ -139,10 +136,7 @@ void Robot::TeleopPeriodic()
             m_arcade->Run();
         }
     }
-
-    // @ADDMECH check if your state mgr isn't a nullptr and if it isn't run its current state  
-
-
+    StateMgrHelper::RunCurrentMechanismStates();
 }
 
 void Robot::DisabledInit() 
@@ -164,6 +158,7 @@ void Robot::TestPeriodic()
 {
 
 }
+
 
 #ifndef RUNNING_FRC_TESTS
 int main() 

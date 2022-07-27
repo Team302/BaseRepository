@@ -70,6 +70,11 @@ class Mech1Solenoid : public IMech1Solenoid
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
+        StateMgr* GetStateMgr() const override;
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
 
     private:
         std::shared_ptr<DragonSolenoid>             m_solenoid;
@@ -77,4 +82,6 @@ class Mech1Solenoid : public IMech1Solenoid
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
         bool                                        m_logging;
+        StateMgr*                                   m_stateMgr;
+
 };

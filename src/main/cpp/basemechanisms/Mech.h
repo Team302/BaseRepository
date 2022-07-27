@@ -26,9 +26,9 @@
 // Team 302 includes
 #include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismTypes.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
-//#include <units/units.h>
 #include <units/time.h>
 
 
@@ -63,6 +63,14 @@ class Mech : public IMech
             std::string                     controlFileName,
             std::string                     networkTableName
         );
+
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
+
+        StateMgr* GetStateMgr() const override;
+        
 	    Mech() = delete;
 	    virtual ~Mech() = default;
 
@@ -74,4 +82,5 @@ class Mech : public IMech
         units::second_t                 m_milliSecondsBetweenLogging;
         units::second_t                 m_lastTime;
         std::unique_ptr<frc::Timer>     m_timer;
+        StateMgr*                       m_stateMgr;
 };

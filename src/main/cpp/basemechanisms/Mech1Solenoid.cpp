@@ -14,6 +14,7 @@
 //====================================================================================================================================================
 
 // C++ Includes
+#include <assert.h>
 #include <memory>
 #include <string>
 
@@ -25,6 +26,7 @@
 #include <basemechanisms/interfaces/IMech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <utils/Logger.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
 
@@ -45,7 +47,8 @@ Mech1Solenoid::Mech1Solenoid
     m_solenoid( solenoid ),
     m_type(type),
     m_controlFile(controlFileName),
-    m_ntName(networkTableName)
+    m_ntName(networkTableName),
+    m_stateMgr(nullptr)
 
 {
     if (m_solenoid.get() == nullptr )
@@ -104,6 +107,22 @@ bool Mech1Solenoid::IsSolenoidActivated() const
 {
     return  ( m_solenoid.get() != nullptr ) ? m_solenoid.get()->Get() : false;
 
+}
+
+
+
+void Mech1Solenoid::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech1Solenoid::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
 }
 
 

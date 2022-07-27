@@ -14,32 +14,27 @@
 #include <chassis/swerve/SwerveDrive.h>
 #include <hw/DragonLimelight.h>
 #include <chassis/IChassis.h>
-// @ADDMECH add your mechanism state mgr include 
-
-
 
 class Robot : public frc::TimedRobot 
 {
- public:
-  void RobotInit() override;
-  void RobotPeriodic() override;
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
-  void TeleopInit() override;
-  void TeleopPeriodic() override;
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
-  void TestInit() override;
-  void TestPeriodic() override;
+    public:
+        void RobotInit() override;
+        void RobotPeriodic() override;
+        void AutonomousInit() override;
+        void AutonomousPeriodic() override;
+        void TeleopInit() override;
+        void TeleopPeriodic() override;
+        void DisabledInit() override;
+        void DisabledPeriodic() override;
+        void TestInit() override;
+        void TestPeriodic() override;
 
- private:
-  TeleopControl*        m_controller;
-  IChassis*             m_chassis;
-  CyclePrimitives*      m_cyclePrims;
-  frc::Timer*           m_timer;
-  SwerveDrive*          m_swerve;
-  ArcadeDrive*          m_arcade;
-
-// @ADDMECH add your mechanism  
-  DragonLimelight*      m_dragonLimeLight;
+    private:
+        TeleopControl*        m_controller;
+        IChassis*             m_chassis;
+        CyclePrimitives*      m_cyclePrims;
+        frc::Timer*           m_timer;
+        SwerveDrive*          m_swerve;
+        ArcadeDrive*          m_arcade;
+        DragonLimelight*      m_dragonLimeLight;
 };

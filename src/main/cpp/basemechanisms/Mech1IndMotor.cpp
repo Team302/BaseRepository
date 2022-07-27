@@ -51,7 +51,8 @@ Mech1IndMotor::Mech1IndMotor
     m_ntName(networkTableName),
     m_logging(false),
     m_motor( motorController ),
-    m_target( 0.0 )
+    m_target( 0.0 ),
+    m_stateMgr(nullptr)
 {
     if (m_motor.get() == nullptr )
     {
@@ -141,6 +142,20 @@ void Mech1IndMotor::SetControlConstants
 }
 
 
+
+void Mech1IndMotor::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech1IndMotor::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
+}
 
 
 

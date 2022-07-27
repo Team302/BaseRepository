@@ -57,7 +57,8 @@ Mech2IndMotors::Mech2IndMotors
     m_primary( primaryMotor),
     m_secondary( secondaryMotor),
     m_primaryTarget(0.0),
-    m_secondaryTarget(0.0)
+    m_secondaryTarget(0.0),
+    m_stateMgr(nullptr)
 {
     if ( primaryMotor.get() == nullptr )
     {
@@ -187,6 +188,21 @@ void Mech2IndMotors::SetSecondaryControlConstants
     {
         m_secondary.get()->SetControlConstants(slot, pid);
     }    
+}
+
+
+void Mech2IndMotors::AddStateMgr
+(
+    StateMgr*       mgr
+)
+{
+    m_stateMgr = mgr;
+}
+
+StateMgr* Mech2IndMotors::GetStateMgr() const
+{
+    assert (m_stateMgr != nullptr);
+    return m_stateMgr;
 }
 
 

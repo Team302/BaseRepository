@@ -26,6 +26,7 @@
 // Team 302 includes
 #include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <mechanisms/MechanismTypes.h>
+#include <mechanisms/StateMgr.h>
 
 // Third Party Includes
 //#include <units/units.h>
@@ -96,6 +97,11 @@ class Mech1IndMotor : public IMech1IndMotor
             int                                         slot,
             ControlData*                                pid                 
         ) override;
+        StateMgr* GetStateMgr() const override;
+        void AddStateMgr
+        (
+            StateMgr*       mgr
+        ) override;
 
         double GetTarget() const { return m_target; }
         std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
@@ -110,6 +116,7 @@ class Mech1IndMotor : public IMech1IndMotor
         std::unique_ptr<frc::Timer>                 m_timer;
         std::shared_ptr<IDragonMotorController>     m_motor;
         double                                      m_target;
+        StateMgr*                                   m_stateMgr;
 };
 
 

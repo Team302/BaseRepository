@@ -32,6 +32,7 @@
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/MechanismFactory.h>
 #include <utils/Logger.h>
+#include <mechanisms/StateMgrHelper.h>
 
 // @ADDMECH include for your mechanism state
 
@@ -70,9 +71,7 @@ void CyclePrimitives::Run()
 	if (m_currentPrim != nullptr)
 	{
 		m_currentPrim->Run();
-
-		// @ADDMECH get your statemgr and run its current state
-
+		StateMgrHelper::RunCurrentMechanismStates();
 
 		if (m_currentPrim->IsDone())
 		{
