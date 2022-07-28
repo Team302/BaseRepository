@@ -19,7 +19,7 @@
 #include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/StateMgr.h>
+#include <basemechanisms/StateMgr.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
 #include <utils/Logger.h>

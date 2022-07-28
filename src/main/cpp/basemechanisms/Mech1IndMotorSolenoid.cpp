@@ -33,7 +33,7 @@
 #include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <basemechanisms/interfaces/IMech1Solenoid.h>
-#include <mechanisms/StateMgr.h>
+#include <basemechanisms/StateMgr.h>
 
 // Third Party Includes
 #include <units/time.h>

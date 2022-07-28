@@ -26,7 +26,7 @@
 // Team 302 includes
 #include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/StateMgr.h>
+#include <basemechanisms/StateMgr.h>
 
 // Third Party Includes
 //#include <units/units.h>

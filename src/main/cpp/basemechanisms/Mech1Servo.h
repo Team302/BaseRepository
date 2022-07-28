@@ -26,7 +26,7 @@
 // Team 302 includes
 #include <hw/DragonServo.h>
 #include <basemechanisms/interfaces/IMech1Servo.h>
-#include <mechanisms/StateMgr.h>
+#include <basemechanisms/StateMgr.h>
 
 
 // Third Party Includes

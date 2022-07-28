@@ -26,7 +26,7 @@
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/StateMgr.h>
+#include <basemechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <basemechanisms/interfaces/IMech.h>
