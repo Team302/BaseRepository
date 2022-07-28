@@ -13,11 +13,18 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+#include <string>
 
+#include <basemechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/StateMgr.h>
 #include <mechanisms/StateMgrHelper.h>
+#include <mechanisms/StateStruc.h>
+#include <utils/Logger.h>
+
+using namespace std;
 
 void StateMgrHelper::RunCurrentMechanismStates() 
 {
@@ -30,4 +37,37 @@ void StateMgrHelper::RunCurrentMechanismStates()
             stateMgr->RunCurrentState();
         }
     }   
+}
+
+IState* StateMgrHelper::CreateState
+(
+    IMech*                      mech,
+    StateStruc&                 stateInfo,
+    MechanismTargetData*        targetData
+)
+{
+    auto controlData = targetData->GetController();
+    auto controlData2 = targetData->GetController2();
+    auto target = targetData->GetTarget();
+    auto secondaryTarget = targetData->GetSecondTarget();
+    auto robotPitch = targetData->GetRobotPitch();
+    auto function1Coeff = targetData->GetFunction1Coeff();
+    auto function2Coeff = targetData->GetFunction2Coeff();
+    auto type = stateInfo.type;
+    IState* thisState = nullptr;
+    switch (type)
+    {
+        // @ADDMECH Add case(s) tto create your state(s) 
+        //case StateType::SHOOTER:
+        //    thisState = new ShooterState(controlData, 
+        //                                    controlData2, 
+        //                                    target, 
+        //                                    secondaryTarget);
+        //    break;
+
+        default:
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));
+            break;
+    }
+    return thisState;
 }

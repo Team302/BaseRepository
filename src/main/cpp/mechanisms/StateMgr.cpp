@@ -28,12 +28,11 @@
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
+#include <mechanisms/StateMgrHelper.h>
 #include <basemechanisms/interfaces/IMech.h>
 #include <basemechanisms/interfaces/IState.h>
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
-
-// @ADDMECH include for your mechanism state(s)
 
 // Third Party Includes
 
@@ -82,23 +81,7 @@ void StateMgr::Init
                     auto slot = struc.id;
                     if ( m_stateVector[slot] == nullptr )
                     {
-                        auto controlData = td->GetController();
-                	    auto controlData2 = td->GetController2();
-                        auto target = td->GetTarget();
-                	    auto secondaryTarget = td->GetSecondTarget();
-                        auto robotPitch = td->GetRobotPitch();
-                        auto function1Coeff = td->GetFunction1Coeff();
-                        auto function2Coeff = td->GetFunction2Coeff();
-                        auto type = struc.type;
-                        IState* thisState = nullptr;
-                        switch (type)
-                        {
-                            // @ADDMECH Add case(s) tto create your state(s) 
-
-                    	    default:
-                        	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));
-                    	        break;
-                	    }
+                        auto thisState = StateMgrHelper::CreateState(mech, struc, td);
                 	    if (thisState != nullptr)
                 	    {
                     	    m_stateVector[slot] = thisState;

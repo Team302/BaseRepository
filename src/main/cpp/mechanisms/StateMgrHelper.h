@@ -16,10 +16,19 @@
 
 #pragma once
 
+#include <mechanisms/StateStruc.h>
 
+class IMech;
+class MechanismTargetData;
 class StateMgrHelper 
 {
     public:
         static void RunCurrentMechanismStates();
+        static IState* CreateState
+        (
+            IMech*                      mech,
+            StateStruc&                 stateInfo,
+            MechanismTargetData*        targetData
+        );
 };
 
