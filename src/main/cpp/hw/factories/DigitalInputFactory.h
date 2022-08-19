@@ -26,7 +26,7 @@
 #pragma once
 
 // C++ Includes
-
+#include <string>
 
 // FRC includes
 
@@ -53,6 +53,7 @@ class DigitalInputFactory
 		//=====================================================================================
         DragonDigitalInput* CreateInput
         (
+			std::string										networkTableName,
     		DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
             int 						                    digitalID,
             bool						                    reversed

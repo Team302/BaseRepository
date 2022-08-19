@@ -24,6 +24,7 @@
 //========================================================================================================
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 
@@ -35,7 +36,7 @@
 
 // Third Party Includes
 
-
+using namespace std;
 
 
 //=====================================================================================
@@ -62,6 +63,7 @@ DigitalInputFactory* DigitalInputFactory::GetFactory()
 //=====================================================================================
 DragonDigitalInput* DigitalInputFactory::CreateInput
 (
+    string										    networkTableName,
     DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
     int 						                    digitalID,
     bool						                    reversed

@@ -25,6 +25,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 
 
 #include <hw/factories/DragonServoFactory.h>
@@ -67,6 +68,7 @@ DragonServoFactory* DragonServoFactory::GetInstance()
 //=======================================================================================
 DragonServo* DragonServoFactory::CreateDragonServo
 (
+    string                      networkTableName,
     ServoUsage::SERVO_USAGE     deviceUsage,        
     int                         deviceID,           
     double                      minAngle,           

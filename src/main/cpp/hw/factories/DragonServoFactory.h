@@ -20,6 +20,7 @@
 // C++ Includes
 #include <map>
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -58,6 +59,7 @@ class DragonServoFactory
         //=======================================================================================
         DragonServo* CreateDragonServo
         (
+			std::string                 networkTableName,
             ServoUsage::SERVO_USAGE     deviceUsage,        
             int                         deviceID,           
             double                      minAngle,           
