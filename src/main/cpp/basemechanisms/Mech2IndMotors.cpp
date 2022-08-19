@@ -94,7 +94,7 @@ std::string Mech2IndMotors::GetNetworkTableName() const
 }
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech2IndMotors::LogData()
+void Mech2IndMotors::LogHardwareInformation()
 {
     auto ntName = GetNetworkTableName();
 
@@ -110,17 +110,16 @@ void Mech2IndMotors::LogData()
 /// @return void 
 void Mech2IndMotors::Update()
 {
-    auto ntName = GetNetworkTableName();
     if ( m_primary.get() != nullptr )
     {
-        m_primary.get()->Set(ntName, m_primaryTarget);
+        m_primary.get()->Set(m_primaryTarget);
     }
     if ( m_secondary.get() != nullptr )
     {
-        m_secondary.get()->Set(ntName, m_secondaryTarget);
+        m_secondary.get()->Set(m_secondaryTarget);
     }
 
-    LogData();
+    LogHardwareInformation();
 }
 
 void Mech2IndMotors::UpdateTargets

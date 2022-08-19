@@ -44,7 +44,8 @@ using namespace std;
 /// @return std::shared_ptr<DragonSolenoid> solenoid pointer (or nullptr if XML is ill-formed)
 shared_ptr<DragonSolenoid> SolenoidXmlParser::ParseXML
 (
-    xml_node      solenoidNode
+    string              networkTableName,
+    xml_node            solenoidNode
 )
 {
     // initialize the output

@@ -11,7 +11,8 @@ using namespace frc;
 
 shared_ptr<frc::Encoder> ThroughBoreEncoderXmlParser::ParseXML
 (
-    pugi::xml_node throughBoreEncoderNode
+    string              networkTableName,
+    pugi::xml_node      throughBoreEncoderNode
 )
 {
     string usage;

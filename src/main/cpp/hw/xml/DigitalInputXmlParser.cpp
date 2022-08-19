@@ -44,7 +44,8 @@ using namespace pugi;
 //-----------------------------------------------------------------------
 shared_ptr<DragonDigitalInput> DigitalInputXmlParser::ParseXML
 (
-    xml_node DigitalNode
+    string              networkTableName,
+    xml_node            DigitalNode
 )
 {
     // initialize the output

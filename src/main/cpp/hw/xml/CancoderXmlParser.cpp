@@ -40,7 +40,8 @@ using namespace ctre::phoenix::sensors;
 /// @return shared_ptr<CANCoder
 shared_ptr<CANCoder> CancoderXmlParser::ParseXML
 (
-    xml_node CanCoderNode
+    string              networkTableName,
+    xml_node            CanCoderNode
 )
 {
     shared_ptr<CANCoder> cancoder = nullptr;

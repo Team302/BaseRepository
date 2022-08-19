@@ -77,7 +77,7 @@ std::string Mech1Servo::GetNetworkTableName() const
 }
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech1Servo::LogData()
+void Mech1Servo::LogHardwareInformation()
 {
 }
 

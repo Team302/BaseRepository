@@ -68,7 +68,7 @@ class Mech2IndMotors : public IMech2IndMotors
         std::string GetNetworkTableName() const override;
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogData() override;
+        void LogHardwareInformation() override;
         StateMgr* GetStateMgr() const override;
         void AddStateMgr
         (

@@ -85,7 +85,7 @@ std::string Mech::GetNetworkTableName() const
 
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech::LogData()
+void Mech::LogHardwareInformation()
 {
 }
 

@@ -74,7 +74,7 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
 
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogData() override;
+        void LogHardwareInformation() override;
         StateMgr* GetStateMgr() const override;
         void AddStateMgr
         (

@@ -81,7 +81,7 @@ std::string Mech1Solenoid::GetNetworkTableName() const
 }
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech1Solenoid::LogData()
+void Mech1Solenoid::LogHardwareInformation()
 {
 }
 

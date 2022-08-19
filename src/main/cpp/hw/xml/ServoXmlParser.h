@@ -19,6 +19,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -39,6 +40,7 @@ class ServoXmlParser
         /// @return std::shared_ptr<DragonServo> servo
         DragonServo* ParseXML
         (
+            std::string         networkTableName,
             pugi::xml_node      ServoNode
         );
 };

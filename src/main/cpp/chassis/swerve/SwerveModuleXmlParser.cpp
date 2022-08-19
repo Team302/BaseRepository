@@ -54,7 +54,8 @@ using namespace std;
 /// @return void shared_ptr<SwerveModule> 
 std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
 (
-	xml_node      SwerveModuleNode
+    string          baseNetworkTableName,
+	xml_node        SwerveModuleNode
 )
 {
    auto hasError = false;
@@ -70,6 +71,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
     double turnPeakVal = 1.0;
     double turnMaxAcc = 0.0;
     double turnCruiseVel = 0.0;
+    auto networkTableName = baseNetworkTableName;
 
     // process attributes
     for (xml_attribute attr = SwerveModuleNode.first_attribute(); attr && !hasError; attr = attr.next_attribute())
@@ -81,18 +83,22 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
             if ( thisPosition.compare("LEFT_FRONT") == 0 )
             {
                 position = SwerveModule::ModuleID::LEFT_FRONT;
+                networkTableName  += " - Left_Front Module";
             }
             else if ( thisPosition.compare("RIGHT_FRONT") == 0  )
             {
                 position = SwerveModule::ModuleID::RIGHT_FRONT;
+                networkTableName  += " - Right_Front Module";
             }
             else if ( thisPosition.compare("LEFT_BACK") == 0  )
             {
                 position = SwerveModule::ModuleID::LEFT_BACK;
+                networkTableName  += " - Left_Back Module";
             }
             else if ( thisPosition.compare("RIGHT_BACK") == 0  )
             {
                 position = SwerveModule::ModuleID::RIGHT_BACK;
+                networkTableName  += " - Right_Back Module";
             }
             else 
             {
@@ -156,7 +162,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
         string childName (child.name());
     	if ( childName.compare("motor") == 0 )
     	{
-            auto motor = motorXML.get()->ParseXML(child);
+            auto motor = motorXML.get()->ParseXML(networkTableName, child);
             if ( motor.get() != nullptr )
             {
                 motors[ motor.get()->GetType() ] =  motor ;
@@ -164,7 +170,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
     	}
     	else if ( childName.compare("cancoder") == 0 )
     	{
-            turnsensor = cancoderXML.get()->ParseXML(child);
+            turnsensor = cancoderXML.get()->ParseXML(networkTableName, child);
     	}
     	else  // log errors
     	{

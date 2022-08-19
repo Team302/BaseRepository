@@ -61,6 +61,7 @@
 
 
 using namespace frc;
+using namespace std;
 
 //-----------------------------------------------------------------------
 // Method:      ParseXML
@@ -71,15 +72,12 @@ using namespace frc;
 //-----------------------------------------------------------------------
 DragonAnalogInput* AnalogInputXmlParser::ParseXML
 (
+    string              networkTableName,
     pugi::xml_node      motorNode
 )
 {
 	DragonAnalogInput* sensor = nullptr;
-
-
-
-
-	DragonAnalogInput::ANALOG_SENSOR_TYPE type = DragonAnalogInput::ANALOG_GENERAL;
+    DragonAnalogInput::ANALOG_SENSOR_TYPE type = DragonAnalogInput::ANALOG_GENERAL;
 	int 						analogID = 0;
     float						voltageMin = 0.0;
     float						voltageMax = 5.0;

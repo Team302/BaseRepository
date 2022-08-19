@@ -70,7 +70,7 @@ class Mech1IndMotor : public IMech1IndMotor
 
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogData() override;
+        void LogHardwareInformation() override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 

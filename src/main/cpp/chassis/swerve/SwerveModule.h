@@ -39,6 +39,7 @@
 #include <chassis/PoseEstimatorEnum.h>
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <mechanisms/controllers/ControlData.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -142,6 +143,12 @@ class SwerveModule
         std::shared_ptr<IDragonMotorController>             m_turnMotor;
         std::shared_ptr<ctre::phoenix::sensors::CANCoder>   m_turnSensor;
 
+        ControlData*                                        m_driveVelocityControlData;
+        ControlData*                                        m_drivePercentControlData;
+        ControlData*                                        m_turnPositionControlData;
+        ControlData*                                        m_turnPercentControlData;
+
+
         units::length::inch_t                               m_wheelDiameter;
 
         std::string                                         m_nt;     
@@ -150,8 +157,6 @@ class SwerveModule
         frc::Pose2d                                         m_currentPose;
         units::angular_velocity::revolutions_per_minute_t   m_currentSpeed;
         double                                              m_currentRotations;
-
-
 
         units::velocity::meters_per_second_t                m_maxVelocity;
         bool                                                m_runClosedLoopDrive;

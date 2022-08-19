@@ -83,7 +83,7 @@ std::string Mech1IndMotor::GetNetworkTableName() const
 }
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech1IndMotor::LogData()
+void Mech1IndMotor::LogHardwareInformation()
 {
     auto ntName = GetNetworkTableName();
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed", GetSpeed() );
@@ -95,10 +95,9 @@ void Mech1IndMotor::Update()
 {
     if ( m_motor.get() != nullptr )
     {
-        auto ntName = GetNetworkTableName();
-        m_motor.get()->Set(ntName, m_target );
+        m_motor.get()->Set(m_target );
     }
-    LogData();
+    LogHardwareInformation();
 }
 
 void Mech1IndMotor::UpdateTarget

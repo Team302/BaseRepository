@@ -36,6 +36,7 @@
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/DistanceAngleCalcStruc.h>
 
 // Third Party Includes
 #include <ctre/phoenix/MotorControl/FeedbackDevice.h>
@@ -74,6 +75,7 @@ class DragonMotorControllerFactory
 		//=======================================================================================
 		std::shared_ptr<IDragonMotorController> CreateMotorController
 		(
+			std::string										networkTableName,
 			std::string                             		mtype,					/// Controller Type
 			int 											canID,					/// CAN ID for the controller
 			int 											pdpID,					/// PDP slot the motor is on
@@ -81,10 +83,7 @@ class DragonMotorControllerFactory
 			bool 											inverted, 				/// Motor is inverted (positive values make the motor turn in reverse)or not
 			bool 											sensorInverted,			/// Sensor direction matches motor direction or not 
 			ctre::phoenix::motorcontrol::FeedbackDevice  	feedbackDevice,			/// Sensor type
-			int 											countsPerRev,			/// Number of pulses per revolution for the sensor
-			double											countsPerInch,
-			double											countsPerDegree,
-			float 											gearRatio,				/// Gear ratio (output to input ... see https://www.wikihow.com/Determine-Gear-Ratio)
+			DistanceAngleCalcStruc							calcStruc,
 			bool 											brakeMode,				/// brake mode using back emf to resist motion when power is not applied
 			int 											followMotor,				/// CAN ID of the "master" motor controller if this is a follower motor controller (-1 indicates it is a master)
 			int 											peakCurrentDuration,	/// peak current limit

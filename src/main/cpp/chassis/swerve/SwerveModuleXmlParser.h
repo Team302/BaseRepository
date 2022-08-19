@@ -18,6 +18,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -46,6 +47,7 @@ class SwerveModuleXmlParser
     	/// @return std::shared_ptr<SwerveModule> 
 		std::shared_ptr<SwerveModule>  ParseXML
 		(
+			std::string			networkTableName,
 			pugi::xml_node      SwerveModuleNode
 		);
 };

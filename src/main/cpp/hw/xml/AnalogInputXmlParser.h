@@ -49,6 +49,7 @@
 
 
 // C++ includes
+#include <string>
 
 // FRC includes
 #include <frc/AnalogInput.h>
@@ -78,6 +79,7 @@ class AnalogInputXmlParser
         //-----------------------------------------------------------------------
         static DragonAnalogInput* ParseXML
         (
+            std::string         networkTableName,
             pugi::xml_node      sensorNode
         );
 };

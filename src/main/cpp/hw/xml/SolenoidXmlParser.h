@@ -19,6 +19,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -42,6 +43,7 @@ class SolenoidXmlParser
         /// @return std::shared_ptr<DragonSolenoid> solenoid pointer (or nullptr if XML is ill-formed)
         std::shared_ptr<DragonSolenoid> ParseXML
         (
+            std::string         networkTableName,
             pugi::xml_node      solenoidNode   /// <I> - xml Solenoid node
         );
 

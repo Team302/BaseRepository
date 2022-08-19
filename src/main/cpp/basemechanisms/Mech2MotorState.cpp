@@ -148,7 +148,7 @@ void Mech2MotorState::Run()
         Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_mechanism->GetNetworkTableName(), string("target2"), m_secondaryTarget);
         
         m_mechanism->Update();
-        m_mechanism->LogData();
+        m_mechanism->LogHardwareInformation();
     }
 }
 

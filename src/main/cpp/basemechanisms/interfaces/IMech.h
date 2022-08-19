@@ -59,7 +59,7 @@ class IMech
 
 
         /// @brief log data to the network table if it is activated and time period has past
-        virtual void LogData() =0;
+        virtual void LogHardwareInformation() = 0;
 
         virtual StateMgr* GetStateMgr() const = 0;
         virtual void AddStateMgr

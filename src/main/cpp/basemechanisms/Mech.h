@@ -51,7 +51,7 @@ class Mech : public IMech
         std::string GetNetworkTableName() const override;
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogData() override;
+        void LogHardwareInformation() override;
 
         /// @brief create the general mechanism
         /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim

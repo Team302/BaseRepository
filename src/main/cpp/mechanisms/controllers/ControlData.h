@@ -22,6 +22,9 @@
 class ControlData
 {
     public:
+        /// @brief default constructor will create a basic percent output control data.
+        ControlData();
+
         /// @brief      Create the ControlData object that is used to control mechanisms
         /// @param [in] mode - control mode
         /// @param [in] server - where to run the controller on
@@ -104,7 +107,6 @@ class ControlData
 
  
     private:
-        ControlData() = delete;
 
         ControlModes::CONTROL_TYPE                  m_mode;
         ControlModes::CONTROL_RUN_LOCS              m_runLoc;

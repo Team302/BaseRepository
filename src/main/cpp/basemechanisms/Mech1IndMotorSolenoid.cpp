@@ -106,15 +106,15 @@ string Mech1IndMotorSolenoid::GetNetworkTableName() const
     return string();}
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech1IndMotorSolenoid::LogData()
+void Mech1IndMotorSolenoid::LogHardwareInformation()
 {
     if (m_motorMech != nullptr)
     {
-        m_motorMech->LogData();
+        m_motorMech->LogHardwareInformation();
     }
     if (m_solenoidMech != nullptr)
     {
-        m_solenoidMech->LogData();
+        m_solenoidMech->LogHardwareInformation();
     }
 }
 

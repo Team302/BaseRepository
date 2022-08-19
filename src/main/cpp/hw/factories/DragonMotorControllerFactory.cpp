@@ -4,6 +4,7 @@
 
 #include <hw/factories/DragonMotorControllerFactory.h>        
 #include <hw/usages/MotorControllerUsage.h>
+#include <hw/DistanceAngleCalcStruc.h>
 #include <hw/DragonTalonSRX.h>
 #include <hw/DragonFalcon.h>
 #include <utils/Logger.h>
@@ -44,6 +45,7 @@ DragonMotorControllerFactory::DragonMotorControllerFactory()
 //=======================================================================================
 shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorController
 (
+    string                                          networkTableName,
 	string		                                    mtype,
     int 											canID,
 	int 											pdpID,
@@ -51,10 +53,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool 											inverted, 
     bool 											sensorInverted,
     FeedbackDevice  	                            feedbackDevice,
-    int 											countsPerRev,
-    double                                          countsPerInch,
-    double                                          countsPerDegree,
-    float 											gearRatio,
+    DistanceAngleCalcStruc                          calsStruc,
     bool 											brakeMode,
     int 											followMotor,
     int 											peakCurrentDuration,
@@ -67,7 +66,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     bool											reverseLimitSwitchNormallyOpen,
     double											voltageCompensationSaturation,
     bool											enableVoltageCompensation,
-    IDragonMotorController::MOTOR_TYPE                                                          motorType
+    IDragonMotorController::MOTOR_TYPE              motorType
 
 )
 {
@@ -78,7 +77,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     auto type = m_typeMap.find(mtype)->second;
     if ( type == MOTOR_TYPE::TALONSRX )
     {
-        auto talon = new DragonTalonSRX( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
+        auto talon = new DragonTalonSRX(networkTableName, MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, calsStruc, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         talon->SetSensorInverted( sensorInverted );
@@ -111,7 +110,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     }
     else if ( type == MOTOR_TYPE::FALCON )
     {
-        auto talon = new DragonFalcon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
+        auto talon = new DragonFalcon(networkTableName, MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, calsStruc, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         talon->ConfigSelectedFeedbackSensor( feedbackDevice, 0, 50 );

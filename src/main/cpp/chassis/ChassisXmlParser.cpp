@@ -237,7 +237,7 @@ IChassis* ChassisXmlParser::ParseXML
         string childName (child.name());
       	if (childName.compare("motor") == 0)
     	{
-            auto motor = motorXML.get()->ParseXML(child);
+            auto motor = motorXML.get()->ParseXML(networkTableName, child);
             if ( motor.get() != nullptr )
             {
                 motors[ motor.get()->GetType() ] =  motor ;
@@ -245,7 +245,7 @@ IChassis* ChassisXmlParser::ParseXML
     	}        
     	else if (childName.compare("swervemodule") == 0)
     	{
-            shared_ptr<SwerveModule> module = moduleXML.get()->ParseXML(child);
+            shared_ptr<SwerveModule> module = moduleXML.get()->ParseXML(networkTableName, child);
             switch ( module.get()->GetType() )
             {
                 case SwerveModule::ModuleID::LEFT_FRONT:

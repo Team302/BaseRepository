@@ -43,6 +43,7 @@ using namespace std;
     //-----------------------------------------------------------------------
     DragonServo* ServoXmlParser::ParseXML
     (
+        string              networkTableName,
         pugi::xml_node      ServoNode
     )
     {

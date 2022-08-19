@@ -49,8 +49,8 @@ ControlData* ControlDataXmlParser::ParseXML
     string identifier;
     ControlModes::CONTROL_TYPE mode = ControlModes::CONTROL_TYPE::PERCENT_OUTPUT;
 	ControlModes::CONTROL_RUN_LOCS server = ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER;
-
-    double p = 0.0;
+    
+	double p = 0.0;
     double i = 0.0;
     double d = 0.0;
     double f = 0.0;
@@ -59,7 +59,7 @@ ControlData* ControlDataXmlParser::ParseXML
     double cruiseVel = 0.0;
     double peak = 1.0;
     double nominal = 0.0;
-	
+
 	map<string, ControlModes::CONTROL_TYPE> modeMap;
 	modeMap[string("PERCENT_OUTPUT")] = ControlModes::CONTROL_TYPE::PERCENT_OUTPUT;
 	modeMap[string("VELOCITY_INCH")]  = ControlModes::CONTROL_TYPE::VELOCITY_INCH;

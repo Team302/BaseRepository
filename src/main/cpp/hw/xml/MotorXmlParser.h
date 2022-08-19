@@ -27,6 +27,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 #include <vector>
 
 // FRC includes
@@ -56,6 +57,7 @@ class MotorXmlParser
         ///-----------------------------------------------------------------------
         std::shared_ptr<IDragonMotorController> ParseXML
         (
+            std::string         networkTableName,
             pugi::xml_node      motorNode   /// <I> - xml motor node
         );
 

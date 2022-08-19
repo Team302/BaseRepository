@@ -117,7 +117,7 @@ void MechanismXmlParser::ParseXML
     {
         if ( strcmp( child.name(), "motor") == 0 )
         {
-            auto motor = motorXML.get()->ParseXML(child);
+            auto motor = motorXML.get()->ParseXML(networkTableName, child);
             if ( motor.get() != nullptr )
             {
                 motors[ motor.get()->GetType() ] =  motor ;
@@ -125,7 +125,7 @@ void MechanismXmlParser::ParseXML
         }
         else if ( strcmp( child.name(), "analogInput") == 0 )
         {
-            auto analogIn = analogXML->ParseXML(child);
+            auto analogIn = analogXML->ParseXML(networkTableName, child);
             if ( analogIn != nullptr )
             {
                 analogInputs[analogIn->GetType()] = analogIn;
@@ -133,7 +133,7 @@ void MechanismXmlParser::ParseXML
         }
         else if ( strcmp( child.name(), "digitalInput") == 0 )
         {
-            auto digitalIn = digitalXML->ParseXML(child);
+            auto digitalIn = digitalXML->ParseXML(networkTableName, child);
             if ( digitalIn.get() != nullptr )
             {
                 digitalInputs[digitalIn.get()->GetType()] = digitalIn;
@@ -141,7 +141,7 @@ void MechanismXmlParser::ParseXML
         }
         else if ( strcmp( child.name(), "servo") == 0 )
         {
-            auto servo = servoXML->ParseXML(child);
+            auto servo = servoXML->ParseXML(networkTableName, child);
             if ( servo != nullptr )
             {
                 servos[servo->GetUsage()] = servo;
@@ -149,7 +149,7 @@ void MechanismXmlParser::ParseXML
         }
         else if ( strcmp( child.name(), "solenoid" ) == 0 )
         {
-            auto sol = solenoidXML->ParseXML(child);
+            auto sol = solenoidXML->ParseXML(networkTableName, child);
             if ( sol.get() != nullptr )
             {
                 solenoids[sol.get()->GetType()] = sol;
@@ -157,7 +157,7 @@ void MechanismXmlParser::ParseXML
         }
         else if ( strcmp( child.name(), "canCoder" ) == 0)
         {
-            canCoder = cancoderXML.get()->ParseXML(child);
+            canCoder = cancoderXML.get()->ParseXML(networkTableName, child);
         }
         else
         {

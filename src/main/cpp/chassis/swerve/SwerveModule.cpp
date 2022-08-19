@@ -74,6 +74,21 @@ SwerveModule::SwerveModule
     m_driveMotor(driveMotor), 
     m_turnMotor(turnMotor), 
     m_turnSensor(canCoder), 
+    m_driveVelocityControlData(new ControlData()),
+    m_drivePercentControlData(new ControlData()),
+    m_turnPositionControlData(new ControlData(  ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE,
+                                                ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
+                                                string("Turn Angle"),
+                                                turnP,
+                                                turnI,
+                                                turnD,
+                                                turnF,
+                                                0.0,
+                                                turnMaxAcc,
+                                                turnCruiseVel,
+                                                turnPeakVal,
+                                                turnNominalVal)),
+    m_turnPercentControlData(new ControlData()),
     m_wheelDiameter(0.0),
     m_nt(),
     m_activeState(),
@@ -115,19 +130,8 @@ SwerveModule::SwerveModule
     fx->ConfigIntegratedSensorInitializationStrategy(BootToZero);
     auto turnMotorSensors = fx->GetSensorCollection();
     turnMotorSensors.SetIntegratedSensorPosition(0, 0);
-    auto turnCData = make_shared<ControlData>(  ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE,
-                                                ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
-                                                string("Turn Angle"),
-                                                turnP,
-                                                turnI,
-                                                turnD,
-                                                turnF,
-                                                0.0,
-                                                turnMaxAcc,
-                                                turnCruiseVel,
-                                                turnPeakVal,
-                                                turnNominalVal);
-    m_turnMotor.get()->SetControlConstants( 0, turnCData.get() );
+
+    m_turnMotor.get()->SetControlConstants(0, m_turnPositionControlData);
 
     switch ( GetType() )
     {
@@ -175,19 +179,24 @@ void SwerveModule::Init
 {
     m_wheelDiameter = wheelDiameter;
     m_maxVelocity = maxVelocity;
-    auto driveCData = make_shared<ControlData>( ControlModes::CONTROL_TYPE::VELOCITY_RPS,
-                                                ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
-                                                string("DriveSpeed"),
-                                                0.01,  // 0.01
-                                                0.0,
-                                                0.0,
-                                                0.5,  // 0.5
-                                                0.0,
-                                                maxAcceleration.to<double>(),
-                                                maxVelocity.to<double>(),
-                                                maxVelocity.to<double>(),
-                                                0.0 );
-    m_driveMotor.get()->SetControlConstants( 0, driveCData.get() );
+    delete m_driveVelocityControlData;
+
+    m_driveVelocityControlData = new ControlData(   ControlModes::CONTROL_TYPE::VELOCITY_RPS,
+                                                    ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
+                                                    string("DriveSpeed"),
+                                                    0.01,  // 0.01
+                                                    0.0,
+                                                    0.0,
+                                                    0.5,  // 0.5
+                                                    0.0,
+                                                    maxAcceleration.to<double>(),
+                                                    maxVelocity.to<double>(),
+                                                    maxVelocity.to<double>(),
+                                                    0.0 );
+    if (m_runClosedLoopDrive)
+    {
+        m_driveMotor.get()->SetControlConstants(0, m_driveVelocityControlData);
+    }
 
     //auto trans = Transform2d(offsetFromCenterOfRobot, Rotation2d() );
     //m_currentPose = m_currentPose + trans;
@@ -343,20 +352,13 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
     {
         // convert mps to unitless rps by taking the speed and dividing by the circumference of the wheel
         auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * wpi::numbers::pi);  
-        driveTarget /= m_driveMotor.get()->GetGearRatio();
-        
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("drive target - rps"), driveTarget );
-        
-        m_driveMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::VELOCITY_RPS);
-        m_driveMotor.get()->Set(m_nt, driveTarget);
+        driveTarget /= m_driveMotor.get()->GetGearRatio();       
+        m_driveMotor.get()->Set(driveTarget);
     }
     else
     {
         double percent = m_activeState.speed / m_maxVelocity;
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("drive target - percent"), percent );
-
-        m_driveMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
-        m_driveMotor.get()->Set(m_nt, percent);
+        m_driveMotor.get()->Set(percent);
     }
 }
 
@@ -392,13 +394,13 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("deltaTicks"), deltaTicks );
         Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("desiredTicks"), desiredTicks );
 
-        m_turnMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE);
-        m_turnMotor.get()->Set(m_nt, desiredTicks);
+        m_turnMotor.get()->SetControlConstants(0, m_turnPositionControlData);
+        m_turnMotor.get()->Set(desiredTicks);
     }
     else
     {
-        m_turnMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
-        m_turnMotor.get()->Set(m_nt, 0.0);
+        m_turnMotor.get()->SetControlConstants(0, m_turnPercentControlData);
+        m_turnMotor.get()->Set(0.0);
     }
 
 }

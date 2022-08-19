@@ -18,6 +18,7 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -73,6 +74,7 @@ class DigitalInputXmlParser
         //-----------------------------------------------------------------------
         std::shared_ptr<DragonDigitalInput> ParseXML
         (
+            std::string         networkTableName,
             pugi::xml_node      DigitalNode
         );
 

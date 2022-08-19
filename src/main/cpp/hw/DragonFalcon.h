@@ -20,24 +20,26 @@
 
 // C++ Includes
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 // FRC includes
 #include <frc/motorcontrol/MotorController.h>
 
 // Team 302 includes
-#include <mechanisms/controllers/ControlModes.h>
+#include <hw/DistanceAngleCalcStruc.h>
 #include <hw/DragonFalcon.h>
+#include <hw/interfaces/IDragonControlToVendorControlAdapter.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 
 // Third Party Includes
-#include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/ErrorCode.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
+#include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 
 
 class DragonFalcon : public IDragonMotorController
@@ -47,14 +49,12 @@ class DragonFalcon : public IDragonMotorController
         DragonFalcon() = delete;
         DragonFalcon
         (
-            MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
-            int deviceID, 
-            int pdpID, 
-            int countsPerRev, 
-            double gearRatio,
-            double countsPerInch,
-            double countsPerDegree,
-            IDragonMotorController::MOTOR_TYPE motortype
+            std::string                                     networkTableName,
+            MotorControllerUsage::MOTOR_CONTROLLER_USAGE    deviceType, 
+            int                                             deviceID, 
+            int                                             pdpID, 
+            DistanceAngleCalcStruc                          calcStruc,
+            IDragonMotorController::MOTOR_TYPE              motortype
         );
         virtual ~DragonFalcon() = default;
 
@@ -69,9 +69,8 @@ class DragonFalcon : public IDragonMotorController
         IDragonMotorController::MOTOR_TYPE GetMotorType() const override;
 
         // Setters (override)
-        void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
+        //void SetControlMode(ControlModes::CONTROL_TYPE mode) override; //:D
         void Set(double value) override;
-        void Set(std::string nt, double value) override;
         void SetRotationOffset(double rotations) override;
         void SetVoltageRamping(double ramping, double rampingClosedLoop = -1) override; // seconds 0 to full, set to 0 to disable
         void EnableCurrentLimiting(bool enabled) override; 
@@ -127,7 +126,6 @@ class DragonFalcon : public IDragonMotorController
 
         void SetVoltage(units::volt_t output) override;
 
-        double GetCountsPerRev() const override {return m_countsPerRev;}
         void UpdateFramePeriods
         (
 	        ctre::phoenix::motorcontrol::StatusFrameEnhanced	frame,
@@ -138,7 +136,8 @@ class DragonFalcon : public IDragonMotorController
             MOTOR_PRIORITY              priority
         ) override;
 
-        double GetGearRatio() const override { return m_gearRatio;}
+        double GetCountsPerRev() const override {return m_calcStruc.countsPerRev;}
+        double GetGearRatio() const override { return m_calcStruc.gearRatio;}
         bool IsForwardLimitSwitchClosed() const override;
         bool IsReverseLimitSwitchClosed() const override;
         void EnableVoltageCompensation( double fullvoltage) override;
@@ -149,25 +148,19 @@ class DragonFalcon : public IDragonMotorController
         
         double GetCountsPerInch() const override;
         double GetCountsPerDegree() const override;
-        ControlModes::CONTROL_TYPE GetControlMode() const override;
         double GetCounts() const override;
         void EnableDisableLimitSwitches
         (
             bool enable
         ) override;
     private:
-        std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonFX>  m_talon;
-        ControlModes::CONTROL_TYPE m_controlMode;
-        MotorControllerUsage::MOTOR_CONTROLLER_USAGE m_type;
-
-        int m_id;
-        int m_pdp;
-        int m_countsPerRev;
-        int m_tickOffset;
-        double m_gearRatio;
-		double m_diameter;
-        double m_countsPerInch;
-        double m_countsPerDegree;
-        IDragonMotorController::MOTOR_TYPE m_motorType;
+        std::string                                                         m_networkTableName;
+        std::shared_ptr<ctre::phoenix::motorcontrol::can::WPI_TalonFX>      m_talon;
+        IDragonControlToVendorControlAdapter*                               m_controller[4];
+        MotorControllerUsage::MOTOR_CONTROLLER_USAGE                        m_type;
+        int                                                                 m_id;
+        int                                                                 m_pdp;
+        DistanceAngleCalcStruc                                              m_calcStruc;
+        IDragonMotorController::MOTOR_TYPE                                  m_motorType;
 };
 

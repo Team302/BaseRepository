@@ -22,6 +22,20 @@
 
 using namespace std;
 
+ControlData::ControlData()  :   m_mode( ControlModes::CONTROL_TYPE::PERCENT_OUTPUT ),
+                                m_runLoc( ControlModes::CONTROL_RUN_LOCS::ROBORIO ),
+                                m_identifier( string("percentOutput") ),
+                                m_proportional( 0.0 ),
+                                m_integral( 0.0 ),
+                                m_derivative( 0.0 ),
+                                m_feedforward( 0.0 ),
+                                m_iZone( 0.0 ),
+                                m_maxAcceleration( 0.0 ),
+                                m_cruiseVelocity( 0.0 ),
+                                m_peakValue( 1.0 ),
+                                m_nominalValue( 0.0 )
+{
+}
 ControlData::ControlData
 (
     ControlModes::CONTROL_TYPE                  mode,

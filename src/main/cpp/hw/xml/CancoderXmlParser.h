@@ -18,6 +18,7 @@
 
 // C++ includes
 #include <memory>
+#include <string>
 
 // wpilib includes
 
@@ -36,5 +37,9 @@ class CancoderXmlParser
         /// @brief parses the cancoder node in the robot.xml file and creates a cancoder
         /// @param [in] xml_node - the cancoder element in the xml file
         /// @return shared_ptr<CANCoder
-        std::shared_ptr<ctre::phoenix::sensors::CANCoder> ParseXML (pugi::xml_node  CanCoderNode);
+        std::shared_ptr<ctre::phoenix::sensors::CANCoder> ParseXML 
+        (
+            std::string         networkTableName,
+            pugi::xml_node      CanCoderNode
+        );
 };

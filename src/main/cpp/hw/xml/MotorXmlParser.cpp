@@ -33,6 +33,7 @@
 #include <utils/HardwareIDValidation.h>
 #include <utils/Logger.h>
 #include <hw/xml/MotorXmlParser.h>
+#include <hw/DistanceAngleCalcStruc.h>
 
 
 // Third Party Includes
@@ -47,7 +48,8 @@ using namespace std;
 /// @return shared_ptr<IDragonMotorController> motor controller or nullptr if there is an error in the definition
 shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
 (
-    xml_node      motorNode
+    string              networkTableName,
+    xml_node            motorNode
 )
 {
     // initialize the output
@@ -60,10 +62,14 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
     bool inverted = false;
     bool sensorInverted = false;
     ctre::phoenix::motorcontrol::FeedbackDevice  feedbackDevice = ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder;
-    int countsPerRev = 0;
-    double countsPerInch = 0;
-    double countsPerDeg = 0;
-    float gearRatio = 1;
+    
+    DistanceAngleCalcStruc calcStruc;
+    calcStruc.countsPerRev = 0;
+    calcStruc.countsPerInch = 0;
+    calcStruc.countsPerDegree = 0;
+    calcStruc.gearRatio = 1.0;
+    calcStruc.diameter = 1.0;
+
     bool brakeMode = false;
     int follow = -1;
     int peakCurrentDuration = 0;
@@ -265,20 +271,20 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
 		// counts per revolution
         else if ( strcmp( attr.name(), "countsPerRev" ) == 0 )
         {
-            countsPerRev = attr.as_int();
+            calcStruc.countsPerRev = attr.as_int();
         }
         else if ( strcmp( attr.name(), "countsPerInch" ) == 0 )
         {
-            countsPerInch = attr.as_double();
+            calcStruc.countsPerInch = attr.as_double();
         }
         else if ( strcmp( attr.name(), "countsPerDegree" ) == 0 )
         {
-            countsPerDeg = attr.as_double();
+            calcStruc.countsPerDegree = attr.as_double();
         }
 		// gear ratio
         else if ( strcmp( attr.name(), "gearRatio" ) == 0 )
         {
-            gearRatio = attr.as_float();
+            calcStruc.gearRatio = attr.as_float();
         }
 
 		// brake mode (or coast)
@@ -347,17 +353,15 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
     if ( !hasError )
     {
 		pdpID = ( pdpID < 0 ) ? canID : pdpID;
-        controller = DragonMotorControllerFactory::GetInstance()->CreateMotorController( mtype,
+        controller = DragonMotorControllerFactory::GetInstance()->CreateMotorController( networkTableName,
+                                                                                         mtype,
                                                                                          canID,
                                                                                          pdpID,
                                                                                          usage,
                                                                                          inverted,
                                                                                          sensorInverted,
                                                                                          feedbackDevice,
-                                                                                         countsPerRev,
-                                                                                         countsPerInch,
-                                                                                         countsPerDeg,
-                                                                                         gearRatio,
+                                                                                         calcStruc,
                                                                                          brakeMode,
                                                                                          follow,
                                                                                          peakCurrentDuration,
