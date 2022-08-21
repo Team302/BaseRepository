@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <string>
+
 #include <frc/DoubleSolenoid.h>
 #include <frc/Solenoid.h>
 
@@ -28,6 +30,7 @@ class DragonSolenoid
         DragonSolenoid() = delete;
         DragonSolenoid
         (
+            std::string     networkTableName,
             SolenoidUsage::SOLENOID_USAGE usage,
             int  pcmID,
 			int  channel,
@@ -35,6 +38,7 @@ class DragonSolenoid
         );
         DragonSolenoid
         (
+            std::string     networkTableName,
             SolenoidUsage::SOLENOID_USAGE usage,
             int  pcmID,
             frc::PneumaticsModuleType pcmType,
@@ -43,6 +47,7 @@ class DragonSolenoid
         );
         DragonSolenoid
         (
+            std::string     networkTableName,
             SolenoidUsage::SOLENOID_USAGE usage,
             int  pcmID,
             frc::PneumaticsModuleType pcmType,
@@ -70,6 +75,7 @@ class DragonSolenoid
     private:
         void InitSingle
         (
+            std::string     networkTableName,
             SolenoidUsage::SOLENOID_USAGE usage,
             int  pcmID,
             frc::PneumaticsModuleType pcmType,
@@ -78,6 +84,7 @@ class DragonSolenoid
         );
         void InitDouble
         (
+            std::string     networkTableName,
             SolenoidUsage::SOLENOID_USAGE usage,
             int  pcmID,
             frc::PneumaticsModuleType pcmType,
@@ -86,6 +93,7 @@ class DragonSolenoid
             bool reversed
         );
 
+        std::string                             m_networkTableName;
         SolenoidUsage::SOLENOID_USAGE           m_usage;
         frc::Solenoid*                          m_solenoid;
         frc::DoubleSolenoid*                    m_doubleSolenoid;

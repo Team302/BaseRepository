@@ -14,6 +14,8 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <string>
+
 #include <frc/DigitalInput.h>
 
 #include <hw/DragonDigitalInput.h>
@@ -25,10 +27,12 @@ using namespace std;
 
 DragonDigitalInput::DragonDigitalInput
 (
+	string										networkTableName,
 	DigitalInputUsage::DIGITAL_SENSOR_USAGE		usage,	    	// <I> - Usage of the digital input
 	int 										deviceID,		// <I> - digial io ID
 	bool										reversed		// <I>
-) : m_digital( new DigitalInput( deviceID ) ),
+) : m_networkTableName(networkTableName),
+	m_digital( new DigitalInput( deviceID ) ),
 	m_reversed( reversed ),
 	m_type( usage )
 {
@@ -53,7 +57,7 @@ bool DragonDigitalInput::Get() const
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonDigitalInput"), string("Get"), string("DigitalInput not created") );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DigitalInput"), string("Not created") );
 	}
 	return isSet;
 }

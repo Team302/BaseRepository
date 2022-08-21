@@ -7,7 +7,6 @@
 #include <frc/DigitalInput.h>
 #include <hw/usages/DigitalInputUsage.h>
 
-using namespace frc;
 
 class DragonDigitalInput
 {
@@ -19,6 +18,7 @@ class DragonDigitalInput
 		//------------------------------------------------------------------------------
 		DragonDigitalInput
 		(
+			std::string										networkTableName,
     		DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
 			int 											deviceID,		// <I> - digial io ID
 			bool											reversed		// <I>
@@ -32,7 +32,8 @@ class DragonDigitalInput
 		DigitalInputUsage::DIGITAL_SENSOR_USAGE GetType() const;
 
 	private:
-		DigitalInput*		m_digital;
-		bool				m_reversed;
+		std::string								m_networkTableName;
+		frc::DigitalInput*						m_digital;
+		bool									m_reversed;
 		DigitalInputUsage::DIGITAL_SENSOR_USAGE  m_type;
 };

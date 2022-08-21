@@ -14,10 +14,15 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
    
+#include <string>
+
 #include <hw/DragonAnalogInput.h>
+
+using namespace std;
 
 DragonAnalogInput::DragonAnalogInput
 (
+	string						networkTableName,
 	ANALOG_SENSOR_TYPE			type,
 	int 						analogID,
 	float						voltageMin,
@@ -25,6 +30,7 @@ DragonAnalogInput::DragonAnalogInput
 	float 						outputMin,
 	float						outputMax
 ) : AnalogInput( analogID),
+	m_networkTableName(networkTableName),
     m_type( type ),
 	m_voltMin( voltageMin ),
 	m_voltMax( voltageMax ),

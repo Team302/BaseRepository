@@ -16,6 +16,7 @@
    
 #pragma once
 
+#include <string>
 #include <vector>
 #include <frc/AnalogInput.h>
 
@@ -38,6 +39,7 @@ class DragonAnalogInput : AnalogInput
 
 		DragonAnalogInput
 		(
+			std::string					networkTableName,
 			ANALOG_SENSOR_TYPE			type,
 			int 						analogID,
 		    float						voltageMin,
@@ -50,10 +52,10 @@ class DragonAnalogInput : AnalogInput
         ANALOG_SENSOR_TYPE GetType() const {return m_type;};
 
 	private:
+		std::string						m_networkTableName;
 		ANALOG_SENSOR_TYPE				m_type;
 		float							m_voltMin;
 		float							m_voltMax;
 		float							m_outMin;
 		float							m_outMax;
 };
-typedef std::vector<DragonAnalogInput*> DragonAnalogInputVector;

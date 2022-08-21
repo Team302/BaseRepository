@@ -16,6 +16,8 @@
 
 
 #include <memory>
+#include <string>
+
 #include <frc/Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <hw/usages/SolenoidUsage.h>
@@ -26,38 +28,41 @@ using namespace std;
 
 DragonSolenoid::DragonSolenoid
 (
-    SolenoidUsage::SOLENOID_USAGE usage,
-    int  pcmID,
-	int  channel,
-    bool reversed
+    string                          networkTableName,
+    SolenoidUsage::SOLENOID_USAGE   usage,
+    int                             pcmID,
+	int                             channel,
+    bool                            reversed
 )
 {
-    InitSingle(usage, pcmID, PneumaticsModuleType::CTREPCM, channel, reversed);
+    InitSingle(networkTableName, usage, pcmID, PneumaticsModuleType::CTREPCM, channel, reversed);
 }
 
 DragonSolenoid::DragonSolenoid
 (
-    SolenoidUsage::SOLENOID_USAGE usage,
-    int  pcmID,
-    PneumaticsModuleType pcmType,
-	int  channel,
-    bool reversed
+    string                          networkTableName,
+    SolenoidUsage::SOLENOID_USAGE   usage,
+    int                             pcmID,
+    PneumaticsModuleType            pcmType,
+	int                             channel,
+    bool                            reversed
 ) 
 {
-    InitSingle(usage, pcmID, pcmType, channel, reversed);
+    InitSingle(networkTableName, usage, pcmID, pcmType, channel, reversed);
 }
 
 DragonSolenoid::DragonSolenoid
 (
-    SolenoidUsage::SOLENOID_USAGE usage,
-    int  pcmID,
-    PneumaticsModuleType pcmType,
-    int  forwardChannel,
-    int  reverseChannel,
-    bool reversed
+    string                          networkTableName,
+    SolenoidUsage::SOLENOID_USAGE   usage,
+    int                             pcmID,
+    PneumaticsModuleType            pcmType,
+    int                             forwardChannel,
+    int                             reverseChannel,
+    bool                            reversed
 ) 
 {
-    InitDouble(usage, pcmID, pcmType, forwardChannel, reverseChannel, reversed);
+    InitDouble(networkTableName, usage, pcmID, pcmType, forwardChannel, reverseChannel, reversed);
 }
 
 
@@ -89,7 +94,7 @@ void DragonSolenoid::Set
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid"), string("Set"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
     }
 }
 
@@ -122,19 +127,21 @@ void DragonSolenoid::Set
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid"), string("Set"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
     }
 }
 
 void DragonSolenoid::InitSingle
 (
-    SolenoidUsage::SOLENOID_USAGE usage,
-    int  pcmID,
-    frc::PneumaticsModuleType pcmType,
-    int  channel,
-    bool reversed
+    string                          networkTableName,
+    SolenoidUsage::SOLENOID_USAGE   usage,
+    int                             pcmID,
+    frc::PneumaticsModuleType       pcmType,
+    int                             channel,
+    bool                            reversed
 )
 {
+    m_networkTableName = networkTableName;
     m_usage = usage;
     m_solenoid = new Solenoid(pcmID, pcmType, channel);
     m_doubleSolenoid = nullptr;
@@ -144,14 +151,16 @@ void DragonSolenoid::InitSingle
 
 void DragonSolenoid::InitDouble
 (
-    SolenoidUsage::SOLENOID_USAGE usage,
-    int  pcmID,
-    frc::PneumaticsModuleType pcmType,
-    int  forwardChannel,
-    int  reverseChannel,
-    bool reversed
+    string                          networkTableName,
+    SolenoidUsage::SOLENOID_USAGE   usage,
+    int                             pcmID,
+    frc::PneumaticsModuleType       pcmType,
+    int                             forwardChannel,
+    int                             reverseChannel,
+    bool                            reversed
 )
 {
+    m_networkTableName = networkTableName;
     m_usage = usage;
     m_solenoid = nullptr;
     m_doubleSolenoid = new DoubleSolenoid(pcmID, pcmType, forwardChannel, reverseChannel);
@@ -172,7 +181,7 @@ bool DragonSolenoid::Get() const
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid"), string("Get"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DragonSolenoid::Get"), string("solenoid ptr is nullptr"));
     }
     return val;
 }
@@ -189,7 +198,7 @@ bool DragonSolenoid::IsDisabled() const
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid"), string("IsDisabled"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DragonSolenoid::IsDisabled"), string("solenoid ptr is nullptr"));
     }
     return val;
 }
