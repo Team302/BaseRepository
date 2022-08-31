@@ -87,7 +87,7 @@ shared_ptr<DragonDigitalInput> DigitalInputXmlParser::ParseXML
     // Create the DragonDigitalInput
     if ( !hasError )
     {
-        input = make_shared<DragonDigitalInput>( usage, digitalID, reversed );
+        input = make_shared<DragonDigitalInput>(networkTableName, usage, digitalID, reversed );
     }
     return input;
 }

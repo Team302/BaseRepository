@@ -91,7 +91,7 @@ shared_ptr<DragonSolenoid> SolenoidXmlParser::ParseXML
 
     if ( !hasError )
     {
-        solenoid = make_shared<DragonSolenoid>( usage, pcmID, channel, reversed );
+        solenoid = make_shared<DragonSolenoid>( networkTableName, usage, pcmID, channel, reversed );
     }
     return solenoid;
 }

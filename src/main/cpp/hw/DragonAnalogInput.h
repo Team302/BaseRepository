@@ -20,9 +20,8 @@
 #include <vector>
 #include <frc/AnalogInput.h>
 
-using namespace frc;
 
-class DragonAnalogInput : AnalogInput
+class DragonAnalogInput : frc::AnalogInput
 {
 	public:
 		enum ANALOG_SENSOR_TYPE

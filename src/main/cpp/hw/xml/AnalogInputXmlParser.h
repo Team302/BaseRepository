@@ -60,8 +60,6 @@
 // Third Party includes
 #include <pugixml/pugixml.hpp>
 
-using namespace frc;
-
 class AnalogInputXmlParser
 {
     public:

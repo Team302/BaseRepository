@@ -7,8 +7,6 @@
 #include <memory>
 #include <frc/PowerDistribution.h>
 
-using namespace frc;
-
 class DragonPDP
 {
 	public:
@@ -19,7 +17,7 @@ class DragonPDP
 		// Description:		Create a PDP from inputs
 		// Returns:         std::shared_ptr<PowerDistributionPanel>
 		//=======================================================================================
-		PowerDistribution* CreatePDP
+		frc::PowerDistribution* CreatePDP
 		(
 			int			canID				// <I> - PDP CAN ID
 		);

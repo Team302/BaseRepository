@@ -27,9 +27,8 @@
 
 // Third Party Includes
 
-using namespace wpi::numbers;
 
-//constexpr double PI = 3.14159265358979323846;
+constexpr double PI = wpi::numbers::pi;
 
 ///	 @class ConversionUtils
 ///  @brief	Collection to convert a number between different units
@@ -81,13 +80,13 @@ class ConversionUtils
 		/// @param [in] revolutions
 		/// @param [in] diameter in inches
 		/// @return double position in inches
-		inline static double RevolutionsToInches( double revolutions, double diameter ) { return revolutions*pi*diameter; }
+		inline static double RevolutionsToInches( double revolutions, double diameter ) { return revolutions*PI*diameter; }
 		
 		/// @brief Convert from Inches to revolutions
 		/// @param [in] Inches
     	/// @param [in] diameter in inches
 	    /// @return double number of revolutions
-		inline static double InchesToRevolutions( double inches, double diameter ) { return inches/(pi*diameter); }
+		inline static double InchesToRevolutions( double inches, double diameter ) { return inches/(PI*diameter); }
 		
 		/// @brief Convert from counts to Inches
 		/// @param [in] counts
@@ -144,14 +143,14 @@ class ConversionUtils
 		/// @param [in] revolutions per second
 		/// @param [in] diameter in inches
 		/// @return double inches per second
-		inline static double RPSToInchesPerSecond( double rps, double diameter ) { return rps*pi*diameter; }
+		inline static double RPSToInchesPerSecond( double rps, double diameter ) { return rps*PI*diameter; }
 		
 			
 		/// @brief Convert from inches per second to RPS
 		/// @param [in] inches per second
 		/// @param [in] diameter in inches
 		/// @return double revolutions per second
-		inline static double InchesPerSecondToRPS( double inchesPerSecond, double diameter ) { return inchesPerSecond/(pi*diameter); }
+		inline static double InchesPerSecondToRPS( double inchesPerSecond, double diameter ) { return inchesPerSecond/(PI*diameter); }
 		
 		/// @brief Convert from inches per second to units/100ms (ctre units)
 		/// @param [in] inches per second

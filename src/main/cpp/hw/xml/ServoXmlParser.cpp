@@ -90,7 +90,7 @@ using namespace std;
         // create the object
         if ( !hasError )
         {
-            servo = DragonServoFactory::GetInstance()->CreateDragonServo( usage, pwmID, minAngle, maxAngle);
+            servo = DragonServoFactory::GetInstance()->CreateDragonServo( networkTableName, usage, pwmID, minAngle, maxAngle);
         }
         return servo;
     }

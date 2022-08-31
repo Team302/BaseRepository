@@ -143,7 +143,7 @@ DragonAnalogInput* AnalogInputXmlParser::ParseXML
 
     if ( !hasError )
     {
-    	sensor = new DragonAnalogInput( type, analogID, voltageMin, voltageMax, outputMin, outputMax );
+    	sensor = new DragonAnalogInput(networkTableName, type, analogID, voltageMin, voltageMax, outputMin, outputMax );
     }
     return sensor;
 }

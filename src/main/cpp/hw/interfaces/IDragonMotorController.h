@@ -49,6 +49,7 @@ class IDragonMotorController
 
         enum MOTOR_TYPE
         {
+            UNKNOWN_MOTOR=-1,
             FALCON500,
             NEOMOTOR,
             NEO500MOTOR,  
@@ -66,7 +67,8 @@ class IDragonMotorController
             MODERNROBOTICS12VDCMOTOR,
             JOHNSONELECTRICALGEARMOTOR,
             TETRIXMAXTORQUENADOMOTOR,
-            NONE
+            NONE,
+            MAX_MOTOR_TYPES
         };
         // Getters
         /// @brief  Return the number of revolutions the output shaft has spun
