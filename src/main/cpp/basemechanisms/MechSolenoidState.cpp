@@ -20,9 +20,9 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 #include <basemechanisms/MechSolenoidState.h>
-#include <basemechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/Mech1Solenoid.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -35,7 +35,7 @@ using namespace std;
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
 MechSolenoidState::MechSolenoidState
 (
-    IMech1Solenoid*                 mechanism,
+    Mech1Solenoid*                  mechanism,
     MechanismTargetData::SOLENOID   solState
 ) : IState(),
     m_mechanism( mechanism ),

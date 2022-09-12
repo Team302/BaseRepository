@@ -16,17 +16,7 @@
 
 #pragma once
 
-// C++ Includes
-//#define _USE_MATH_DEFINES
-//#include <cmath>
-
-// FRC includes
 #include <wpi/numbers>
-
-// Team 302 includes
-
-// Third Party Includes
-
 
 constexpr double PI = wpi::numbers::pi;
 

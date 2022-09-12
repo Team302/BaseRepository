@@ -37,12 +37,12 @@
 
 // Team 302 Includes
 #include <chassis/PoseEstimatorEnum.h>
+#include <hw/DragonCanCoder.h>
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <mechanisms/controllers/ControlData.h>
 
 // Third Party Includes
-#include <ctre/phoenix/sensors/CANCoder.h>
 
 
 class SwerveModule 
@@ -60,11 +60,11 @@ class SwerveModule
         /// @param [in] ModuleID                                                type:           Which Swerve Module is it
         /// @param [in] shared_ptr<IDragonMotorController>                      driveMotor:     Motor that makes the robot move  
         /// @param [in] shared_ptr<IDragonMotorController>                      turnMotor:      Motor that turns the swerve module 
-        /// @param [in] std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder:       Sensor for detecting the angle of the wheel
+        /// @param [in] DragonCanCoder*       		                            canCoder:       Sensor for detecting the angle of the wheel
         SwerveModule( ModuleID                                                  type, 
                       std::shared_ptr<IDragonMotorController>                   driveMotor, 
                       std::shared_ptr<IDragonMotorController>                   turningMotor,
-                      std::shared_ptr<ctre::phoenix::sensors::CANCoder>		    canCoder, 
+                      DragonCanCoder*                               		    canCoder, 
                       double                                                    turnP,
                       double                                                    turnI,
                       double                                                    turnD,
@@ -141,7 +141,7 @@ class SwerveModule
 
         std::shared_ptr<IDragonMotorController>             m_driveMotor;
         std::shared_ptr<IDragonMotorController>             m_turnMotor;
-        std::shared_ptr<ctre::phoenix::sensors::CANCoder>   m_turnSensor;
+        DragonCanCoder*                                     m_turnSensor;
 
         ControlData*                                        m_driveVelocityControlData;
         ControlData*                                        m_drivePercentControlData;

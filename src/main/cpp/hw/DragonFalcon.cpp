@@ -31,10 +31,10 @@
 #include <hw/DragonFalcon.h>
 #include <hw/factories/PDPFactory.h>
 #include <hw/factories/DragonControlToCTREAdapterFactory.h>
-//#include <hw/DragonPDP.h>
 #include <hw/usages/MotorControllerUsage.h>
 #include <utils/Logger.h>
 #include <utils/ConversionUtils.h>
+#include <hw/ctreadapters/DragonControlToCTREAdapter.h>
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>

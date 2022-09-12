@@ -18,16 +18,26 @@
 #pragma once
 
 // C++ Includes
-
-// FRC includes
 #include <string>
 
 // Team 302 includes
 #include <hw/DistanceAngleCalcStruc.h>
 #include <hw/ctreadapters/DragonControlToCTREAdapter.h>
 
-// Third Party Includes
-#include <ctre/phoenix/motorcontrol/can/WPI_BaseMotorController.h>
+namespace ctre
+{
+    namespace phoenix
+    {
+        namespace motorcontrol
+        {
+            namespace can
+            {
+                class WPI_BaseMotorController;
+            }
+        }
+    }
+}
+class ControlData;
 
 class DragonVelocityRPSToCTREAdapter : public DragonControlToCTREAdapter
 {

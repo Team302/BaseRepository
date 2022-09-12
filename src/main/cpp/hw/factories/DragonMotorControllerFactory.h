@@ -16,23 +16,11 @@
 
 #pragma once
 
-//========================================================================================================
-/// DragonMotorControllerFactory.h
-//========================================================================================================
-///
-/// File Description:
-///     This is the factory for creating Motor motorControllers
-///
-//========================================================================================================
-
 // C++ Includes
 #include <array>
 #include <map>
 #include <memory>
 #include <string>
-
-// FRC includes
-
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
@@ -41,24 +29,15 @@
 // Third Party Includes
 #include <ctre/phoenix/MotorControl/FeedbackDevice.h>
 
-
-
-
-//========================================================================================================
-///	 Class:			DragonMotorControllerFactory
-///  Description:	This is a singleton that creates motor motorControllers (IDragonMotorController).  This 
-///				 	allows us to interact with motor motorControllers such as TalonSRX, Rev Spark Max without
-///					actually knowing what type is actually being used.
-//========================================================================================================
+/// @brief  This is a singleton that creates motor motorControllers (IDragonMotorController).  This 
+/// @brief  allows us to interact with motor motorControllers such as TalonSRX, Rev Spark Max without
+///	@brief	actually knowing what type is actually being used.
 class DragonMotorControllerFactory
 {
     public:
-		///---------------------------------------------------------------------------------
-		///  enum:			MOTOR_TYPE
-		///  description:	This indicates the type of motor controller.  Most of our 
-		///					code doesn't need/care about this, however since this is the
-		///					factory, it is needed when constructing the object.
-		///---------------------------------------------------------------------------------
+		/// @brief 	This indicates the type of motor controller.  Most of our 
+		/// @brief	code doesn't need/care about this, however since this is the
+		///	@brief	factory, it is needed when constructing the object.
 	    enum MOTOR_TYPE
     	{
         	TALONSRX,				/// Controller is a Cross the Road Electronics (CTRE) Talon SRX on the CAN network
@@ -68,11 +47,7 @@ class DragonMotorControllerFactory
 
         static DragonMotorControllerFactory* GetInstance();
 
-		//=======================================================================================
-		/// Method:          CreateMotorController
-		/// Description:     Create a motor controller from the inputs
-		/// Returns:         Void
-		//=======================================================================================
+		/// @brief  Create a motor controller from the inputs
 		std::shared_ptr<IDragonMotorController> CreateMotorController
 		(
 			std::string										networkTableName,
@@ -101,12 +76,8 @@ class DragonMotorControllerFactory
 
 	private:
 
-		//=======================================================================================
-		/// Method:          GetController
-		/// Description:     return motor controller
-		/// Returns:         IDragonMotorController* 	may be nullptr if there isn't a controller
-		///												with this usage.
-		//=======================================================================================
+		/// @brief		return motor controller
+		/// @returns 	IDragonMotorController* 	may be nullptr if there isn't a controller with this usage.
 		std::shared_ptr<IDragonMotorController> GetController
 		(
 			int													canID		/// Motor Controller CAN ID

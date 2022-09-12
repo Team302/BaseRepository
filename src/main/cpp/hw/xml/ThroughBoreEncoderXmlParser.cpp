@@ -9,18 +9,18 @@ using namespace pugi;
 using namespace std;
 using namespace frc;
 
-shared_ptr<frc::Encoder> ThroughBoreEncoderXmlParser::ParseXML
+Encoder* ThroughBoreEncoderXmlParser::ParseXML
 (
     string              networkTableName,
     pugi::xml_node      throughBoreEncoderNode
 )
 {
     string usage;
-    int DIOA;
-    int DIOB;
+    int DIOA = 0;
+    int DIOB = 0;
     int PWMID = 0;
     bool hasError = false;
-    shared_ptr<frc::Encoder> throughboreencoder = nullptr;
+    Encoder* throughboreencoder = nullptr;
     for ( xml_attribute attr = throughBoreEncoderNode.first_attribute(); attr && !hasError; attr = attr.next_attribute())
     {
         if ( strcmp (attr.name(), "usage") == 0 )
@@ -53,7 +53,7 @@ shared_ptr<frc::Encoder> ThroughBoreEncoderXmlParser::ParseXML
     }
     if (!hasError)
     {
-        throughboreencoder = make_shared<frc::Encoder> (/*usage,*/ DIOA, DIOB, PWMID ); //TODO add usage to dragon through bore encoder
+        throughboreencoder = new Encoder (/*usage,*/ DIOA, DIOB, PWMID ); //TODO add usage to dragon through bore encoder
     }
     return throughboreencoder;
 }

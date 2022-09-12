@@ -15,14 +15,15 @@
 //====================================================================================================================================================
 #include <string>
 
-#include <basemechanisms/interfaces/IMech.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IMech.h>
+#include <basemechanisms/IState.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
 #include <basemechanisms/StateMgr.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
 #include <utils/Logger.h>
+#include <mechanisms/controllers/MechanismTargetData.h>
 
 using namespace std;
 

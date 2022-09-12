@@ -16,13 +16,6 @@
 
 #pragma once
 
-// C++ includes
-
-// FRC includes
-
-// Team302 includes
-#include <basemechanisms/interfaces/IMech.h>
-
 // Third Party includes
 #include <pugixml/pugixml.hpp>
 

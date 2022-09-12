@@ -14,16 +14,14 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <assert.h>
 #include <memory>
 #include <string>
 
 // FRC includes
 
 // Team 302 includes
-
+#include <basemechanisms/Mech.h>
 #include <basemechanisms/Mech1Solenoid.h>
-#include <basemechanisms/interfaces/IMech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <utils/Logger.h>
 #include <basemechanisms/StateMgr.h>
@@ -43,46 +41,13 @@ Mech1Solenoid::Mech1Solenoid
     string                                  controlFileName,
     string                                  networkTableName,
     shared_ptr<DragonSolenoid>              solenoid
-) : IMech1Solenoid(),
-    m_solenoid( solenoid ),
-    m_type(type),
-    m_controlFile(controlFileName),
-    m_ntName(networkTableName),
-    m_stateMgr(nullptr)
-
+) : Mech(type, controlFileName, networkTableName),
+    m_solenoid( solenoid )
 {
     if (m_solenoid.get() == nullptr )
     {
         Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech1Solenoid" ),  string( "constructor" ), string( "solenoid is nullptr" ) );
     }
-}
-
-
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech1Solenoid::GetType() const 
-{
-    return m_type;
-}
-
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-std::string Mech1Solenoid::GetControlFileName() const 
-{
-    return m_controlFile;
-}
-
-
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-std::string Mech1Solenoid::GetNetworkTableName() const 
-{
-    return m_ntName;
-}
-
-/// @brief log data to the network table if it is activated and time period has past
-void Mech1Solenoid::LogHardwareInformation()
-{
 }
 
 
@@ -111,23 +76,8 @@ bool Mech1Solenoid::IsSolenoidActivated() const
 
 
 
-void Mech1Solenoid::AddStateMgr
-(
-    StateMgr*       mgr
-)
+/// @brief log data to the network table if it is activated and time period has past
+void Mech1Solenoid::LogHardwareInformation()
 {
-    m_stateMgr = mgr;
 }
-
-StateMgr* Mech1Solenoid::GetStateMgr() const
-{
-    assert (m_stateMgr != nullptr);
-    return m_stateMgr;
-}
-
-
-
-
-
-
 

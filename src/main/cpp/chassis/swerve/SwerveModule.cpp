@@ -34,6 +34,7 @@
 #include <chassis/PoseEstimatorEnum.h>
 #include <chassis/swerve/SwerveChassis.h>
 #include <chassis/swerve/SwerveModule.h>
+#include <hw/DragonCanCoder.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/ControlModes.h>
 #include <utils/AngleUtils.h>
@@ -54,14 +55,14 @@ using namespace ctre::phoenix::sensors;
 /// @param [in] ModuleID                                                type:           Which Swerve Module is it
 /// @param [in] shared_ptr<IDragonMotorController>                      driveMotor:     Motor that makes the robot move  
 /// @param [in] shared_ptr<IDragonMotorController>                      turnMotor:      Motor that turns the swerve module 
-/// @param [in] std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder:       Sensor for detecting the angle of the wheel
+/// @param [in] DragonCanCoder*                                 		canCoder:       Sensor for detecting the angle of the wheel
 /// @param [in] units::length::inch_t                                   wheelDiameter   Diameter of the wheel
 SwerveModule::SwerveModule
 (
     ModuleID                                                    type, 
     shared_ptr<IDragonMotorController>                          driveMotor, 
     shared_ptr<IDragonMotorController>                          turnMotor, 
-    std::shared_ptr<ctre::phoenix::sensors::CANCoder>		    canCoder,
+    DragonCanCoder*                                 		    canCoder,
     double                                                      turnP,
     double                                                      turnI,
     double                                                      turnD,
@@ -119,8 +120,8 @@ SwerveModule::SwerveModule
 
 
     // Set up the Absolute Turn Sensor
-    m_turnSensor.get()->ConfigAbsoluteSensorRange(AbsoluteSensorRange::Signed_PlusMinus180, 0);
-    m_turnSensor.get()->GetAbsolutePosition();
+    m_turnSensor->ConfigAbsoluteSensorRange(AbsoluteSensorRange::Signed_PlusMinus180, 0);
+    m_turnSensor->GetAbsolutePosition();
     
     
     // Set up the Turn Motor
@@ -240,7 +241,7 @@ SwerveModuleState SwerveModule::GetState() const
     auto mps = units::velocity::meters_per_second_t(mpr.to<double>() * m_driveMotor.get()->GetRPS());
 
     // Get the Module Current Rotation Angle
-    Rotation2d angle {units::angle::degree_t(m_turnSensor.get()->GetAbsolutePosition())};
+    Rotation2d angle {units::angle::degree_t(m_turnSensor->GetAbsolutePosition())};
 
     // Create the state and return it
     SwerveModuleState state{mps,angle};
@@ -260,7 +261,7 @@ void SwerveModule::SetDesiredState
     // If the desired angle is less than 90 degrees from the target angle (e.g., -90 to 90 is the amount of turn), just use the angle and speed values
     // if it is more than 90 degrees (90 to 270), the can turn the opposite direction -- increase the angle by 180 degrees -- and negate the wheel speed
     // finally, get the value between -90 and 90
-    Rotation2d currAngle = Rotation2d(units::angle::degree_t(m_turnSensor.get()->GetAbsolutePosition()));
+    Rotation2d currAngle = Rotation2d(units::angle::degree_t(m_turnSensor->GetAbsolutePosition()));
    auto optimizedState = Optimize(targetState, currAngle);
    // auto optimizedState = SwerveModuleState::Optimize(targetState, currAngle);
    // auto optimizedState = targetState;
@@ -372,7 +373,7 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("turn motor id"), m_turnMotor.get()->GetID() );
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("target angle"), targetAngle.to<double>() );
 
-    auto currAngle  = units::angle::degree_t(m_turnSensor.get()->GetAbsolutePosition());
+    auto currAngle  = units::angle::degree_t(m_turnSensor->GetAbsolutePosition());
     auto deltaAngle = AngleUtils::GetDeltaAngle(currAngle, targetAngle);
 
     Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("current angle"), currAngle.to<double>() );
@@ -423,7 +424,7 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
 
     // read sensor info (cancoder, encoders) for current speed and angle of the module
     // calculate the average from the last 
-    auto currentAngle   = units::angle::radian_t(units::angle::degree_t(m_turnSensor.get()->GetPosition()));
+    auto currentAngle   = units::angle::radian_t(units::angle::degree_t(m_turnSensor->GetPosition()));
     auto currentRotations = m_driveMotor.get()->GetRotations();
 
     units::length::meter_t currentX {units::length::meter_t(0)};
@@ -509,5 +510,5 @@ void SwerveModule::UpdateCurrPose
     units::length::meter_t  y
 )
 {
-    m_currentPose = m_currentPose + Transform2d{Translation2d{x,y}, Rotation2d{units::angle::degree_t(m_turnSensor.get()->GetPosition())}};
+    m_currentPose = m_currentPose + Transform2d{Translation2d{x,y}, Rotation2d{units::angle::degree_t(m_turnSensor->GetPosition())}};
 }

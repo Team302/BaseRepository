@@ -20,19 +20,25 @@
 // C++ Includes
 #include <string>
 
-// FRC includes
-
 // Team 302 includes
-#include <hw/DragonDigitalInput.h>
-#include <hw/usages/DigitalInputUsage.h>
 #include <hw/DistanceAngleCalcStruc.h>
-#include <hw/ctreadapters/DragonControlToCTREAdapter.h>
-#include <mechanisms/controllers/ControlData.h>
 
-
-// Third Party Includes
-#include <ctre/phoenix/motorcontrol/can/WPI_BaseMotorController.h>
-
+// forward declares
+namespace ctre
+{
+    namespace phoenix
+    {
+        namespace motorcontrol
+        {
+            namespace can
+            {
+                class WPI_BaseMotorController;
+            }
+        }
+    }
+}
+class DragonControlToCTREAdapter;
+class ControlData;
 
 class DragonControlToCTREAdapterFactory
 {

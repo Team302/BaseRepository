@@ -30,6 +30,7 @@
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_BaseMotorController.h>
 
 DragonVelocityRPSToCTREAdapter::DragonVelocityRPSToCTREAdapter
 (

@@ -20,27 +20,19 @@
 #include <memory>
 #include <string>
 
-// FRC includes
-#include <frc/Timer.h>
-
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/StateMgr.h>
-
-// Third Party Includes
-#include <units/time.h>
+#include <basemechanisms/Mech.h>
 
 
 // forward declares
-class ControlModes;
-class IDragonMotorController;
 class ControlData;
 class DragonSolenoid;
+class IDragonMotorController;
 class Mech1IndMotor;
 class Mech1Solenoid;
 
-class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
+class Mech1IndMotorSolenoid : public Mech
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 independent motor 
@@ -58,45 +50,27 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
 
         );
 	    Mech1IndMotorSolenoid() = delete;
-	    ~Mech1IndMotorSolenoid() override;
-
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
+	    ~Mech1IndMotorSolenoid();
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogHardwareInformation() override;
-        StateMgr* GetStateMgr() const override;
-        void AddStateMgr
-        (
-            StateMgr*       mgr
-        ) override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
-        void Update() override;
+        void Update();
 
         void UpdateTarget
         (
             double      target
-        ) override;
+        );
 
         /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPosition() const override;
+        double GetPosition() const;
 
         /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSpeed() const override;
+        double GetSpeed() const;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -105,7 +79,7 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
         (
             int                                         slot,
             ControlData*                                pid                 
-        ) override;
+        );
 
         /// @brief      Activate/deactivate pneumatic solenoid
         /// @param [in] bool - true == extend, false == retract
@@ -113,18 +87,17 @@ class Mech1IndMotorSolenoid : public IMech1IndMotorSolenoid
         void ActivateSolenoid
         (
             bool     activate
-        ) override;
+        );
 
         /// @brief      Check if the pneumatic solenoid is activated
         /// @return     bool - true == extended, false == retracted
-        bool IsSolenoidActivated() const override;
-        IMech1IndMotor* Get1IndMotorMech() const override;
-        IMech1Solenoid* GetSolenoidMech() const override;
+        bool IsSolenoidActivated() const;
+        Mech1IndMotor* Get1IndMotorMech() const;
+        Mech1Solenoid* GetSolenoidMech() const;
 
     private:
         Mech1IndMotor*              m_motorMech;
         Mech1Solenoid*              m_solenoidMech;
-        StateMgr*                   m_stateMgr;
 };
 
 

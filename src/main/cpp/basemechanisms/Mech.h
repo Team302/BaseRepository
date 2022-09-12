@@ -17,42 +17,19 @@
 #pragma once
 
 // C++ Includes
-#include <memory>
 #include <string>
 
-// FRC includes
-#include <frc/Timer.h>
-
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/StateMgr.h>
 
-// Third Party Includes
-#include <units/time.h>
+// Forward Declares
+class StateMgr;
 
-
-///	 @interface IMech
-///  @brief	    Interface for subsystems
-class Mech : public IMech
+///	 @class Mech
+///  @brief	base mechanism class
+class Mech
 {
 	public:
-
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
-        /// @brief log data to the network table if it is activated and time period has past
-        void LogHardwareInformation() override;
-
         /// @brief create the general mechanism
         /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
         /// @param [in] std::string the name of the file that will set control parameters for this mechanism
@@ -64,23 +41,34 @@ class Mech : public IMech
             std::string                     networkTableName
         );
 
-        void AddStateMgr
+        /// @brief          Indicates the type of mechanism this is
+        /// @return         MechanismTypes::MECHANISM_TYPE
+        virtual MechanismTypes::MECHANISM_TYPE GetType() const;
+
+        /// @brief indicate the file used to get the control parameters from
+        /// @return std::string the name of the file 
+        virtual std::string GetControlFileName() const;
+
+        /// @brief indicate the Network Table name used to setting tracking parameters
+        /// @return std::string the name of the network table 
+        virtual std::string GetNetworkTableName() const;
+
+        /// @brief log data to the network table if it is activated and time period has past
+        virtual void LogHardwareInformation();
+
+        virtual StateMgr* GetStateMgr() const;
+        virtual void AddStateMgr
         (
             StateMgr*       mgr
-        ) override;
+        );
 
-        StateMgr* GetStateMgr() const override;
-        
-	    Mech() = delete;
 	    virtual ~Mech() = default;
 
     private:
+	    Mech() = delete;
+
         MechanismTypes::MECHANISM_TYPE  m_type;
         std::string                     m_controlFile;
         std::string                     m_ntName;
-        bool                            m_logging;
-        units::second_t                 m_milliSecondsBetweenLogging;
-        units::second_t                 m_lastTime;
-        std::unique_ptr<frc::Timer>     m_timer;
         StateMgr*                       m_stateMgr;
 };

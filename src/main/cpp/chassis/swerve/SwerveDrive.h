@@ -26,7 +26,7 @@
 #include <chassis/TurnToAngle.h>
 #include <TeleopControl.h>
 #include <hw/DragonPigeon.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 
 class SwerveDrive : public IState
 {

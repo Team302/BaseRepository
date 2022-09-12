@@ -31,6 +31,7 @@
 // Team302 includes
 #include <chassis/ChassisFactory.h>
 #include <chassis/swerve/SwerveModule.h>
+#include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <utils/Logger.h>
@@ -151,7 +152,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
 
 
     // Process child element nodes
-    shared_ptr<ctre::phoenix::sensors::CANCoder> turnsensor = nullptr;
+    DragonCanCoder* turnsensor = nullptr;
     IDragonMotorControllerMap motors;
 
     unique_ptr<MotorXmlParser> motorXML = make_unique<MotorXmlParser>();

@@ -30,6 +30,7 @@
 // FRC includes
 
 // Team 302 includes
+#include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/AnalogInputMap.h>
@@ -41,7 +42,7 @@
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 #include <mechanisms/MechanismFactory.h>
-#include <basemechanisms/interfaces/IMech.h>
+#include <basemechanisms/IMech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 // @ADDMECH include for your mechanism 
@@ -91,7 +92,7 @@ void MechanismFactory::CreateIMechanism
 	const ServoMap&						    servos,
 	const DigitalInputMap&					digitalInputs,
 	const AnalogInputMap&					analogInputs,
-	shared_ptr<CANCoder>					canCoder
+	DragonCanCoder*      					canCoder
 )
 {
 

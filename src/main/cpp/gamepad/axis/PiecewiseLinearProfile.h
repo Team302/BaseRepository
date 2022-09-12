@@ -1,4 +1,5 @@
 
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -16,40 +17,43 @@
 
 #pragma once
 
-//========================================================================================================
-/// @interface IMech1Servo
-/// @brief     This is the interface for mechanisms that have one independently controlled servo.
-//========================================================================================================
-
 // C++ Includes
 
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech.h>
+#include <gamepad/axis/IProfile.h>
 
 
 // Third Party Includes
 
 
-///	 @interface IMech1Servo
-///  @brief	    Interface for subsystems
-class IMech1Servo : public IMech
+//========================================================================================================
+/// @class PiecewiseLinearProfile
+/// @brief This applies a cubic profile to the input values.
+//========================================================================================================
+class PiecewiseLinearProfile : public IProfile
 {
-	public:
-        /// @brief      Move servo to the desired angle
-        /// @param [in] double angle: Target angle in degrees
-        /// @return     void
-        virtual void SetAngle
+    public:
+        PiecewiseLinearProfile();
+        ~PiecewiseLinearProfile() = default;
+
+        //==================================================================================
+        /// @brief:    Apply the profile
+        /// @param  double inputVal - value to be scaled (have profile applied to)
+        /// @return double - scaled value
+        //==================================================================================
+        double ApplyProfile
         (
-            double angle       
-        ) = 0;
+            double      inputVal            
+        ) const override;
 
-        virtual double GetAngle() const = 0;
+    private:
 
-	    IMech1Servo() = default;
-	    virtual ~IMech1Servo() = default;
+        double              m_intercept;
+        double              m_inflectionX;
+        double              m_inflectionY;
+
+
 };
-
-
 

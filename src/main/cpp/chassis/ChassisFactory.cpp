@@ -44,6 +44,7 @@
 #include <chassis/PoseEstimatorEnum.h>
 #include <chassis/swerve/SwerveChassis.h>
 #include <chassis/swerve/SwerveModule.h>
+#include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <utils/Logger.h>
@@ -182,7 +183,7 @@ std::shared_ptr<SwerveModule> ChassisFactory::CreateSwerveModule
 (
     SwerveModule::ModuleID                                      type, 
     const IDragonMotorControllerMap&        				    motorControllers,   // <I> - Motor motorControllers
-    std::shared_ptr<ctre::phoenix::sensors::CANCoder>		    canCoder,
+    DragonCanCoder*                                 		    canCoder,
     double                                                      turnP,
     double                                                      turnI,
     double                                                      turnD,

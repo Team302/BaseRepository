@@ -16,23 +16,17 @@
 
 #pragma once
 
-
-
 // C++ Includes
-#include <memory>
-
-// FRC includes
+#include <string>
 
 // Team 302 includes
-#include <hw/DragonServo.h>
-#include <basemechanisms/interfaces/IMech1Servo.h>
+#include <mechanisms/MechanismTypes.h>
 #include <basemechanisms/StateMgr.h>
 
+// forward declares
+class DragonServo;
 
-// Third Party Includes
-
-
-class Mech1Servo : public IMech1Servo
+class Mech1Servo : public Mech
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 servo 
@@ -47,26 +41,6 @@ class Mech1Servo : public IMech1Servo
 	    Mech1Servo() = delete;
 	    virtual ~Mech1Servo() = default;
 
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
-
-        /// @brief log data to the network table if it is activated and time period has past
-        void LogHardwareInformation() override;
-        StateMgr* GetStateMgr() const override;
-        void AddStateMgr
-        (
-            StateMgr*       mgr
-        ) override;
 
         /// @brief      Move servo to the desired angle
         /// @param [in] double angle: Target angle in degrees
@@ -74,19 +48,16 @@ class Mech1Servo : public IMech1Servo
         void SetAngle
         (
             double angle       
-        ) override;
+        );
 
-        double GetAngle() const override;
+        double GetAngle() const;
         
 
+        /// @brief log data to the network table if it is activated and time period has past
+        void LogHardwareInformation() override;
 
     private:
         DragonServo*                                m_servo;
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
-        bool                                        m_logging;
-        StateMgr*                                   m_stateMgr;
 
 };
 

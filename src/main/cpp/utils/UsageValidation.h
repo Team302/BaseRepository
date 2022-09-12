@@ -14,25 +14,14 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// HardwareIDValidation.h
-//========================================================================================================
-///
-/// File Description:
-///     This will validate the various hardware IDs against the valid values.
-//========================================================================================================
-
 #pragma once
 
 // C++ Includes
 #include <string>
 
-// FRC Includes
 
 // Team 302 Includes
 #include <hw/interfaces/IDragonSensor.h>
-
-// Third Party Includes
 
 class UsageValidation
 {
@@ -40,13 +29,9 @@ class UsageValidation
         UsageValidation() = delete;
         ~UsageValidation() = delete;
 
-        //======================================================================================
-        /// Method:       ValidateSensorUsage
-        /// Description:  Check the sensor usage string and convert it to the 
-        ///               IDragonSensor::Sensor_Usage value.   If it is an invalid string, the
-        ///               logger utility will be called.
-        /// Returns:      IDragonSensor::Sensor_USAGE
-        //=====================================================================================
+        /// @brief  Check the sensor usage string and convert it to the IDragonSensor::Sensor_Usage value.   
+        /// @brief  If it is an invalid string, the logger utility will be called.
+        /// @returns      IDragonSensor::Sensor_USAGE
         static IDragonSensor::SENSOR_USAGE ValidateSensorUsage
         (
             std::string  usageString,   // <I> - Usage String to validate and convert

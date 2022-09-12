@@ -20,14 +20,12 @@
 #include <map>
 #include <vector>
 
-// FRC includes
-
 // Team 302 includes
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 #include <mechanisms/StateStruc.h>
-#include <basemechanisms/interfaces/IMech.h>
-#include <basemechanisms/Mech2MotorState.h>
 
+// forward declare 
+class IMech;
 
 // Third Party Includes
 

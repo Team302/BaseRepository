@@ -24,7 +24,7 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 
 // Third Party Includes
 

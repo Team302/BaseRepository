@@ -25,7 +25,7 @@
 #include <chassis/ChassisFactory.h>
 #include <chassis/swerve/SwerveChassis.h>
 #include <chassis/TurnToAngle.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 #include <utils/AngleUtils.h>
 
 using namespace frc;

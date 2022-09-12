@@ -14,15 +14,6 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// Logger.h
-//========================================================================================================
-///
-/// File Description:
-///     This logs error messages, and can also be used to log non-error events.
-///
-//========================================================================================================
-
 #pragma once
 
 // C++ Includes
@@ -30,16 +21,7 @@
 #include <set>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 #include <frc/SmartDashboard/SendableChooser.h>
-
-// Team 302 includes
-
-
-// Third Party Includes
-
 
 
 class Logger
@@ -69,10 +51,10 @@ class Logger
             PRINT           ///< this is an information/debug message
         };
 
+
         /// @brief Find or create the singleton logger
         /// @returns Logger* pointer to the logger
         static Logger* GetLogger();
-
 
         /// @brief log a message
         /// @param [in] LOGGER_LEVEL: message level
@@ -166,16 +148,19 @@ class Logger
         );
 
 
-        Logger();
-        ~Logger() = default;
-
         LOGGER_OPTION                           m_option;               // indicates where the message should go
         LOGGER_LEVEL                            m_level;                // the level at which a message is important enough to send
         std::set<std::string>                   m_alreadyDisplayed;
-        static Logger*                          m_instance;
         int                                     m_cyclingCounter;       // count 20ms loops
         frc::SendableChooser<LOGGER_OPTION>     m_optionChooser;
         frc::SendableChooser<LOGGER_LEVEL>      m_levelChooser;
+
+
+        Logger();
+        ~Logger() = default;
+
+        static Logger*                          m_instance;
+
 };
 
 

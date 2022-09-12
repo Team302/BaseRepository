@@ -16,7 +16,6 @@
 
 
 // C++ Includes
-#include <assert.h>
 #include <memory>
 #include <string>
 
@@ -24,8 +23,8 @@
 
 // Team 302 includes
 #include <hw/DragonServo.h>
+#include <basemechanisms/Mech.h>
 #include <basemechanisms/Mech1Servo.h>
-#include <basemechanisms/interfaces/IMech1Servo.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -40,13 +39,8 @@ Mech1Servo::Mech1Servo
     std::string                                 controlFileName,
     std::string                                 networkTableName,
     DragonServo*                                servo
-) : IMech1Servo(),
-    m_servo(servo),
-    m_type(type),
-    m_controlFile(controlFileName),
-    m_ntName(networkTableName),
-    m_logging(false),
-    m_stateMgr(nullptr) 
+) : Mech(type, controlFileName, networkTableName),
+    m_servo(servo)
 {
     if (m_servo == nullptr )
     {
@@ -54,32 +48,6 @@ Mech1Servo::Mech1Servo
     }
 }
 
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech1Servo::GetType() const 
-{
-    return m_type;
-}
-
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-std::string Mech1Servo::GetControlFileName() const 
-{
-    return m_controlFile;
-}
-
-
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-std::string Mech1Servo::GetNetworkTableName() const 
-{
-    return m_ntName;
-}
-
-/// @brief log data to the network table if it is activated and time period has past
-void Mech1Servo::LogHardwareInformation()
-{
-}
 
 /// @brief      Move servo to the desired angle
 /// @param [in] double angle: Target angle in degrees
@@ -105,21 +73,11 @@ double Mech1Servo::GetAngle() const
 }
 
 
-void Mech1Servo::AddStateMgr
-(
-    StateMgr*       mgr
-)
+
+/// @brief log data to the network table if it is activated and time period has past
+void Mech1Servo::LogHardwareInformation()
 {
-    m_stateMgr = mgr;
 }
-
-StateMgr* Mech1Servo::GetStateMgr() const
-{
-    assert (m_stateMgr != nullptr);
-    return m_stateMgr;
-}
-
-
 
 
 

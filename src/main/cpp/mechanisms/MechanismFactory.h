@@ -39,7 +39,7 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/interfaces/IMech.h>
+#include <basemechanisms/IMech.h>
 
 // @ADDMECH include for your mechanism 
 
@@ -47,22 +47,12 @@
 
 // forward declares
 class DragonAnalogInput;
+class DragonCanCoder;
 class DragonDigitalInput;
 class DragonServo;
 class DragonSolenoid;
 class IDragonMotorController;
 class IMech;
-
-namespace ctre
-{
-	namespace phoenix
-	{
-		namespace sensors
-		{
-			class CANCoder;
-		}
-	}
-}
 
 
 class MechanismFactory
@@ -86,7 +76,7 @@ class MechanismFactory
 			const ServoMap&						    				servos,
 			const DigitalInputMap&									digitalInputs,
 			const AnalogInputMap& 								    analogInputs,
-			std::shared_ptr<ctre::phoenix::sensors::CANCoder>		canCoder
+			DragonCanCoder* 										canCoder
 		);
 		
 		// @ADDMECH  Add inline Get method for your mechanism

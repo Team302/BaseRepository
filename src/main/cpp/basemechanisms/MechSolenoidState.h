@@ -16,10 +16,11 @@
 
 #pragma once
 
+#include <basemechanisms/IState.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <basemechanisms/interfaces/IMech1Solenoid.h>
-#include <basemechanisms/interfaces/IState.h>
 
+// forward declares
+class Mech1Solenoid;
 
 class MechSolenoidState : public IState
 {
@@ -27,7 +28,7 @@ class MechSolenoidState : public IState
 
         MechSolenoidState
         (
-            IMech1Solenoid*                 mechanism,
+            Mech1Solenoid*                  mechanism,
             MechanismTargetData::SOLENOID   solState
         );
         MechSolenoidState() = delete;
@@ -40,6 +41,6 @@ class MechSolenoidState : public IState
 
     private:
 
-        IMech1Solenoid*                 m_mechanism;
+        Mech1Solenoid*                  m_mechanism;
         MechanismTargetData::SOLENOID   m_solenoidState;
 };

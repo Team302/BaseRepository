@@ -17,18 +17,14 @@
 
 // C++ Includes
 #include <memory>
-
-// FRC includes
+#include <string>
 
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/Mech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <hw/DragonSolenoid.h>
 
-// Third Party Includes
-
-
-class Mech1Solenoid : public IMech1Solenoid
+class Mech1Solenoid : public Mech
 {
     public:
         /// @brief Create a generic mechanism wiht 1 solenoid 
@@ -50,38 +46,16 @@ class Mech1Solenoid : public IMech1Solenoid
         void ActivateSolenoid
         (
             bool     activate
-        ) override;
+        );
 
         /// @brief      Check if the pneumatic solenoid is activated
         /// @return     bool - true == extended, false == retracted
-        bool IsSolenoidActivated() const override;
-
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
+        bool IsSolenoidActivated() const;
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogHardwareInformation() override;
-        StateMgr* GetStateMgr() const override;
-        void AddStateMgr
-        (
-            StateMgr*       mgr
-        ) override;
+        void LogHardwareInformation();
 
     private:
         std::shared_ptr<DragonSolenoid>             m_solenoid;
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
-        bool                                        m_logging;
-        StateMgr*                                   m_stateMgr;
 
 };

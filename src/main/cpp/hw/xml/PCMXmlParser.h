@@ -16,19 +16,14 @@
 
 #pragma once
 
-
-// C++ Includes
-
-// FRC includes
-
-// Team 302 includes
-#include <frc/Compressor.h>
-
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
 
-
-
+// Forward declare
+namespace frc
+{
+    class Compressor;
+}
 
 /// @class PCMXmlParser
 /// @brief XML parsing for the PCM node in the Robot definition xml file.  Upon successful parsing, it will

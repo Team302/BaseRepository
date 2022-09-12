@@ -21,21 +21,15 @@
 #include <memory>
 #include <string>
 
-// FRC includes
-
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech2IndMotors.h>
-#include <basemechanisms/Mech1IndMotor.h>
-#include <basemechanisms/StateMgr.h>
+#include <basemechanisms/Mech.h>
+#include <mechanisms/MechanismTypes.h>
 
-// Third Party Includes
-//#include <units/units.h>
-#include <units/time.h>
-
+// forward declares
 class ControlData;
 class IDragonMotorController;
 
-class Mech2IndMotors : public IMech2IndMotors
+class Mech2IndMotors : public Mech
 {
 	public:
         /// @brief Create a generic mechanism wiht 2 independent motors 
@@ -55,51 +49,34 @@ class Mech2IndMotors : public IMech2IndMotors
 	    Mech2IndMotors() = delete;
 	    ~Mech2IndMotors() = default;
 
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
         /// @brief log data to the network table if it is activated and time period has past
         void LogHardwareInformation() override;
-        StateMgr* GetStateMgr() const override;
-        void AddStateMgr
-        (
-            StateMgr*       mgr
-        ) override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
-        void Update() override;
+        void Update();
 
         void UpdateTargets
         (
             double      primary,
             double      secondary
-        ) override;
+        );
 
         /// @brief  Return the current position of the primary motor in the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPrimaryPosition() const override;
+        double GetPrimaryPosition() const;
 
         /// @brief  Return the current position of the secondary motor in the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetSecondaryPosition() const override;
+        double GetSecondaryPosition() const;
 
         /// @brief  Get the current speed of the primary motor in the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetPrimarySpeed() const override;
+        double GetPrimarySpeed() const;
 
         /// @brief  Get the current speed of the secondary motor in the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSecondarySpeed() const override;
+        double GetSecondarySpeed() const;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -108,12 +85,12 @@ class Mech2IndMotors : public IMech2IndMotors
         (
             int                                         slot,
             ControlData*                                pid                 
-        ) override;
+        );
         void SetSecondaryControlConstants
         (
             int                                         slot,
             ControlData*                                pid                 
-        ) override;
+        );
 
         double GetPrimaryTarget() const { return m_primaryTarget; }
         double GetSecondaryTarget() const { return m_secondaryTarget; }
@@ -122,14 +99,10 @@ class Mech2IndMotors : public IMech2IndMotors
         inline std::shared_ptr<IDragonMotorController> GetSecondaryMotor() const {return m_secondary;};
 
     private: 
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
         std::shared_ptr<IDragonMotorController>     m_primary;
         std::shared_ptr<IDragonMotorController>     m_secondary;
         double                                      m_primaryTarget;
         double                                      m_secondaryTarget;
-        StateMgr*                                   m_stateMgr;
         
 };
 

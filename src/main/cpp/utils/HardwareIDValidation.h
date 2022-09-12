@@ -14,81 +14,49 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// HardwareIDValidation.h
-//========================================================================================================
-///
-/// File Description:
-///     This will validate the various hardware IDs against the valid values.
-//========================================================================================================
-
 #pragma once
 
-// C++ Includes
 #include <string>
-
-// FRC Includes
-
-// Team 302 Includes
-
-// Third Party Includes
 
 class HardwareIDValidation
 {
     public:
-        //======================================================================================
-        /// Method:       ValidateCANID
-        /// Description:  Check the CAN ID against the valid range.  If it is invalid the logger
-        ///               utility will be called.
-        /// Returns:      bool          true  - valid
-        ///                             false - invalid
-        //=====================================================================================
+        /// @brief      Check the CAN ID against the valid range.  If it is invalid the logger utility will be called.
+        /// @returns    bool: true  - valid, false - invalid
         static bool ValidateCANID
         (
             int          canID,         // <I> - CAN ID to validate
             std::string  methodID       // <I> - class::method identifier for message
         );
 
-        //======================================================================================
-        /// Method:       ValidatePDPID
-        /// Description:  Check the PDP ID against the valid range.  If it is invalid the logger
-        ///               utility will be called.
-        /// Returns:      bool          true  - valid
-        ///                             false - invalid
-        //=====================================================================================
+        /// @brief      Check the PDP ID against the valid range.  If it is invalid the logger utility will be called.
+        /// @returns    bool: true  - valid, false - invalid
         static bool ValidatePDPID
         (
             int          pdpID,         // <I> - PDP ID to validate
             std::string  methodID       // <I> - class::method identifier for message
         );
         
-        //======================================================================================
-        /// Method:       ValidateDIOID
-        /// Description:  Check the Digitial IO ID against the valid range.  If it is invalid the logger
-        ///               utility will be called.
-        /// Returns:      bool          true  - valid
-        ///                             false - invalid
-        //=====================================================================================
+        /// @brief      Check the Digitial IO ID against the valid range.  If it is invalid the logger utility will be called.
+        /// @returns    bool: true  - valid, false - invalid
         static bool ValidateDIOID
         (
             int          dioID,         // <I> - DIO ID to validate
             std::string  methodID       // <I> - class::method identifier for message
         );
 
+        /// @brief      Check the solenoid channel ID against the valid range.  If it is invalid the logger utility will be called.
+        /// @returns    bool: true  - valid, false - invalid
         static bool ValidateSolenoidChannel
         (
             int          channel,       // <I> - Solenoid Channel to validate
             std::string  methodID       // <I> - class::method identifier for message
         );
 
-
-        //======================================================================================
-        /// Method:       ValidateID
-        /// Description:  Check the ID against the valid range.  If it is invalid the logger
-        ///               utility will be called.
-        /// Returns:      bool          true  - valid
-        ///                             false - invalid
-        //=====================================================================================
+    private:
+    
+        /// @brief      Check the ID against the valid range.  If it is invalid the logger utility will be called.
+        /// @returns    bool: true  - valid, false - invalid
         static bool ValidateID
         (
             int          id,            // <I> - ID to validate

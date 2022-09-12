@@ -23,13 +23,14 @@
 #include <frc/kinematics/ChassisSpeeds.h>
 
 // Team 302 includes
-#include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <auton/drivePrimitives/SuperDrive.h>
+#include <auton/PrimitiveParams.h>
+#include <chassis/ChassisFactory.h>
+#include <hw/DragonPigeon.h>
+#include <hw/factories/PigeonFactory.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/ControlModes.h>
-#include <hw/factories/PigeonFactory.h>
-#include <chassis/ChassisFactory.h>
 
 // Third Party Includes
 

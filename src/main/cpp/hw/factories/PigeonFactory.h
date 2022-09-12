@@ -16,15 +16,7 @@
 
 #pragma once
 
-// C++ Includes
-
-// FRC includes
-
-// Team 302 includes
 #include <hw/DragonPigeon.h>
-
-// Third Party Includes
-
 
 /// @class PigeonFactory
 /// @brief This controls the creation of analog inputs

@@ -16,10 +16,11 @@
 
 #pragma once
 
-#include <basemechanisms/interfaces/IMech2IndMotors.h>
-#include <basemechanisms/interfaces/IState.h>
-#include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/controllers/MechanismTargetData.h>
+#include <basemechanisms/IState.h>
+
+// forward declare
+class ControlData;
+class Mech2IndMotors;
 
 class Mech2MotorState : public IState
 {
@@ -27,7 +28,7 @@ class Mech2MotorState : public IState
 
         Mech2MotorState
         (
-            IMech2IndMotors*                mechanism,
+            Mech2IndMotors*                 mechanism,
             ControlData*                    control,
             ControlData*                    control2,
             double                          primaryTarget,
@@ -42,14 +43,14 @@ class Mech2MotorState : public IState
         bool AtTarget() const override;
         double GetPrimaryTarget() const {return m_primaryTarget;}
         double GetSecondaryTarget() const {return m_secondaryTarget;}
-        double GetPrimaryRPS() const {return m_mechanism->GetPrimarySpeed();}
-        double GetSecondaryRPS() const {return m_mechanism->GetSecondarySpeed();}
+        double GetPrimaryRPS() const;
+        double GetSecondaryRPS() const;
         ControlData* GetPrimaryControlData() const {return m_control;}
         ControlData* GetSecondaryControlData() const {return m_control2;}
 
     private:
 
-        IMech2IndMotors*                m_mechanism;
+        Mech2IndMotors*                 m_mechanism;
         ControlData*                    m_control;
         ControlData*                    m_control2;
         double                          m_primaryTarget;

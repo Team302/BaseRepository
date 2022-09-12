@@ -18,16 +18,12 @@
 #pragma once 
 
 // C++ Includes
-#include <memory>
 #include <string>
-
-// FRC includes
-
-// Team 302 includes
-#include <hw/DragonServo.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
+
+class DragonServo;
 
 class ServoXmlParser
 {

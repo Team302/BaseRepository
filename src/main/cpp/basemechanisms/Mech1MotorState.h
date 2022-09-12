@@ -16,10 +16,9 @@
 
 #pragma once
 
-#include <basemechanisms/interfaces/IMech1IndMotor.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/Mech1IndMotor.h>
+#include <basemechanisms/IState.h>
 #include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/controllers/MechanismTargetData.h>
 
 class Mech1MotorState : public IState
 {
@@ -27,7 +26,7 @@ class Mech1MotorState : public IState
 
         Mech1MotorState
         (
-            IMech1IndMotor*                 mechanism,
+            Mech1IndMotor*                  mechanism,
             ControlData*                    control,
             double                          target
         );
@@ -47,7 +46,7 @@ class Mech1MotorState : public IState
 
     private:
 
-        IMech1IndMotor*                 m_mechanism;
+        Mech1IndMotor*                  m_mechanism;
         ControlData*                    m_control;
         double                          m_target;
         bool                            m_positionBased;

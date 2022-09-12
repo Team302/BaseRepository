@@ -27,7 +27,7 @@
 #include <hw/DragonPigeon.h>
 #include <gamepad/IDragonGamePad.h>
 #include <TeleopControl.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>

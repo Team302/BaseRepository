@@ -14,23 +14,12 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// MotorXmlParser.h
-//========================================================================================================
-///
-/// File Description:
-///     This will parse the motor (controller) definition XML and create a motor controller object.
-//========================================================================================================
-
 #pragma once
 
 
 // C++ Includes
 #include <memory>
 #include <string>
-#include <vector>
-
-// FRC includes
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>

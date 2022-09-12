@@ -29,8 +29,8 @@
 #include <basemechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/StateMgrHelper.h>
-#include <basemechanisms/interfaces/IMech.h>
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IMech.h>
+#include <basemechanisms/IState.h>
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
 

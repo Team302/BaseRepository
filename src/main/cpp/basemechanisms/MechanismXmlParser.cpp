@@ -27,24 +27,25 @@
 // FRC includes
 
 // Team 302 includes
+#include <basemechanisms/IMech.h>
+#include <basemechanisms/MechanismXmlParser.h>
+#include <hw/DragonAnalogInput.h>
+#include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
-#include <hw/DragonAnalogInput.h>
-#include <basemechanisms/interfaces/IMech.h>
-#include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
-#include <utils/Logger.h>
 #include <hw/xml/AnalogInputXmlParser.h>
 #include <hw/xml/CancoderXmlParser.h>
 #include <hw/xml/DigitalInputXmlParser.h>
-#include <basemechanisms/MechanismXmlParser.h>
 #include <hw/xml/MotorXmlParser.h>
 #include <hw/xml/ServoXmlParser.h> 
 #include <hw/xml/SolenoidXmlParser.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -111,7 +112,7 @@ void MechanismXmlParser::ParseXML
     DragonSolenoidMap solenoids;
     AnalogInputMap analogInputs;
     DigitalInputMap digitalInputs;
-    shared_ptr<ctre::phoenix::sensors::CANCoder> canCoder = nullptr;
+    DragonCanCoder* canCoder = nullptr;
 
     for (xml_node child = mechanismNode.first_child(); child  && !hasError; child = child.next_sibling())
     {

@@ -25,9 +25,9 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
+#include <basemechanisms/Mech.h>
 #include <basemechanisms/Mech1IndMotor.h>
 #include <basemechanisms/Mech2IndMotors.h>
-#include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
@@ -50,15 +50,11 @@ Mech2IndMotors::Mech2IndMotors
     std::string                                 networkTableName,
     shared_ptr<IDragonMotorController>          primaryMotor,
     shared_ptr<IDragonMotorController>          secondaryMotor
-) : IMech2IndMotors(),
-    m_type(type),
-    m_controlFile(controlFileName),
-    m_ntName(networkTableName),
+) : Mech(type, controlFileName, networkTableName),
     m_primary( primaryMotor),
     m_secondary( secondaryMotor),
     m_primaryTarget(0.0),
-    m_secondaryTarget(0.0),
-    m_stateMgr(nullptr)
+    m_secondaryTarget(0.0)
 {
     if ( primaryMotor.get() == nullptr )
     {
@@ -71,40 +67,7 @@ Mech2IndMotors::Mech2IndMotors
     }
 }
 
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech2IndMotors::GetType() const 
-{
-    return m_type;
-}
 
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-std::string Mech2IndMotors::GetControlFileName() const 
-{
-    return m_controlFile;
-}
-
-
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-std::string Mech2IndMotors::GetNetworkTableName() const 
-{
-    return m_ntName;
-}
-
-/// @brief log data to the network table if it is activated and time period has past
-void Mech2IndMotors::LogHardwareInformation()
-{
-    auto ntName = GetNetworkTableName();
-
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Primary", GetPrimarySpeed() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Secondary", GetSecondarySpeed() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Primary", GetPrimaryPosition() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Secondary", GetSecondaryPosition() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Primary", m_primaryTarget);
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Secondary", m_secondaryTarget);
-}
 
 /// @brief update the output to the mechanism using the current controller and target value(s)
 /// @return void 
@@ -190,20 +153,16 @@ void Mech2IndMotors::SetSecondaryControlConstants
 }
 
 
-void Mech2IndMotors::AddStateMgr
-(
-    StateMgr*       mgr
-)
+/// @brief log data to the network table if it is activated and time period has past
+void Mech2IndMotors::LogHardwareInformation()
 {
-    m_stateMgr = mgr;
+    auto ntName = GetNetworkTableName();
+
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Primary", GetPrimarySpeed() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Secondary", GetSecondarySpeed() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Primary", GetPrimaryPosition() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Secondary", GetSecondaryPosition() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Primary", m_primaryTarget);
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Secondary", m_secondaryTarget);
 }
-
-StateMgr* Mech2IndMotors::GetStateMgr() const
-{
-    assert (m_stateMgr != nullptr);
-    return m_stateMgr;
-}
-
-
-
 

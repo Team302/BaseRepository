@@ -13,50 +13,35 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-
-
 #pragma once
 
 // C++ Includes
 #include <map>
-#include <memory>
 #include <string>
-
-// FRC includes
 
 // Team 302 includes
 #include <hw/usages/ServoUsage.h>
-#include <hw/DragonServo.h>
-
-// Third Party Includes
 
 
+class DragonServo;
 
 
-//========================================================================================================
 /// @class DragonServoFactory
 /// @brief Create DragonServos and allow external clients to retrieve created DragonServos
-//========================================================================================================
 class DragonServoFactory
 {
     public:
 
-        //=======================================================================================
-        /// Method: GetInstance
         /// @brief  Get the factory singleton
         /// @return DragonServoFactory*    pointer to the factory
-        //=======================================================================================
         static DragonServoFactory* GetInstance();
 
-        //=======================================================================================
-        /// Method: CreateDragonServo
         /// @brief  Create a DragonServo from the inputs
         /// @param [in] DragonServo::SERVO_USAGE   deviceUsage  Usage of the servo
         /// @param [in] int                        deviceID     PWM ID of the  servo
         /// @param [in] double                     minAngle     Minimum Angle for the servo
         /// @param [in] double                     maxAngle     Maximum Angle for the servo
-        /// @return std::shared_ptr<DragonServo>    - could be nullptr if invalid inputs are supplied
-        //=======================================================================================
+        /// @return DragonServo*    - could be nullptr if invalid inputs are supplied
         DragonServo* CreateDragonServo
         (
 			std::string                 networkTableName,
@@ -66,18 +51,13 @@ class DragonServoFactory
             double                      maxAngle            
         );
 
-        //=======================================================================================
-        /// Method: GetDragonServo
         /// @brief  Get a DragonServo from its usage
         /// @param [in] DragonServo::SERVO_USAGE   deviceUsage  Usage of the servo
-        /// @return std::shared_ptr<DragonServo>    - could be nullptr if invalid inputs are supplied
-        //=======================================================================================
+        /// @return DragonServo*    - could be nullptr if invalid inputs are supplied
         DragonServo* GetDragonServo
         (
             ServoUsage::SERVO_USAGE    deviceUsage        
         );
-
-
 
     private:
         DragonServoFactory() = default;
@@ -86,5 +66,4 @@ class DragonServoFactory
         static DragonServoFactory*        m_instance;
 
         std::map <ServoUsage::SERVO_USAGE, DragonServo*> m_servos;
-
 };

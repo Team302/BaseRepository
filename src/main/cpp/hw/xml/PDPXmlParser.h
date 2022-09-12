@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-// C++ Includes
-
-// FRC includes
-
-// Team 302 includes
-#include <frc/Compressor.h>
-
 // Third Party Includes
 #include <pugixml/pugixml.hpp>
 

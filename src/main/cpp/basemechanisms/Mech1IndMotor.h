@@ -20,25 +20,16 @@
 #include <memory>
 #include <string>
 
-// FRC includes
-#include <frc/Timer.h>
-
 // Team 302 includes
-#include <basemechanisms/interfaces/IMech1IndMotor.h>
+#include <basemechanisms/Mech.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/StateMgr.h>
-
-// Third Party Includes
-//#include <units/units.h>
-#include <units/time.h>
-
 
 // forward declares
 class ControlModes;
 class IDragonMotorController;
 class ControlData;
 
-class Mech1IndMotor : public IMech1IndMotor
+class Mech1IndMotor :  public Mech
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 independent motor 
@@ -56,38 +47,25 @@ class Mech1IndMotor : public IMech1IndMotor
 	    Mech1IndMotor() = delete;
 	    ~Mech1IndMotor() override = default;
 
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
-
         /// @brief log data to the network table if it is activated and time period has past
         void LogHardwareInformation() override;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
-        void Update() override;
+        void Update();
 
         void UpdateTarget
         (
             double      target
-        ) override;
+        );
 
         /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPosition() const override;
+        double GetPosition() const;
 
         /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSpeed() const override;
+        double GetSpeed() const;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -96,27 +74,14 @@ class Mech1IndMotor : public IMech1IndMotor
         (
             int                                         slot,
             ControlData*                                pid                 
-        ) override;
-        StateMgr* GetStateMgr() const override;
-        void AddStateMgr
-        (
-            StateMgr*       mgr
-        ) override;
-
+        );
         double GetTarget() const { return m_target; }
         std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
 
     private:
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
-        bool                                        m_logging;
-        units::second_t                             m_milliSecondsBetweenLogging;
-        units::second_t                             m_lastTime;
-        std::unique_ptr<frc::Timer>                 m_timer;
+
         std::shared_ptr<IDragonMotorController>     m_motor;
         double                                      m_target;
-        StateMgr*                                   m_stateMgr;
 };
 
 

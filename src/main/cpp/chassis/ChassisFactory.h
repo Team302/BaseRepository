@@ -26,6 +26,7 @@
 #include <memory>
 
 #include <chassis/IChassis.h>
+#include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <chassis/swerve/SwerveModule.h>
@@ -98,7 +99,7 @@ class ChassisFactory
 			(
 				SwerveModule::ModuleID                            			type,
 				const IDragonMotorControllerMap&        					motorControllers,   // <I> - Motor motorControllers
-				std::shared_ptr<ctre::phoenix::sensors::CANCoder>			turnSensor,
+				DragonCanCoder*								     			turnSensor,
 				double                                                      turnP,
 				double                                                      turnI,
 				double                                                      turnD,

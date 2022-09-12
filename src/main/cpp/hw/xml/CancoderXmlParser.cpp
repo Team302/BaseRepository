@@ -21,6 +21,7 @@
 // wpilib includes
 
 // team 302 includes
+#include <hw/DragonCanCoder.h>
 #include <hw/xml/CancoderXmlParser.h>
 #include <utils/HardwareIDValidation.h>
 #include <utils/Logger.h>
@@ -32,19 +33,17 @@
 
 using namespace std;
 using namespace pugi;
-using namespace ctre::phoenix;
-using namespace ctre::phoenix::sensors;
 
 /// @brief parses the cancoder node in the robot.xml file and creates a cancoder
 /// @param [in] xml_node - the cancoder element in the xml file
 /// @return shared_ptr<CANCoder
-shared_ptr<CANCoder> CancoderXmlParser::ParseXML
+DragonCanCoder* CancoderXmlParser::ParseXML
 (
     string              networkTableName,
     xml_node            CanCoderNode
 )
 {
-    shared_ptr<CANCoder> cancoder = nullptr;
+    DragonCanCoder* cancoder = nullptr;
 
     string usage;
     int canID = 0;
@@ -81,43 +80,8 @@ shared_ptr<CANCoder> CancoderXmlParser::ParseXML
     }   
     if(!hasError)
     {
-        cancoder = make_shared<CANCoder>(canID); //need to add usage also can't use new CANCoder... because it hasn't been wrapped
-        auto error = cancoder.get()->ConfigFactoryDefault(50);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigFactoryDefault"), string("error"));
-        }
-        
-        error = cancoder.get()->ConfigAbsoluteSensorRange(AbsoluteSensorRange::Signed_PlusMinus180, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigAbsoluteSensorRange"), string("error"));
-        }
-        error = cancoder.get()->ConfigMagnetOffset(offset, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigMagnetOffset"), string("error"));
-        }
-        error = cancoder.get()->ConfigSensorDirection(reverse, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorDirection"), string("error"));
-        }
-        error = cancoder.get()->ConfigSensorInitializationStrategy(SensorInitializationStrategy::BootToAbsolutePosition, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorInitializationStrategy"), string("error"));
-        }
-        error = cancoder.get()->ConfigVelocityMeasurementPeriod(SensorVelocityMeasPeriod::Period_1Ms, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementPeriod"), string("error"));
-        }
-        error = cancoder.get()->ConfigVelocityMeasurementWindow(64, 0);
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementWindow"), string("error"));
-        }
+        cancoder = new DragonCanCoder(networkTableName, usage, canID, offset, reverse);
+
     }
     return cancoder;
 }

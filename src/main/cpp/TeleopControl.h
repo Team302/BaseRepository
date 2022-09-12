@@ -20,16 +20,11 @@
 #include <memory>
 #include <map>
 
-
 // FRC includes
 #include <frc/Driverstation.h>
 
 // Team 302 includes
 #include <gamepad/IDragonGamepad.h>
-#include <gamepad/DragonXbox.h>
-#include <gamepad/DragonGamePad.h>
-
-// Third Party Includes
 
 class TeleopControl
 {

@@ -14,16 +14,15 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <assert.h>
 #include <memory>
 #include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 
 // Team 302 includes
 #include <basemechanisms/Mech.h>
 #include <mechanisms/MechanismTypes.h>
+#include <utils/DragonAssert.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -38,10 +37,9 @@ using namespace std;
 Mech::Mech
 (
     MechanismTypes::MECHANISM_TYPE  type,
-    std::string                     controlFileName,
-    std::string                     networkTableName
-) : IMech(), 
-    m_type( type ),
+    string                          controlFileName,
+    string                          networkTableName
+) : m_type( type ),
     m_controlFile( controlFileName ),
     m_ntName( networkTableName )
 {
@@ -55,9 +53,6 @@ Mech::Mech
         Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech"), string( "Mech" ), string( "network table name is not specified" ) );
     }
 
-    m_timer = make_unique<frc::Timer>();
-    m_lastTime = m_timer.get()->GetFPGATimestamp();
-
 }
 
 
@@ -70,7 +65,7 @@ MechanismTypes::MECHANISM_TYPE Mech::GetType() const
 
 /// @brief indicate the file used to get the control parameters from
 /// @return std::string the name of the file 
-std::string Mech::GetControlFileName() const 
+string Mech::GetControlFileName() const 
 {
     return m_controlFile;
 }
@@ -78,7 +73,7 @@ std::string Mech::GetControlFileName() const
 
 /// @brief indicate the network table name used to for logging parameters
 /// @return std::string the name of the network table 
-std::string Mech::GetNetworkTableName() const 
+string Mech::GetNetworkTableName() const 
 {
     return m_ntName;
 }
@@ -87,6 +82,7 @@ std::string Mech::GetNetworkTableName() const
 /// @brief log data to the network table if it is activated and time period has past
 void Mech::LogHardwareInformation()
 {
+    // NO-OP - subclasses override when necessary
 }
 
 void Mech::AddStateMgr
@@ -99,6 +95,6 @@ void Mech::AddStateMgr
 
 StateMgr* Mech::GetStateMgr() const
 {
-    assert (m_stateMgr != nullptr);
+    DragonAssert::GetDragonAssert()->Assert (m_stateMgr != nullptr, string("No StateManager in Mech::GetStateMgr()"));
     return m_stateMgr;
 }

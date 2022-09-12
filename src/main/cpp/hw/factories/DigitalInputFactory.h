@@ -14,29 +14,17 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// DigitalInputFactory.h
-//========================================================================================================
-///
-/// File Description:
-///     This controls the creation of Digital inputs
-///
-//========================================================================================================
-
 #pragma once
 
 // C++ Includes
 #include <string>
 
-// FRC includes
-
 // Team 302 includes
-#include <hw/DragonDigitalInput.h>
 #include <hw/usages/DigitalInputUsage.h>
 
 
-// Third Party Includes
-
+// Forward declares
+class DragonDigitalInput;
 
 class DigitalInputFactory
 {
@@ -45,12 +33,8 @@ class DigitalInputFactory
 		static DigitalInputFactory* GetFactory();
 
 
-		//=====================================================================================
-		/// Method:         CreateInput
-		/// Description:    Create the requested Digital input
-		/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-		///                                 doesn't exist and cannot be created.
-		//=====================================================================================
+		/// @brief      Create the requested Digital input
+		/// @returns 	DigitalInput* 
         DragonDigitalInput* CreateInput
         (
 			std::string										networkTableName,
@@ -59,12 +43,7 @@ class DigitalInputFactory
             bool						                    reversed
         );
 
-		//=====================================================================================
-		/// Method:         GetInput
-		/// Description:    Get the requested Digital input
-		/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-		///                                 doesn't exist.
-		//=====================================================================================
+		/// @brief    Get the requested Digital input
         DragonDigitalInput* GetInput
         (
     		DigitalInputUsage::DIGITAL_SENSOR_USAGE			type

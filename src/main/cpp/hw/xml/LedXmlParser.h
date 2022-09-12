@@ -17,10 +17,6 @@
 
 #pragma once 
 
-// C++ Includes
-
-// FRC includes
-
 // Team 302 includes
 #include <hw/DragonLeds.h>
 

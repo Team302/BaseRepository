@@ -20,11 +20,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/IState.h>
 #include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <basemechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -37,7 +37,7 @@ using namespace std;
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
 Mech2MotorState::Mech2MotorState
 (
-    IMech2IndMotors*                mechanism,
+    Mech2IndMotors*                 mechanism,
     ControlData*                    control,
     ControlData*                    control2,
     double                          primaryTarget,
@@ -182,3 +182,12 @@ bool Mech2MotorState::AtTarget() const
     return same;
 }
 
+double Mech2MotorState::GetPrimaryRPS() const
+{
+    return m_mechanism->GetPrimarySpeed();
+}
+
+double Mech2MotorState::GetSecondaryRPS() const
+{
+    return m_mechanism->GetSecondarySpeed();
+}

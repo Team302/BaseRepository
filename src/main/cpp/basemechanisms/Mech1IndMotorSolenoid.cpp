@@ -14,29 +14,16 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <assert.h>
 #include <memory>
 #include <string>
 
-// FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
-
 // Team 302 includes
-#include <mechanisms/controllers/ControlData.h>
-#include <hw/DragonSolenoid.h>
-#include <hw/interfaces/IDragonMotorController.h>
 #include <basemechanisms/Mech1IndMotor.h>
 #include <basemechanisms/Mech1IndMotorSolenoid.h>
 #include <basemechanisms/Mech1Solenoid.h>
-#include <basemechanisms/interfaces/IMech1IndMotor.h>
-#include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
-#include <basemechanisms/interfaces/IMech1Solenoid.h>
-#include <basemechanisms/StateMgr.h>
-
-// Third Party Includes
-#include <units/time.h>
+#include <hw/DragonSolenoid.h>
+#include <hw/interfaces/IDragonMotorController.h>
+#include <mechanisms/controllers/ControlData.h>
 
 using namespace frc;
 using namespace std;
@@ -54,56 +41,12 @@ Mech1IndMotorSolenoid::Mech1IndMotorSolenoid
     string                                      networkTableName,
     shared_ptr<IDragonMotorController>          motorController,
     shared_ptr<DragonSolenoid>                  solenoid
-) : m_motorMech(new Mech1IndMotor(type, controlFileName, networkTableName, motorController)),
-    m_solenoidMech(new Mech1Solenoid(type, controlFileName, networkTableName, solenoid)),
-    m_stateMgr(nullptr)
+) : Mech(type, controlFileName, networkTableName),
+    m_motorMech(new Mech1IndMotor(type, controlFileName, networkTableName, motorController)),
+    m_solenoidMech(new Mech1Solenoid(type, controlFileName, networkTableName, solenoid))
 {
 }
 
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech1IndMotorSolenoid::GetType() const 
-{
-    if (m_motorMech != nullptr)
-    {
-        return m_motorMech->GetType();
-    }
-    else if (m_solenoidMech != nullptr)
-    {
-        return m_solenoidMech->GetType();
-    }
-    return MechanismTypes::MECHANISM_TYPE::UNKNOWN_MECHANISM;
-}
-
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-string Mech1IndMotorSolenoid::GetControlFileName() const 
-{
-    if (m_motorMech != nullptr)
-    {
-        return m_motorMech->GetControlFileName();
-    }
-    else if (m_solenoidMech != nullptr)
-    {
-        return m_solenoidMech->GetControlFileName();
-    }
-    return string();
-}
-
-
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-string Mech1IndMotorSolenoid::GetNetworkTableName() const 
-{
-    if (m_motorMech != nullptr)
-    {
-        return m_motorMech->GetNetworkTableName();
-    }
-    else if (m_solenoidMech != nullptr)
-    {
-        return m_solenoidMech->GetNetworkTableName();
-    }
-    return string();}
 
 /// @brief log data to the network table if it is activated and time period has past
 void Mech1IndMotorSolenoid::LogHardwareInformation()
@@ -203,11 +146,11 @@ bool Mech1IndMotorSolenoid::IsSolenoidActivated() const
     return false;
 }
 
-IMech1IndMotor* Mech1IndMotorSolenoid::Get1IndMotorMech() const
+Mech1IndMotor* Mech1IndMotorSolenoid::Get1IndMotorMech() const
 {
     return m_motorMech;
 }
-IMech1Solenoid* Mech1IndMotorSolenoid::GetSolenoidMech() const
+Mech1Solenoid* Mech1IndMotorSolenoid::GetSolenoidMech() const
 {
     return m_solenoidMech;
 }
@@ -221,17 +164,3 @@ Mech1IndMotorSolenoid::~Mech1IndMotorSolenoid()
     m_solenoidMech = nullptr;
 }
 
-
-void Mech1IndMotorSolenoid::AddStateMgr
-(
-    StateMgr*       mgr
-)
-{
-    m_stateMgr = mgr;
-}
-
-StateMgr* Mech1IndMotorSolenoid::GetStateMgr() const
-{
-    assert (m_stateMgr != nullptr);
-    return m_stateMgr;
-}

@@ -17,7 +17,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <frc/AnalogInput.h>
 
 

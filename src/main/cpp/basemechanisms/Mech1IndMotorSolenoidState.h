@@ -18,12 +18,14 @@
 
 #include <memory>
 
-#include <basemechanisms/interfaces/IState.h>
-#include <mechanisms/controllers/ControlData.h>
+#include <basemechanisms/IState.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <basemechanisms/Mech1MotorState.h>
 #include <basemechanisms/MechSolenoidState.h>
-#include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
+
+// forward declares
+class ControlData;
+class Mech1IndMotorSolenoid;
 
 class Mech1IndMotorSolenoidState : public IState
 {
@@ -31,7 +33,7 @@ class Mech1IndMotorSolenoidState : public IState
 
         Mech1IndMotorSolenoidState
         (
-            IMech1IndMotorSolenoid*         mechanism,
+            Mech1IndMotorSolenoid*          mechanism,
             ControlData*                    control,
             double                          target,
             MechanismTargetData::SOLENOID   solState
@@ -48,7 +50,7 @@ class Mech1IndMotorSolenoidState : public IState
         double GetRPS() const;
 
     private:
-        IMech1IndMotorSolenoid*                 m_mechanism;
+        Mech1IndMotorSolenoid*                  m_mechanism;
         std::shared_ptr<Mech1MotorState>        m_motorState;
         std::shared_ptr<MechSolenoidState>      m_solenoidState;
 };

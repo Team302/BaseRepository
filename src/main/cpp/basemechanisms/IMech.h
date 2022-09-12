@@ -17,41 +17,51 @@
 #pragma once
 
 //========================================================================================================
-/// @interface IMech1IndSolenoid
-/// @brief     This is the interface for mechanisms that have one independently controlled solenoid.
+/// @interface IMech
+/// @brief     This is the interface for mechanisms regardless of what control items are available.
 //========================================================================================================
 
 // C++ Includes
-
-// FRC includes
+#include <string>
 
 // Team 302 includes
-#include <mechanisms/controllers/ControlModes.h>
-#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/controllers/ControlData.h>
-// Third Party Includes
+
+// forward declares
+class StateMgr;
 
 
-///	 @interface IMech1Solenoid : IMech
+///	 @interface IMech
 ///  @brief	    Interface for subsystems
-class IMech1Solenoid : public IMech
+class IMech
 {
 	public:
-        /// @brief      Activate/deactivate pneumatic solenoid
-        /// @param [in] bool - true == extend, false == retract
-        /// @return     void 
-        virtual void ActivateSolenoid
+        
+	    IMech() = default;
+	    virtual ~IMech() = default;
+
+
+        /// @brief          Indicates the type of mechanism this is
+        /// @return         MechanismTypes::MECHANISM_TYPE
+        virtual MechanismTypes::MECHANISM_TYPE GetType() const = 0;
+
+        /// @brief indicate the file used to get the control parameters from
+        /// @return std::string the name of the file 
+        virtual std::string GetControlFileName() const = 0;
+
+        /// @brief indicate the Network Table name used to setting tracking parameters
+        /// @return std::string the name of the network table 
+        virtual std::string GetNetworkTableName() const = 0;
+
+        /// @brief log data to the network table if it is activated and time period has past
+        virtual void LogHardwareInformation() = 0;
+
+        virtual StateMgr* GetStateMgr() const = 0;
+        virtual void AddStateMgr
         (
-            bool     activate
+            StateMgr*       mgr
         ) = 0;
 
-        /// @brief      Check if the pneumatic solenoid is activated
-        /// @return     bool - true == extended, false == retract
-        virtual bool IsSolenoidActivated() const = 0;
-        
-        IMech1Solenoid() = default;
-	    virtual ~IMech1Solenoid() = default;
 };
 
 

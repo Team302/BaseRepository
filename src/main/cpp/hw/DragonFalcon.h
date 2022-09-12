@@ -21,26 +21,21 @@
 // C++ Includes
 #include <memory>
 #include <string>
-#include <vector>
 
 // FRC includes
 #include <frc/motorcontrol/MotorController.h>
 
 // Team 302 includes
 #include <hw/DistanceAngleCalcStruc.h>
-#include <hw/DragonFalcon.h>
-#include <hw/interfaces/IDragonControlToVendorControlAdapter.h>
-#include <hw/interfaces/IDragonMotorController.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
-#include <mechanisms/controllers/ControlModes.h>
 
 
 // Third Party Includes
-#include <ctre/phoenix/ErrorCode.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 
+class IDragonControlToVendorControlAdapter;
 
 class DragonFalcon : public IDragonMotorController
 {

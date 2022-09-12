@@ -15,17 +15,7 @@
 
 #pragma once
 
-//C++ Includes
-#include <memory>
-
-// FRC Includes
-
 #include <units/angle.h>
-
-// Team 302 Includes
-
-// Third Party Includes
-
 
 class AngleUtils 
 {
