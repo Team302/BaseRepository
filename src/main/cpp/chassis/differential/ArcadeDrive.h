@@ -23,7 +23,7 @@
 //Team 302 includes
 #include <chassis/differential/DifferentialChassis.h>
 #include <TeleopControl.h>
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 
 class ArcadeDrive : public IState
 {

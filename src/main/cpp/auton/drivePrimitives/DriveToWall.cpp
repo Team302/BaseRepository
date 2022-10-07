@@ -22,7 +22,7 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/drivePrimitives/DoNothing.h>
+#include <auton/drivePrimitives/DriveStop.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/MechanismFactory.h>

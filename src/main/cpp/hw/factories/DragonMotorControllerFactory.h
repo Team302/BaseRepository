@@ -53,6 +53,7 @@ class DragonMotorControllerFactory
 			std::string										networkTableName,
 			std::string                             		mtype,					/// Controller Type
 			int 											canID,					/// CAN ID for the controller
+			std::string	     								canBusName,
 			int 											pdpID,					/// PDP slot the motor is on
 			std::string                                     usage,					/// Motor usage (e.g. Front Left Drive Motor)
 			bool 											inverted, 				/// Motor is inverted (positive values make the motor turn in reverse)or not

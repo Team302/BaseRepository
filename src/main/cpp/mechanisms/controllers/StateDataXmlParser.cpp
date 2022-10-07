@@ -72,7 +72,7 @@ vector<MechanismTargetData*> StateDataXmlParser::ParseXML
     auto mech = MechanismFactory::GetMechanismFactory()->GetMechanism(mechanism);
     if (mech == nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), string("invalid mechanism") );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), string("invalid mechanism") );
         hasError = true;
     }
 
@@ -81,7 +81,7 @@ vector<MechanismTargetData*> StateDataXmlParser::ParseXML
         auto mechFile = mech->GetControlFileName();
         if (mechFile.empty())
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), string("mechanism without control file") );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), string("mechanism without control file") );
             hasError = true;
         }
 
@@ -119,7 +119,7 @@ vector<MechanismTargetData*> StateDataXmlParser::ParseXML
                         {
                             string msg = "unknown child ";
                             msg += child.name();
-                            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), msg );
+                            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML"), msg );
                         }
                     }
                 }
@@ -136,18 +136,18 @@ vector<MechanismTargetData*> StateDataXmlParser::ParseXML
                 msg += "] parsed with errors, attr value: [";
                 msg += doc.child( "prototype" ).attribute( "attr" ).value();
                 msg += "]";
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (1) "), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (1) "), msg );
 
                 msg = "Error description: ";
                 msg += result.description();
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (2) "), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (2) "), msg );
 
                 msg = "Error offset: ";
                 msg += result.offset;
                 msg += " error at ...";
                 msg += filename;
                 msg += result.offset;
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (3) "), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("StateDataXmlParser"), string("ParseXML (3) "), msg );
             }
         }
     }

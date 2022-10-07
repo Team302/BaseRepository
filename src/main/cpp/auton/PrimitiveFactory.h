@@ -43,11 +43,11 @@ public:
 
 private:
     static PrimitiveFactory* m_instance;
-    IPrimitive* m_doNothing;
+    IPrimitive* m_DriveStop;
     IPrimitive* m_driveTime;
     IPrimitive* m_driveDistance;
     IPrimitive* m_turnAngle;
-    IPrimitive* m_holdPosition;
+    IPrimitive* m_DriveHoldPosition;
     IPrimitive* m_driveToWall;
     IPrimitive* m_driveLidarDistance;
     IPrimitive* m_autoShoot;

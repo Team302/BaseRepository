@@ -49,6 +49,7 @@ DragonPigeon* PigeonXmlParser::ParseXML
 
     // initialize attributes to default values
     int canID = 0;
+    string canBusName("rio");
     double rotation = 0.0;
     DragonPigeon::PIGEON_TYPE type = DragonPigeon::PIGEON_TYPE::PIGEON1;
     DragonPigeon::PIGEON_USAGE usage = DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT;
@@ -62,6 +63,10 @@ DragonPigeon* PigeonXmlParser::ParseXML
         {
             canID = attr.as_int();
             hasError = HardwareIDValidation::ValidateCANID( canID, string( "Pigeon::ParseXML" ) );
+        }
+        else if (strcmp(attr.name(), "canbus") == 0)
+        {
+            canBusName = attr.as_string();
         }
         else if ( strcmp( attr.name(), "rotation") == 0 )
         {
@@ -93,7 +98,7 @@ DragonPigeon* PigeonXmlParser::ParseXML
         {
             string msg("Invalid attribute ");
             msg += attr.name();
-            Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR, string("PigeonXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR, string("PigeonXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
 
@@ -101,7 +106,8 @@ DragonPigeon* PigeonXmlParser::ParseXML
 
     if ( !hasError )
     {
-        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID, 
+        pigeon = PigeonFactory::GetFactory()->CreatePigeon( canID,
+                                                            canBusName, 
                                                             type,
                                                             usage,
                                                             rotation );

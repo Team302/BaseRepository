@@ -24,7 +24,7 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 
 // Third Party Includes
 
@@ -54,14 +54,14 @@ class CyclePrimitives : public IState
 
 	protected:
 		void GetNextPrim();
-		void RunDoNothing();
+		void RunDriveStop();
 
 	private:
 		std::vector<PrimitiveParams*> 	m_primParams;
 		int 							m_currentPrimSlot;
 		IPrimitive*						m_currentPrim;
 		PrimitiveFactory* 				m_primFactory;
-		IPrimitive* 					m_doNothing;
+		IPrimitive* 					m_DriveStop;
 		AutonSelector* 					m_autonSelector;
 		std::unique_ptr<frc::Timer>     m_timer;
 		double                          m_maxTime;

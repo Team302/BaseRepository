@@ -16,39 +16,31 @@
 
 #pragma once
 
-#include <basemechanisms/Mech1IndMotor.h>
-#include <basemechanisms/IState.h>
-#include <mechanisms/controllers/ControlData.h>
+#include <mechanisms/base/IState.h>
+#include <mechanisms/controllers/MechanismTargetData.h>
 
-class Mech1MotorState : public IState
+// forward declares
+class Mech1Solenoid;
+
+class MechSolenoidState : public IState
 {
     public:
 
-        Mech1MotorState
+        MechSolenoidState
         (
-            Mech1IndMotor*                  mechanism,
-            ControlData*                    control,
-            double                          target
+            Mech1Solenoid*                  mechanism,
+            MechanismTargetData::SOLENOID   solState
         );
-        Mech1MotorState() = delete;
-        ~Mech1MotorState() = default;
+        MechSolenoidState() = delete;
+        ~MechSolenoidState() = default;
 
         void Init() override;
         void Run() override;
         void Exit() override;
         bool AtTarget() const override;
 
-        double GetTarget() const {return m_target;}
-        double GetRPS() const {return m_mechanism->GetSpeed();}
-
-    protected:
-        ControlData*    GetControlData() const {return m_control;}
-
     private:
 
-        Mech1IndMotor*                  m_mechanism;
-        ControlData*                    m_control;
-        double                          m_target;
-        bool                            m_positionBased;
-        bool                            m_speedBased;
+        Mech1Solenoid*                  m_mechanism;
+        MechanismTargetData::SOLENOID   m_solenoidState;
 };

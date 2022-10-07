@@ -21,8 +21,6 @@
 // FRC includes
 
 // Team 302 includes
-#include <hw/DragonDigitalInput.h>
-#include <hw/usages/DigitalInputUsage.h>
 #include <hw/DistanceAngleCalcStruc.h>
 #include <hw/ctreadapters/DragonControlToCTREAdapter.h>
 #include <hw/factories/DragonControlToCTREAdapterFactory.h>
@@ -143,13 +141,13 @@ DragonControlToCTREAdapter* DragonControlToCTREAdapterFactory::CreateAdapter
 			default:
                 string msg{"Invalid contrrol data "};
                 msg += to_string(controller->GetDeviceID());
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
+				Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
                 return new DragonPercentOutputToCTREAdapter(networkTableName, controllerSlot, controlInfo, calcStruc, controller);
                 break;
 		}	
     }
     string msg{"Invalid contrrol information "};
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
     return new DragonPercentOutputToCTREAdapter(networkTableName, controllerSlot, controlInfo, calcStruc, controller);
 }
 

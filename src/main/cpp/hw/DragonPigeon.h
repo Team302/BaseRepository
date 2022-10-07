@@ -38,10 +38,11 @@ class DragonPigeon
 
         DragonPigeon
         (
-            int  canID,
-            DragonPigeon::PIGEON_USAGE usage,
-            DragonPigeon::PIGEON_TYPE type,
-            double rotation
+            int                         canID,
+            std::string                 canBusName,
+            DragonPigeon::PIGEON_USAGE  usage,
+            DragonPigeon::PIGEON_TYPE   type,
+            double                      rotation
         );
         DragonPigeon() = delete;
         virtual ~DragonPigeon() = default;

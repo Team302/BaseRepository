@@ -20,7 +20,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/Mech.h>
+#include <mechanisms/base/Mech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/DragonAssert.h>
 #include <utils/Logger.h>
@@ -45,12 +45,12 @@ Mech::Mech
 {
     if ( controlFileName.empty() )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string("Mech" ), string( "control file name is not specified" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string("Mech" ), string( "control file name is not specified" ) );
     }
 
     if ( networkTableName.empty() )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech"), string( "Mech" ), string( "network table name is not specified" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, string("Mech"), string( "Mech" ), string( "network table name is not specified" ) );
     }
 
 }

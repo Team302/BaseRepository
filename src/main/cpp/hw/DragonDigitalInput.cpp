@@ -16,7 +16,10 @@
 
 #include <string>
 
+#include <frc/filter/Debouncer.h>
 #include <frc/DigitalInput.h>
+
+#include <units/time.h>
 
 #include <hw/DragonDigitalInput.h>
 #include <hw/usages/DigitalInputUsage.h>
@@ -30,11 +33,13 @@ DragonDigitalInput::DragonDigitalInput
 	string										networkTableName,
 	DigitalInputUsage::DIGITAL_SENSOR_USAGE		usage,	    	// <I> - Usage of the digital input
 	int 										deviceID,		// <I> - digial io ID
-	bool										reversed		// <I>
+	bool										reversed,		// <I>
+	units::time::second_t						debounceTime
 ) : m_networkTableName(networkTableName),
-	m_digital( new DigitalInput( deviceID ) ),
-	m_reversed( reversed ),
-	m_type( usage )
+	m_digital(new DigitalInput(deviceID)),
+	m_debouncer(new Debouncer(debounceTime, Debouncer::DebounceType::kBoth)),
+	m_reversed(reversed),
+	m_type(usage)
 {
 }
 
@@ -50,16 +55,22 @@ DigitalInputUsage::DIGITAL_SENSOR_USAGE DragonDigitalInput::GetType() const
 
 bool DragonDigitalInput::Get() const
 {
-	bool isSet = false;
 	if ( m_digital != nullptr )
 	{
-		isSet = (m_reversed) ? !m_digital->Get() : m_digital->Get();
+		if (m_debouncer != nullptr)
+		{
+			return (m_reversed) ? m_debouncer->Calculate(!m_digital->Get()) : m_debouncer->Calculate(m_digital->Get());
+		}
+		else
+		{
+			return (m_reversed) ? !m_digital->Get() : m_digital->Get();
+		}
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DigitalInput"), string("Not created") );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("DigitalInput"), string("Not created") );
 	}
-	return isSet;
+	return false;
 }
 int  DragonDigitalInput::GetChannel() const
 {

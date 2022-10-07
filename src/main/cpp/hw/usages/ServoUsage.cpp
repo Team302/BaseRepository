@@ -60,7 +60,7 @@ ServoUsage::SERVO_USAGE ServoUsage::GetUsage
     {
         return it->second;
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("ServoUsage::GetUsage"), string("unknown usage"), usageString);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("ServoUsage::GetUsage"), string("unknown usage"), usageString);
     return ServoUsage::SERVO_USAGE::UNKNOWN_SERVO_USAGE;
 }
 

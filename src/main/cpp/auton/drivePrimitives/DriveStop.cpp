@@ -14,62 +14,82 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
+#include <frc/kinematics/ChassisSpeeds.h>
+#include <frc/Timer.h>
 
 // Team 302 includes
+#include <auton/drivePrimitives/DriveStop.h>
+#include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
-#include <chassis/IChassis.h>
+#include <chassis/ChassisFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
-// forward declares
-class PrimitiveParams;
 
-
-namespace frc
-{
-	class Timer;
-}
-
+using namespace std;
+using namespace frc;
 
 //========================================================================================================
-/// @class  DoNothing
+/// @class  DriveStop
 /// @brief  This is an auton primitive that causes the chassis to not drive 
 //========================================================================================================
 
-class DoNothing : public IPrimitive 
+
+/// @brief constructor that creates/initializes the object
+DriveStop::DriveStop() : m_maxTime(0.0),
+						 m_currentTime(0.0),
+						 m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()),
+						 m_timer( make_unique<Timer>() )
 {
-	public:
-		/// @brief constructor that creates/initializes the object
-		DoNothing();
+}
 
-		/// @brief destructor, clean  up the memory from this object
-		virtual ~DoNothing() = default;
+/// @brief initialize this usage of the primitive
+/// @param PrimitiveParms* params the drive parameters
+/// @return void
+void DriveStop::Init(PrimitiveParams* params) 
+{
+	m_maxTime = params->GetTime();
+	m_timer->Reset();
+	m_timer->Start();
+	m_heading = params->GetHeading();
+	m_headingOption = params->GetHeadingOption();
+}
 
-		/// @brief initialize this usage of the primitive
-		/// @param PrimitiveParms* params the drive parameters
-		/// @return void
-		void Init(PrimitiveParams* params) override;
-		
-		/// @brief run the primitive (periodic routine)
-		/// @return void
-		void Run() override;
+/// @brief run the primitive (periodic routine)
+/// @return void
+void DriveStop::Run() 
+{
+	if ( m_chassis != nullptr )
+	{
+		ChassisSpeeds speeds;
+		speeds.vx = 0_mps;
+		speeds.vy = 0_mps;
+		speeds.omega = units::degrees_per_second_t(0.0);
+		if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+        {
+            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+        }
 
-		/// @brief check if the end condition has been met
-		/// @return bool true means the end condition was reached, false means it hasn't
-		bool IsDone() override;
+		m_chassis->Drive(speeds, 
+						 IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
+						 m_headingOption);
+	}
+	else
+	{
+		Logger::GetLogger()->LogData( LOGGER_LEVEL::PRINT_ONCE, string("DriveStop"), string( "DriveStop::Run" ), string( "chassis not found") );
+	}
+}
 
-	private:
-		float m_maxTime;		//Target time
-		float m_currentTime;	//Time since init
-		std::shared_ptr<IChassis> m_chassis;	
-		std::unique_ptr<frc::Timer> m_timer;
-		double						m_heading;
-		IChassis::HEADING_OPTION	m_headingOption;
-};
-
+/// @brief check if the end condition has been met
+/// @return bool true means the end condition was reached, false means it hasn't
+bool DriveStop::IsDone() 
+{
+	return m_timer->AdvanceIfElapsed(units::second_t(m_maxTime));
+}

@@ -45,6 +45,12 @@ class MechanismTargetData
             double                                      target,
             double                                      secondTarget,
             double                                      robotPitch,
+            double                                      lessThanTransitiionTarget,
+            std::string                                 lessThanTransitionState,
+            double                                      equalTransitiionTarget,
+            std::string                                 equalTransitionState,
+            double                                      greaterThanTransitiionTarget,
+            std::string                                 greaterThanTransitionState,
             SOLENOID                                    solenoid,
             std::array<double,3>                        function1Coeff,
             std::array<double,3>                        function2Coeff
@@ -101,11 +107,17 @@ class MechanismTargetData
         std::string                                 m_controller;
         std::string                                 m_controller2;
         double                                      m_target;
+        double                                      m_secondTarget;
         ControlData*                                m_controlData;
         ControlData*                                m_controlData2;
         SOLENOID                                    m_solenoid;
-        double                                      m_secondTarget;
         double                                      m_robotPitch;
+        double                                      m_lessThanTransitiionTarget;
+        std::string                                 m_lessThanTransitionState;
+        double                                      m_equalTransitiionTarget;
+        std::string                                 m_equalTransitionState;
+        double                                      m_greaterThanTransitiionTarget;
+        std::string                                 m_greaterThanTransitionState;
         std::array<double,3>                        m_function1Coeff;
         std::array<double,3>                        m_function2Coeff;
 };

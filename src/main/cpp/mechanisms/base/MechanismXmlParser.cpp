@@ -27,8 +27,8 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/IMech.h>
-#include <basemechanisms/MechanismXmlParser.h>
+#include <mechanisms/base/IMech.h>
+#include <mechanisms/base/MechanismXmlParser.h>
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
@@ -94,7 +94,7 @@ void MechanismXmlParser::ParseXML
         {
             string msg = "invalid attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -164,7 +164,7 @@ void MechanismXmlParser::ParseXML
         {
             string msg = "unknown child ";
             msg += child.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("unknown child"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("unknown child"), msg );
         }
     }
 

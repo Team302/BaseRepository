@@ -20,11 +20,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/Mech.h>
-#include <basemechanisms/Mech1Solenoid.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/Mech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <utils/Logger.h>
-#include <basemechanisms/StateMgr.h>
+#include <mechanisms/base/StateMgr.h>
 
 // Third Party Includes
 
@@ -46,7 +46,7 @@ Mech1Solenoid::Mech1Solenoid
 {
     if (m_solenoid.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech1Solenoid" ),  string( "constructor" ), string( "solenoid is nullptr" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, string( "Mech1Solenoid" ),  string( "constructor" ), string( "solenoid is nullptr" ) );
     }
 }
 

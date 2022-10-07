@@ -52,11 +52,12 @@ DragonFalcon::DragonFalcon
 	string											networkTableName,
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE 	deviceType, 
 	int 											deviceID, 
+	string											canBusName,
     int 											pdpID, 
 	DistanceAngleCalcStruc							calcStruc,
 	MOTOR_TYPE 										motorType 
 ) : m_networkTableName(networkTableName),
-	m_talon( make_shared<WPI_TalonFX>(deviceID)),
+	m_talon( make_shared<WPI_TalonFX>(deviceID, canBusName)),
 	m_controller(),
 	m_type(deviceType),
 	m_id(deviceID),
@@ -85,7 +86,7 @@ DragonFalcon::DragonFalcon
 	auto error = m_talon.get()->ConfigSupplyCurrentLimit(climit, 50);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	StatorCurrentLimitConfiguration climit2;
@@ -96,53 +97,53 @@ DragonFalcon::DragonFalcon
 	error = m_talon.get()->ConfigStatorCurrentLimit( climit2, 50);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigStatorCurrentLimit"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigStatorCurrentLimit"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	error = m_talon.get()->ConfigVoltageCompSaturation(12.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigVoltageCompSaturation"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigVoltageCompSaturation"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	error = m_talon.get()->ConfigForwardLimitSwitchSource(LimitSwitchSource::LimitSwitchSource_Deactivated, LimitSwitchNormal::LimitSwitchNormal_Disabled, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardLimitSwitchSource"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardLimitSwitchSource"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigReverseLimitSwitchSource(LimitSwitchSource::LimitSwitchSource_Deactivated, LimitSwitchNormal::LimitSwitchNormal_Disabled, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseLimitSwitchSource"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseLimitSwitchSource"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	error = m_talon.get()->ConfigForwardSoftLimitEnable(false, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardSoftLimitEnable"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardSoftLimitEnable"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigForwardSoftLimitThreshold(0.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardSoftLimitThreshold"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigForwardSoftLimitThreshold"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	error = m_talon.get()->ConfigReverseSoftLimitEnable(false, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseSoftLimitEnable"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseSoftLimitEnable"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigReverseSoftLimitThreshold(0.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseSoftLimitThreshold"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigReverseSoftLimitThreshold"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	
@@ -150,39 +151,39 @@ DragonFalcon::DragonFalcon
 	error = m_talon.get()->ConfigMotionAcceleration(1500.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionAcceleration"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionAcceleration"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigMotionCruiseVelocity(1500.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionCruiseVelocity"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionCruiseVelocity"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigMotionSCurveStrength(0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionSCurveStrength"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionSCurveStrength"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	error = m_talon.get()->ConfigMotionProfileTrajectoryPeriod(0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionProfileTrajectoryPeriod"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionProfileTrajectoryPeriod"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigMotionProfileTrajectoryInterpolationEnable(true, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionProfileTrajectoryInterpolationEnable"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigMotionProfileTrajectoryInterpolationEnable"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
 	m_talon.get()->ConfigAllowableClosedloopError(0.0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigAllowableClosedloopError"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigAllowableClosedloopError"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 
@@ -191,43 +192,43 @@ DragonFalcon::DragonFalcon
 		error = m_talon.get()->ConfigClosedLoopPeakOutput(inx, 1.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedLoopPeakOutput"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedLoopPeakOutput"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->ConfigClosedLoopPeriod(inx, 10, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedLoopPeriod"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedLoopPeriod"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->Config_kP(inx, 0.01, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kP"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kP"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->Config_kI(inx, 0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kI"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kI"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->Config_kD(inx, 0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kD"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kD"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->Config_kF(inx, 1.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kF"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_kF"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_talon.get()->Config_IntegralZone(inx, 0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_IntegralZone"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("Config_IntegralZone"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 	}
@@ -235,13 +236,13 @@ DragonFalcon::DragonFalcon
 	error = m_talon.get()->ConfigRemoteFeedbackFilter(60, RemoteSensorSource::RemoteSensorSource_Off, 0, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigRemoteFeedbackFilter"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigRemoteFeedbackFilter"), string("error"));
 		error = ErrorCode::OKAY;
 	}
 	error = m_talon.get()->ConfigRemoteFeedbackFilter(60, RemoteSensorSource::RemoteSensorSource_Off, 1, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigRemoteFeedbackFilter"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigRemoteFeedbackFilter"), string("error"));
 	}
 }
 
@@ -363,14 +364,14 @@ void DragonFalcon::SetVoltageRamping(double ramping, double rampingClosedLoop)
     auto error = m_talon.get()->ConfigOpenloopRamp(ramping);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigOpenloopRamp"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigOpenloopRamp"), string("error"));
 	}
 	if (rampingClosedLoop >= 0)
 	{
 		error = m_talon.get()->ConfigClosedloopRamp(rampingClosedLoop);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedloopRamp"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigClosedloopRamp"), string("error"));
 		}
 	}
 }
@@ -385,13 +386,13 @@ void DragonFalcon::EnableCurrentLimiting(bool enabled)
 	auto error = m_talon.get()->ConfigGetSupplyCurrentLimit( limit, timeout );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
 	}
 	limit.enable = enabled;
 	error = m_talon.get()->ConfigSupplyCurrentLimit( limit, timeout );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
 	}
 }
 
@@ -436,7 +437,7 @@ void DragonFalcon::SelectClosedLoopProfile
 	{
 		auto prompt = string("Dragon Falcon");
 		prompt += to_string(m_talon.get()->GetDeviceID());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("SelectProfileSlot"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("SelectProfileSlot"), string("error"));
 	}
 }
 
@@ -456,7 +457,7 @@ int DragonFalcon::ConfigSelectedFeedbackSensor
 	{
 		auto prompt = string("Dragon Falcon");
 		prompt += to_string(m_talon.get()->GetDeviceID());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("DragonFalcon::ConfigSelectedFeedbackSensor"), string("m_talon is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("DragonFalcon::ConfigSelectedFeedbackSensor"), string("m_talon is a nullptr"));
 	}
 	return error;
 }
@@ -477,7 +478,7 @@ int DragonFalcon::ConfigSelectedFeedbackSensor
 	{
 		auto prompt = string("Dragon Falcon");
 		prompt += to_string(m_talon.get()->GetDeviceID());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("DragonFalcon::ConfigSelectedFeedbackSensor"), string("m_talon is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("DragonFalcon::ConfigSelectedFeedbackSensor"), string("m_talon is a nullptr"));
 	}
 	return error;
 }
@@ -497,19 +498,19 @@ int DragonFalcon::ConfigPeakCurrentLimit
 		auto error = m_talon.get()->ConfigGetSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
 		}
 		limit.triggerThresholdCurrent = amps;
 		error = m_talon.get()->ConfigSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
 		}
 		ierror = error;
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("DragonFalcon::ConfigPeakCurrentLimit"), string("m_talon is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("DragonFalcon::ConfigPeakCurrentLimit"), string("m_talon is a nullptr"));
 	}
 	return ierror;
 }
@@ -529,18 +530,18 @@ int DragonFalcon::ConfigPeakCurrentDuration
 		auto error = m_talon.get()->ConfigGetSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
 		}
 		limit.triggerThresholdTime = milliseconds;
 		error = m_talon.get()->ConfigSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
 		}
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("ConfigPeakCurrentDuration"), string("m_talon is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("ConfigPeakCurrentDuration"), string("m_talon is a nullptr"));
 	}
 	return error;
 }
@@ -560,18 +561,18 @@ int DragonFalcon::ConfigContinuousCurrentLimit
 		auto error = m_talon.get()->ConfigGetSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigGetSupplyCurrentLimit"), string("error"));
 		}
 		limit.currentLimit = amps;
 		error = m_talon.get()->ConfigSupplyCurrentLimit( limit, timeoutMs );
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigSupplyCurrentLimit"), string("error"));
 		}
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("ConfigContinuousCurrentLimit"), string("m_talon is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonFalcon"), string("ConfigContinuousCurrentLimit"), string("m_talon is a nullptr"));
 	}
 	return error;
 }
@@ -609,7 +610,7 @@ void DragonFalcon::SetForwardLimitSwitch
 		m_networkTableName += to_string(m_talon.get()->GetDeviceID());		
 		auto prompt = string("Dragon Falcon");
 		prompt += to_string(m_talon.get()->GetDeviceID());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, prompt, string("ConfigForwardLimitSwitchSource error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, prompt, string("ConfigForwardLimitSwitchSource error"));
 	}
 }
 
@@ -622,7 +623,7 @@ void DragonFalcon::SetReverseLimitSwitch
 	auto error = m_talon.get()->ConfigReverseLimitSwitchSource( LimitSwitchSource::LimitSwitchSource_FeedbackConnector, type, 0  );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigReverseLimitSwitchSource"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigReverseLimitSwitchSource"), string("error"));
 	}
 }
 
@@ -635,12 +636,12 @@ void DragonFalcon::SetRemoteSensor
 	auto error = m_talon.get()->ConfigRemoteFeedbackFilter( canID, deviceType, 0, 0.0 );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigRemoteFeedbackFilter"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigRemoteFeedbackFilter"), string("error"));
 	}
 	error = m_talon.get()->ConfigSelectedFeedbackSensor( RemoteFeedbackDevice::RemoteFeedbackDevice_RemoteSensor0, 0, 0 );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigSelectedFeedbackSensor"), string("error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, m_networkTableName, string("ConfigSelectedFeedbackSensor"), string("error"));
 	}
 }
 

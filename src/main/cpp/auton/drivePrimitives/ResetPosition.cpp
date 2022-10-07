@@ -46,11 +46,11 @@ void ResetPosition::Init(PrimitiveParams* params)
 
         m_chassis->ResetPose(m_trajectory.InitialPose());
 
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());
         
     }
 }

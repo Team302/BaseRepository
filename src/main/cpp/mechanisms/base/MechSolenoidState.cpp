@@ -20,9 +20,9 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/IState.h>
-#include <basemechanisms/MechSolenoidState.h>
-#include <basemechanisms/Mech1Solenoid.h>
+#include <mechanisms/base/IState.h>
+#include <mechanisms/base/MechSolenoidState.h>
+#include <mechanisms/base/Mech1Solenoid.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -43,7 +43,7 @@ MechSolenoidState::MechSolenoidState
 {
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechSolenoidState"), string("MechSolenoidState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechSolenoidState"), string("MechSolenoidState"), string("no mechanism"));
     }    
 }
 

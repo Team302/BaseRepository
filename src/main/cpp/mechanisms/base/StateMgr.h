@@ -21,7 +21,7 @@
 #include <vector>
 
 // Team 302 includes
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 #include <mechanisms/StateStruc.h>
 
 // forward declare 

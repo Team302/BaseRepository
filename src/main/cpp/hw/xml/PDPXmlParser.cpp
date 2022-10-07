@@ -88,7 +88,7 @@ PowerDistribution* PDPXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("PDPXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("PDPXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }

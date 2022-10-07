@@ -27,7 +27,7 @@
 #include <hw/DragonPigeon.h>
 #include <gamepad/IDragonGamePad.h>
 #include <TeleopControl.h>
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
@@ -43,12 +43,12 @@ SwerveDrive::SwerveDrive() : IState(),
 {
     if (m_controller == nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("TeleopControl is nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("TeleopControl is nullptr"));
     }
 
     if (m_chassis.get() == nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("Chassis is nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("Chassis is nullptr"));
     }
 }
 
@@ -103,7 +103,7 @@ void SwerveDrive::Run()
 
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::HOLD_POSITION))
         {
-            m_chassis.get()->HoldPosition();
+            m_chassis.get()->DriveHoldPosition();
         }
 
         auto drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);

@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,55 +14,52 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-// C++ Includes
-#include <map>
-#include <memory>
-#include <string>
+#pragma once
 
-// FRC includes
+// C++ Includes
+#include <string>
 
 // Team 302 includes
 #include <mechanisms/MechanismTypes.h>
-#include <utils/Logger.h>
+#include <mechanisms/base/StateMgr.h>
 
-// @ADDMECH add your mechanism include 
+// forward declares
+class DragonServo;
 
-
-// Third Party Includes
-
-using namespace std;
-
-MechanismTypes* MechanismTypes::m_instance = nullptr;
-MechanismTypes* MechanismTypes::GetInstance()
+class Mech1Servo : public Mech
 {
-    if ( m_instance == nullptr )
-    {
-        m_instance = new MechanismTypes();
-    }
-    return m_instance;
-}
+	public:
+        /// @brief Create a generic mechanism wiht 1 servo 
+        /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
+        Mech1Servo
+        (
+            MechanismTypes::MECHANISM_TYPE              type,
+            std::string                                 controlFileName,
+            std::string                                 networkTableName,
+            DragonServo*                                servo
+        );
+	    Mech1Servo() = delete;
+	    virtual ~Mech1Servo() = default;
 
-MechanismTypes::MechanismTypes()
-{
-    // @ADDMECH add your mechanism to m_typeMap 
-    //m_typeMap["LEFT_INTAKE"]    = MECHANISM_TYPE::LEFT_INTAKE;
-}
 
-MechanismTypes::~MechanismTypes()
-{
-    m_typeMap.clear();
-}
+        /// @brief      Move servo to the desired angle
+        /// @param [in] double angle: Target angle in degrees
+        /// @return     void
+        void SetAngle
+        (
+            double angle       
+        );
 
-MechanismTypes::MECHANISM_TYPE MechanismTypes::GetType
-(
-    string              typeString
-)
-{
-    auto it = m_typeMap.find(typeString);
-    if (it != m_typeMap.end())
-    {
-        return it->second;
-    }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("MechanismTypes"), string("GetType - unknown mechanism type"), typeString);
-    return MechanismTypes::MECHANISM_TYPE::UNKNOWN_MECHANISM;
-}
+        double GetAngle() const;
+        
+
+        /// @brief log data to the network table if it is activated and time period has past
+        void LogHardwareInformation() override;
+
+    private:
+        DragonServo*                                m_servo;
+
+};
+
+
+

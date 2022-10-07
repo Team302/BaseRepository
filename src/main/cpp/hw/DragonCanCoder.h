@@ -17,9 +17,9 @@
 #pragma once
 
 #include <string>
-#include <ctre/phoenix/sensors/CANCoder.h>
+#include <ctre/phoenix/sensors/WPI_CANCoder.h>
 
-class DragonCanCoder : public ctre::phoenix::sensors::CANCoder
+class DragonCanCoder : public ctre::phoenix::sensors::WPI_CANCoder
 {
 	public:
 		DragonCanCoder
@@ -27,6 +27,7 @@ class DragonCanCoder : public ctre::phoenix::sensors::CANCoder
 	        std::string		        	networkTableName,
             std::string                 usage,
 			int 						canID,
+			std::string					canBusName,
             double                      offset,
             bool                        reverse
 		);

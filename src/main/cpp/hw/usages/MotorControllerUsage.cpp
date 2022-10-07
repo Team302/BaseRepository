@@ -76,6 +76,6 @@ MotorControllerUsage::MOTOR_CONTROLLER_USAGE MotorControllerUsage::GetUsage
     {
         return it->second;
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("MotorControllerUsage::GetUsage"), string("unknown usage"), usageString);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("MotorControllerUsage::GetUsage"), string("unknown usage"), usageString);
     return MotorControllerUsage::MOTOR_CONTROLLER_USAGE::UNKNOWN_MOTOR_CONTROLLER_USAGE;
 }

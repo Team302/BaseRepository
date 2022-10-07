@@ -20,11 +20,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <basemechanisms/IState.h>
-#include <basemechanisms/Mech1MotorState.h>
+#include <mechanisms/base/IState.h>
+#include <mechanisms/base/Mech1MotorState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <basemechanisms/Mech1IndMotor.h>
+#include <mechanisms/base/Mech1IndMotor.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -49,12 +49,12 @@ Mech1MotorState::Mech1MotorState
 {
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech1MotorState::Mech1MotorState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech1MotorState::Mech1MotorState"), string("no mechanism"));
     }    
     
     if ( control == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), string("Mech1MotorState::Mech1MotorState"), string("no control data"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), string("Mech1MotorState::Mech1MotorState"), string("no control data"));
     }
     else
     {
@@ -129,8 +129,8 @@ void Mech1MotorState::Run()
     {
         m_mechanism->Update();
         auto ntName = m_mechanism->GetNetworkTableName();
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Target"), GetTarget());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Speed"), GetRPS());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Target"), GetTarget());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Speed"), GetRPS());
     }
 }
 

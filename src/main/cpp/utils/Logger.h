@@ -23,33 +23,13 @@
 // FRC includes
 #include <frc/SmartDashboard/SendableChooser.h>
 
+// Team 302 includes
+#include <utils/LoggerData.h>
+#include <utils/LoggerEnums.h>
 
 class Logger
 {
     public:
-
-        /// @enum LOGGER_OPTION
-        /// @brief Define where the items being logged should be sent
-        enum LOGGER_OPTION
-        {
-            CONSOLE,        ///< write to the RoboRio Console
-            DASHBOARD,      ///< write to the SmartDashboard
-            EAT_IT          ///< don't write anything (useful at comps where we want to minimize network traffic)
-        };
-
-        /// @enum LOGGER_LEVEL
-        /// @brief Define what level the message is as well as this can be used to write only the messages
-        /// @brief of a certain level or worse.
-        /// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.        
-        enum LOGGER_LEVEL
-        {
-            ERROR_ONCE,     ///< this is catastrophic that we only want to see once
-            ERROR,          ///< this is catastrophic
-            WARNING_ONCE,   ///< this is a medium level error we only want to see once
-            WARNING,        ///< this is a medium level error
-            PRINT_ONCE,     ///< this is an information/debug message we only want to see once
-            PRINT           ///< this is an information/debug message
-        };
 
 
         /// @brief Find or create the singleton logger
@@ -67,6 +47,11 @@ class Logger
             const std::string&      group,
             const std::string&      identifier,     
             const std::string&      message                 
+        );
+
+        void LogData
+        (
+            LoggerData&             info
         );
 
         /// @brief log a message

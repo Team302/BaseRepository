@@ -15,55 +15,62 @@
 //====================================================================================================================================================
 
 // C++ Includes
-#include <map>
 #include <memory>
 #include <string>
 
 // FRC includes
 
 // Team 302 includes
-#include <hw/usages/SolenoidUsage.h>
-#include <utils/Logger.h>
+#include <auton/PrimitiveFactory.h>
+#include <auton/PrimitiveParams.h>
+#include <auton/drivePrimitives/DriveHoldPosition.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <chassis/ChassisFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
+
 using namespace std;
+using namespace frc;
 
-SolenoidUsage* SolenoidUsage::m_instance = nullptr;
-SolenoidUsage* SolenoidUsage::GetInstance()
+DriveHoldPosition::DriveHoldPosition() :
+		m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()), //Get chassis from chassis factory
+		m_timeRemaining(0.0)       //Value will be changed in init
 {
-    if ( m_instance == nullptr )
-    {
-        m_instance = new SolenoidUsage();
-    }
-    return m_instance;
 }
 
-SolenoidUsage::SolenoidUsage()
-{
-    m_usageMap["INTAKE"] = SOLENOID_USAGE::INTAKE;
-    m_usageMap["INTAKE2"] = SOLENOID_USAGE::INTAKE2;
-    m_usageMap["BALL_TRANSFER"] = SOLENOID_USAGE::BALL_TRANSFER;
-    m_usageMap["SHOOTER_HOOD"] = SOLENOID_USAGE::SHOOTER_HOOD;
-    m_usageMap["CLIMBER"] = SOLENOID_USAGE::CLIMBER;
+void DriveHoldPosition::Init(PrimitiveParams* params) {
+
+	//Get timeRemaining from m_params
+	m_timeRemaining = params->GetTime();
+	auto cd = make_shared<ControlData>( ControlModes::CONTROL_TYPE::POSITION_INCH, 
+							   			ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
+							   			string("DriveHoldPosition"),
+							   			10.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			1.0,
+							  			0.0   );
+	//m_chassis->SetControlConstants( cd.get() );
+	//auto left = m_chassis->GetCurrentLeftPosition();
+	//auto right = m_chassis->GetCurrentRightPosition();
+
+	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::POSITION_INCH, left, right );	
 }
 
-SolenoidUsage::~SolenoidUsage()
-{
-    m_usageMap.clear();
+void DriveHoldPosition::Run() {
+	//Decrement time remaining
+	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
+
 }
 
-SolenoidUsage::SOLENOID_USAGE SolenoidUsage::GetUsage
-(
-    const string              usageString
-)
-{
-    auto it = m_usageMap.find(usageString);
-    if (it != m_usageMap.end())
-    {
-        return it->second;
-    }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("Solenoid::GetUsage"), string("unknown usage"), usageString);
-    return SolenoidUsage::SOLENOID_USAGE::UNKNOWN_SOLENOID_USAGE;
+bool DriveHoldPosition::IsDone() {
+	//Return true when the time runs out
+	bool holdDone = ((m_timeRemaining <= (IPrimitive::LOOP_LENGTH / 2.0)));
+	return holdDone;
 }
-

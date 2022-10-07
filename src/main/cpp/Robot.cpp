@@ -18,6 +18,8 @@
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
 #include <utils/Logger.h>
+#include <utils/LoggerData.h>
+#include <utils/LoggerEnums.h>
 #include <RobotXmlParser.h>
 #include <mechanisms/StateMgrHelper.h>
 
@@ -26,7 +28,7 @@ using namespace std;
 void Robot::RobotInit() 
 {
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
 
     //CameraServer::SetSize(CameraServer::kSize320x240);
     //CameraServer::StartAutomaticCapture();
@@ -50,7 +52,7 @@ void Robot::RobotInit()
         
 
     m_cyclePrims = new CyclePrimitives();
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -68,8 +70,10 @@ void Robot::RobotPeriodic()
     }
     if (m_dragonLimeLight != nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DragonLimelight"), string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DragonLimelight"), string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
+        LoggerDoubleValue horAngle = {string("Horizontal Angle"), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>()};
+        LoggerDoubleValue distance = { string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>()};
+        LoggerData  data = {LOGGER_LEVEL::PRINT, string("DragonLimelight"), {}, {}, {horAngle, distance}, {}};
+        Logger::GetLogger()->LogData(data);
     }
     Logger::GetLogger()->PeriodicLog();
 }
@@ -87,12 +91,12 @@ void Robot::RobotPeriodic()
  */
 void Robot::AutonomousInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("arrived"));   
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("arrived"));   
     if (m_cyclePrims != nullptr)
     {
         m_cyclePrims->Init();
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("end"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("end"));
 }
 
 void Robot::AutonomousPeriodic() 
@@ -105,7 +109,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("arrived"));   
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("arrived"));   
     if (m_chassis != nullptr && m_controller != nullptr)
     {
         if (m_swerve != nullptr)
@@ -119,7 +123,7 @@ void Robot::TeleopInit()
     }
     StateMgrHelper::RunCurrentMechanismStates();
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
 }
 
 
@@ -141,7 +145,7 @@ void Robot::TeleopPeriodic()
 
 void Robot::DisabledInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("DisabledInit"), string("arrived"));   
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("DisabledInit"), string("arrived"));   
 }
 
 void Robot::DisabledPeriodic() 
@@ -151,7 +155,7 @@ void Robot::DisabledPeriodic()
 
 void Robot::TestInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TestInit"), string("arrived"));   
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TestInit"), string("arrived"));   
 }
 
 void Robot::TestPeriodic() 

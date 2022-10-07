@@ -139,9 +139,9 @@ units::angular_velocity::degrees_per_second_t SwerveChassis::CalcHeadingCorrecti
     auto correction = units::angular_velocity::degrees_per_second_t(errorAngle.to<double>()*kP);
 
     //Debugging
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Current Angle (Degrees): ", currentAngle.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Error Angle (Degrees): ", errorAngle.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Current Angle (Degrees): ", currentAngle.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Error Angle (Degrees): ", errorAngle.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Chassis", "Heading: Yaw Correction (Degrees Per Second): ", m_yawCorrection.to<double>());
 
     return correction;
 }
@@ -173,20 +173,20 @@ void SwerveChassis::Drive
 
         case HEADING_OPTION::TOWARD_GOAL:
             AdjustRotToPointTowardGoal(currentPose, rot);
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: rot", rot.to<double>() );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: rot", rot.to<double>() );
             break;
 
         case HEADING_OPTION::TOWARD_GOAL_DRIVE:
              [[fallthrough]]; // intentional fallthrough 
         case HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD:
             DriveToPointTowardGoal(currentPose,goalPose,xSpeed,ySpeed,rot);
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: rot", rot.to<double>() );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: rot", rot.to<double>() );
             break;
 
         case HEADING_OPTION::SPECIFIED_ANGLE:
             rot -= CalcHeadingCorrection(m_targetHeading, kPAutonSpecifiedHeading);
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: Specified Angle (Degrees): ", m_targetHeading.to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading:Heading Correction", rot.to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading: Specified Angle (Degrees): ", m_targetHeading.to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Chassis Heading:Heading Correction", rot.to<double>());
             break;
 
         case HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
@@ -201,15 +201,15 @@ void SwerveChassis::Drive
             break;
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("XSpeed"), xSpeed.to<double>() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("YSpeed"), ySpeed.to<double>() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("ZSpeed"), rot.to<double>() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("yaw"), m_pigeon->GetYaw() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("angle error Degrees Per Second"), m_yawCorrection.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("XSpeed"), xSpeed.to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("YSpeed"), ySpeed.to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("ZSpeed"), rot.to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("yaw"), m_pigeon->GetYaw() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("angle error Degrees Per Second"), m_yawCorrection.to<double>());
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current X"), GetPose().X().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current Y"), GetPose().Y().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current Rot(Degrees)"), GetPose().Rotation().Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current X"), GetPose().X().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current Y"), GetPose().Y().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Current Rot(Degrees)"), GetPose().Rotation().Degrees().to<double>());
     
     if ( (abs(xSpeed.to<double>()) < m_deadband) && 
          (abs(ySpeed.to<double>()) < m_deadband) && 
@@ -255,10 +255,10 @@ void SwerveChassis::Drive
                 br.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_backRightLocation, br.angle), chassisSpeeds);
                 fl.angle = UpdateForPolarDrive(currentPose, goalPose, Transform2d(m_frontLeftLocation, fl.angle), chassisSpeeds);
 
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Front Left Angle", fl.angle.Degrees().to<double>());
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Front Right Angle", fr.angle.Degrees().to<double>());
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Back Left Angle", bl.angle.Degrees().to<double>());
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Back Right Angle", br.angle.Degrees().to<double>());
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Front Left Angle", fl.angle.Degrees().to<double>());
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Front Right Angle", fr.angle.Degrees().to<double>());
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Back Left Angle", bl.angle.Degrees().to<double>());
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Back Right Angle", br.angle.Degrees().to<double>());
            }
         
             m_frontLeft.get()->SetDesiredState(fl);
@@ -306,14 +306,14 @@ void SwerveChassis::Drive
             auto ay = m_accel.GetY();
             auto az = m_accel.GetZ();
 
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelX"), ax);
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelY"), ay);
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelZ"), az);
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelX"), ax);
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelY"), ay);
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("AccelZ"), az);
         }
     }    
 }
 
-void SwerveChassis::HoldPosition()
+void SwerveChassis::DriveHoldPosition()
 {
     m_hold = true;
 }
@@ -351,19 +351,19 @@ units::angle::degree_t SwerveChassis::UpdateForPolarDrive
     units::angle::degree_t thetaDeg = triangleThetaRads; //- robotPose.Rotation().Degrees(); Subtract robot pose to "normalize" wheels, zero for the wheels is the robot angle
 
     //Debugging
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelPoseX (Meters)", WheelPose.X().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelPoseY (Meters)", WheelPose.Y().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelDeltaX (Meters)", wheelDeltaX.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelDeltaY (Meters)", wheelDeltaY.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Triangle Theta", thetaDeg.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Ninety (Degrees)", ninety.Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Field Quadrant", m_targetFinder.GetFieldQuadrant(WheelPose));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelPoseX (Meters)", WheelPose.X().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelPoseY (Meters)", WheelPose.Y().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelDeltaX (Meters)", wheelDeltaX.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: WheelDeltaY (Meters)", wheelDeltaY.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Triangle Theta", thetaDeg.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Ninety (Degrees)", ninety.Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Field Quadrant", m_targetFinder.GetFieldQuadrant(WheelPose));
 
     auto radialAngle = thetaDeg;
     auto orbitAngle = thetaDeg + ninety.Degrees();
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Orbit Angle (Degrees)", orbitAngle.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Radial Angle (Degrees)", radialAngle.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Orbit Angle (Degrees)", orbitAngle.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Polar Drive: Radial Angle (Degrees)", radialAngle.to<double>());
 
     auto hasRadialComp = (abs(speeds.vx.to<double>()) > 0.1);
     auto hasOrbitComp = (abs(speeds.vy.to<double>()) > 0.1);
@@ -528,7 +528,7 @@ void SwerveChassis::DriveToPointTowardGoal
     {
         AdjustRotToPointTowardGoal(robotPose, rot);
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Chassis Heading: TurnToGoal New ZSpeed: "), rot.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Chassis Heading: TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 
 void SwerveChassis::AdjustRotToPointTowardGoal
@@ -554,7 +554,7 @@ void SwerveChassis::AdjustRotToPointTowardGoal
         m_hold = false;
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Chassis Heading: TurnToGoal New ZSpeed: "), rot.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), string("Chassis Heading: TurnToGoal New ZSpeed: "), rot.to<double>());
 }
 
 Pose2d SwerveChassis::GetPose() const
@@ -581,8 +581,8 @@ void SwerveChassis::UpdateOdometry()
     if (m_poseOpt == PoseEstimatorEnum::WPI)
     {
         auto currentPose = m_poseEstimator.GetEstimatedPosition();
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Current X", currentPose.X().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Current Y", currentPose.Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Current X", currentPose.X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Current Y", currentPose.Y().to<double>());
 
         m_poseEstimator.Update(rot2d, m_frontLeft.get()->GetState(),
                                       m_frontRight.get()->GetState(), 
@@ -590,8 +590,8 @@ void SwerveChassis::UpdateOdometry()
                                       m_backRight.get()->GetState());
 
         auto updatedPose = m_poseEstimator.GetEstimatedPosition();
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Updated X", updatedPose.X().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Updated Y", updatedPose.Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Updated X", updatedPose.X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Odometry: Updated Y", updatedPose.Y().to<double>());
     }
     else if (m_poseOpt==PoseEstimatorEnum::EULER_AT_CHASSIS)
     {
@@ -715,9 +715,9 @@ ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
     units::radians_per_second_t rot        
 )
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: xSpeed (mps)", xSpeed.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: ySpeed (mps)", ySpeed.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: rot (radians per sec)", rot.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: xSpeed (mps)", xSpeed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: ySpeed (mps)", ySpeed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: rot (radians per sec)", rot.to<double>());
 
     units::angle::radian_t yaw{m_pigeon->GetYaw()*wpi::numbers::pi/180.0};
     auto temp = xSpeed*cos(yaw.to<double>()) + ySpeed*sin(yaw.to<double>());
@@ -726,9 +726,9 @@ ChassisSpeeds SwerveChassis::GetFieldRelativeSpeeds
 
     ChassisSpeeds output{forward, strafe, rot};
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: yaw (radians)", yaw.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: forward (mps)", forward.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: stafe (mps)", strafe.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: yaw (radians)", yaw.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: forward (mps)", forward.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Field Oriented Calcs: stafe (mps)", strafe.to<double>());
 
     return output;
 }
@@ -758,9 +758,9 @@ void SwerveChassis::CalcSwerveModuleStates
     // We will use these variable names in the code to help tie back to the document.
     // Variable names, though, will follow C++ standards and start with a lower case letter.
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Drive", speeds.vx.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs:Strafe", speeds.vy.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs:Rotate", speeds.omega.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Drive", speeds.vx.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs:Strafe", speeds.vy.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs:Rotate", speeds.omega.to<double>());
 
     auto l = GetWheelBase();
     auto w = GetTrack();
@@ -783,8 +783,8 @@ void SwerveChassis::CalcSwerveModuleStates
     m_flState.speed = units::velocity::meters_per_second_t(sqrt( pow(b.to<double>(),2) + pow(d.to<double>(),2) ));
     auto maxCalcSpeed = abs(m_flState.speed.to<double>());
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Angle", m_flState.angle.Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Speed", m_flState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Angle", m_flState.angle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Speed", m_flState.speed.to<double>());
 
     m_frState.angle = units::angle::radian_t(atan2(b.to<double>(), c.to<double>()));
     m_frState.angle = -1.0 * m_frState.angle.Degrees();
@@ -794,8 +794,8 @@ void SwerveChassis::CalcSwerveModuleStates
         maxCalcSpeed = abs(m_frState.speed.to<double>());
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Angle", m_frState.angle.Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Speed - raw", m_frState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Angle", m_frState.angle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Speed - raw", m_frState.speed.to<double>());
 
     m_blState.angle = units::angle::radian_t(atan2(a.to<double>(), d.to<double>()));
     m_blState.angle = -1.0 * m_blState.angle.Degrees();
@@ -805,8 +805,8 @@ void SwerveChassis::CalcSwerveModuleStates
         maxCalcSpeed = abs(m_blState.speed.to<double>());
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Angle", m_blState.angle.Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Speed - raw", m_blState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Angle", m_blState.angle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Speed - raw", m_blState.speed.to<double>());
 
     m_brState.angle = units::angle::radian_t(atan2(a.to<double>(), c.to<double>()));
     m_brState.angle = -1.0 * m_brState.angle.Degrees();
@@ -816,8 +816,8 @@ void SwerveChassis::CalcSwerveModuleStates
         maxCalcSpeed = abs(m_brState.speed.to<double>());
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Angle", m_brState.angle.Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Speed - raw", m_brState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Angle", m_brState.angle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Speed - raw", m_brState.speed.to<double>());
 
 
     // normalize speeds if necessary (maxCalcSpeed > max attainable speed)
@@ -830,10 +830,10 @@ void SwerveChassis::CalcSwerveModuleStates
         m_brState.speed *= ratio;
     }
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Speed - normalized", m_flState.speed.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Speed - normalized", m_frState.speed.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Speed - normalized", m_blState.speed.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Speed - normalized", m_brState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Left Speed - normalized", m_flState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Front Right Speed - normalized", m_frState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Left Speed - normalized", m_blState.speed.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Swerve Chassis"), "Swerve Calcs: Back Right Speed - normalized", m_brState.speed.to<double>());
 }
 
 void SwerveChassis::SetTargetHeading(units::angle::degree_t targetYaw) 

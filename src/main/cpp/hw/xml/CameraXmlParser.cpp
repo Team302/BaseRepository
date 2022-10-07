@@ -103,7 +103,7 @@ cs::UsbCamera CameraXmlParser::ParseXML
 					type = cs::VideoMode::kUnknown;
 					string msg = "unknown camera format ";
 					msg += to_string( iVal );
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CameraXmlParser"), string("ParseXML"), msg );
+					Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("CameraXmlParser"), string("ParseXML"), msg );
 					hasError = true;
 					break;
 			}
@@ -125,7 +125,7 @@ cs::UsbCamera CameraXmlParser::ParseXML
 		{
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CameraXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("CameraXmlParser"), string("ParseXML"), msg );
             hasError = true;
 		}
 

@@ -22,6 +22,7 @@
 // Team 302 includes
 #include <hw/usages/DigitalInputUsage.h>
 
+#include <units/time.h>
 
 // Forward declares
 class DragonDigitalInput;
@@ -40,7 +41,8 @@ class DigitalInputFactory
 			std::string										networkTableName,
     		DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
             int 						                    digitalID,
-            bool						                    reversed
+            bool						                    reversed,
+			units::time::second_t							debounceTime
         );
 
 		/// @brief    Get the requested Digital input

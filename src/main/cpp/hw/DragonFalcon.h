@@ -47,6 +47,7 @@ class DragonFalcon : public IDragonMotorController
             std::string                                     networkTableName,
             MotorControllerUsage::MOTOR_CONTROLLER_USAGE    deviceType, 
             int                                             deviceID, 
+            std::string                                     canBusName,
             int                                             pdpID, 
             DistanceAngleCalcStruc                          calcStruc,
             IDragonMotorController::MOTOR_TYPE              motortype

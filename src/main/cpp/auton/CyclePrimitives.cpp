@@ -46,7 +46,7 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 								     m_currentPrim(nullptr), 
 									 m_primFactory(
 									 PrimitiveFactory::GetInstance()), 
-									 m_doNothing(nullptr), 
+									 m_DriveStop(nullptr), 
 									 m_autonSelector( new AutonSelector()) ,
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
@@ -83,7 +83,7 @@ void CyclePrimitives::Run()
 		m_isDone = true;
 		m_primParams.clear();	// clear the primitive params vector
 		m_currentPrimSlot = 0;  //Reset current prim slot
-		RunDoNothing();
+		RunDriveStop();
 	}
 }
 
@@ -117,9 +117,9 @@ void CyclePrimitives::GetNextPrim()
 	m_currentPrimSlot++;
 }
 
-void CyclePrimitives::RunDoNothing()
+void CyclePrimitives::RunDriveStop()
 {
-	if (m_doNothing == nullptr)
+	if (m_DriveStop == nullptr)
 	{	
 		auto time = DriverStation::GetMatchType() != DriverStation::MatchType::kNone ? 
 							 DriverStation::GetMatchTime() : 15.0;
@@ -135,10 +135,10 @@ void CyclePrimitives::RunDoNothing()
 										  std::string()
 										  // @ADDMECH mechanism state
 										 );             
-		m_doNothing = m_primFactory->GetIPrimitive(params);
-		m_doNothing->Init(params);
+		m_DriveStop = m_primFactory->GetIPrimitive(params);
+		m_DriveStop->Init(params);
 	}
-	m_doNothing->Run();
+	m_DriveStop->Run();
 }
 
 

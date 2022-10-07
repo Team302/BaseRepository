@@ -52,6 +52,12 @@ MechanismTargetData*  MechanismTargetXmlParser::ParseXML
     double target = 0.0;
     double secondTarget = 0.0;
     double robotPitch = 0.0;
+    double  lessThanTransitiionTarget = 0.0;
+    std::string lessThanTransitionState("N/A");
+    double  equalTransitiionTarget = 0.0;
+    std::string equalTransitionState("N?A");
+    double  greaterThanTransitiionTarget = 0.0;
+    std::string greaterThanTransitionState("N/A");
     MechanismTargetData::SOLENOID solenoid = MechanismTargetData::SOLENOID::NONE; 
     array<double,3> function1Coeff = {0.0, 0.0, 0.0};
     array<double,3> function2Coeff = {0.0, 0.0, 0.0};
@@ -125,14 +131,14 @@ MechanismTargetData*  MechanismTargetXmlParser::ParseXML
             }
             else
             {
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("solenoid enum"));
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("solenoid enum"));
             }
         }
         else
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -145,13 +151,19 @@ MechanismTargetData*  MechanismTargetXmlParser::ParseXML
                                             target, 
                                             secondTarget,
                                             robotPitch,
+                                            lessThanTransitiionTarget,
+                                            lessThanTransitionState,
+                                            equalTransitiionTarget,
+                                            equalTransitionState,
+                                            greaterThanTransitiionTarget,
+                                            greaterThanTransitionState,
                                             solenoid,
                                             function1Coeff,
                                             function2Coeff );
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("incomplete date"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("incomplete date"));
     }
 
     return mechData;

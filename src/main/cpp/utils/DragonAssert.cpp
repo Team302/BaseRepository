@@ -59,7 +59,7 @@ void DragonAssert::Assert
 {
     if (m_option == DragonAssert::DRAGONASSERT_OPTION::PROCESS && !condition)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Assert"), msg, string("failed"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("Assert"), msg, string("failed"));
         assert(condition);
     }
 }
@@ -77,7 +77,7 @@ bool DragonAssert::Always
 {
     if (!condition)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Assert"), msg, string("Always failed"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("Assert"), msg, string("Always failed"));
         if (m_option == DragonAssert::DRAGONASSERT_OPTION::PROCESS)
         {
             assert(condition);
@@ -99,7 +99,7 @@ bool DragonAssert::Never
 {
     if (condition)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Assert"), msg, string("Never failed"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("Assert"), msg, string("Never failed"));
         if (m_option == DragonAssert::DRAGONASSERT_OPTION::PROCESS)
         {
             assert(!condition);

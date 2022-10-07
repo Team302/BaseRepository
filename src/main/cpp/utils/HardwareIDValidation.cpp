@@ -121,7 +121,7 @@ bool HardwareIDValidation::ValidateID
     if ( id < minID || id > maxID )
     {
         hasError = true;
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, methodID, methodID, errorMsg );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, methodID, methodID, errorMsg );
     }
     return hasError;
 }

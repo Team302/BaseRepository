@@ -14,63 +14,38 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#pragma once
+
 // C++ Includes
 #include <memory>
-#include <string>
 
 // FRC includes
 
 // Team 302 includes
-#include <auton/PrimitiveFactory.h>
-#include <auton/PrimitiveParams.h>
-#include <auton/drivePrimitives/HoldPosition.h>
-#include <auton/drivePrimitives/IPrimitive.h>
-#include <chassis/ChassisFactory.h>
-#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
+#include <auton/drivePrimitives/IPrimitive.h>
 
-using namespace std;
-using namespace frc;
+class IChassis;
+class PrimitiveParams;
 
-HoldPosition::HoldPosition() :
-		m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()), //Get chassis from chassis factory
-		m_timeRemaining(0.0)       //Value will be changed in init
+class DriveHoldPosition : public IPrimitive 
 {
-}
+public:
+	void Init(PrimitiveParams*	params) override;
+	void Run() override;
+	bool IsDone() override;
+	DriveHoldPosition();
+	virtual ~DriveHoldPosition() = default;
 
-void HoldPosition::Init(PrimitiveParams* params) {
+private:
+	const float kP = 10; //50, /75
+	const float kI = 0.0;
+	const float kD = 0.0;
+	const float kF = 0.0;
+	//Objects
+	std::shared_ptr<IChassis> m_chassis;
+	double m_timeRemaining; //In seconds
+};
 
-	//Get timeRemaining from m_params
-	m_timeRemaining = params->GetTime();
-	auto cd = make_shared<ControlData>( ControlModes::CONTROL_TYPE::POSITION_INCH, 
-							   			ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
-							   			string("HoldPosition"),
-							   			10.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			1.0,
-							  			0.0   );
-	//m_chassis->SetControlConstants( cd.get() );
-	//auto left = m_chassis->GetCurrentLeftPosition();
-	//auto right = m_chassis->GetCurrentRightPosition();
-
-	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::POSITION_INCH, left, right );	
-}
-
-void HoldPosition::Run() {
-	//Decrement time remaining
-	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
-
-}
-
-bool HoldPosition::IsDone() {
-	//Return true when the time runs out
-	bool holdDone = ((m_timeRemaining <= (IPrimitive::LOOP_LENGTH / 2.0)));
-	return holdDone;
-}

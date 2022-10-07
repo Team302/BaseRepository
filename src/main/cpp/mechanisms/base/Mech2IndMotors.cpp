@@ -25,9 +25,9 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <basemechanisms/Mech.h>
-#include <basemechanisms/Mech1IndMotor.h>
-#include <basemechanisms/Mech2IndMotors.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/Mech1IndMotor.h>
+#include <mechanisms/base/Mech2IndMotors.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
@@ -58,12 +58,12 @@ Mech2IndMotors::Mech2IndMotors
 {
     if ( primaryMotor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
     }    
     
     if ( secondaryMotor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
     }
 }
 
@@ -158,11 +158,11 @@ void Mech2IndMotors::LogHardwareInformation()
 {
     auto ntName = GetNetworkTableName();
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Primary", GetPrimarySpeed() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Secondary", GetSecondarySpeed() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Primary", GetPrimaryPosition() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Secondary", GetSecondaryPosition() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Primary", m_primaryTarget);
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Secondary", m_secondaryTarget);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Speed - Primary", GetPrimarySpeed() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Speed - Secondary", GetSecondarySpeed() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Position - Primary", GetPrimaryPosition() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Position - Secondary", GetSecondaryPosition() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Target - Primary", m_primaryTarget);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Target - Secondary", m_secondaryTarget);
 }
 

@@ -73,9 +73,9 @@ wpi::array<frc::SwerveModuleState, 4> EtherDirtySwerve::CalcModuleStates
     // We will use these variable names in the code to help tie back to the document.
     // Variable names, though, will follow C++ standards and start with a lower case letter.
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Calcs", "Drive", speeds.vx.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Calcs", "Strafe", speeds.vy.to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "Swerve Calcs", "Rotate", speeds.omega.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Calcs", "Drive", speeds.vx.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Calcs", "Strafe", speeds.vy.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Calcs", "Rotate", speeds.omega.to<double>());
 
     auto l = m_wheelBase;
     auto w = m_wheelTrack;

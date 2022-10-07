@@ -84,7 +84,7 @@ shared_ptr<DragonSolenoid> SolenoidXmlParser::ParseXML
         {
             string msg = "Invalid attribute";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Solenoid "), string("ParseXML "), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("Solenoid "), string("ParseXML "), msg );
             hasError = true;
         }
     }

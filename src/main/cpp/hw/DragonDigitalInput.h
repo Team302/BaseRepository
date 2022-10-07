@@ -17,9 +17,11 @@
 #pragma once
 
 #include <hw/usages/DigitalInputUsage.h>
+#include <units/time.h>
 
 namespace frc
 {
+	class Debouncer;
 	class DigitalInput;
 }
 
@@ -36,7 +38,8 @@ class DragonDigitalInput
 			std::string										networkTableName,
     		DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
 			int 											deviceID,		// <I> - digial io ID
-			bool											reversed		// <I>
+			bool											reversed,		// <I>
+			units::time::second_t							debounceTime
 		);
 
 		DragonDigitalInput() = delete;
@@ -47,8 +50,9 @@ class DragonDigitalInput
 		DigitalInputUsage::DIGITAL_SENSOR_USAGE GetType() const;
 
 	private:
-		std::string								m_networkTableName;
-		frc::DigitalInput*						m_digital;
-		bool									m_reversed;
-		DigitalInputUsage::DIGITAL_SENSOR_USAGE  m_type;
+		std::string									m_networkTableName;
+		frc::DigitalInput*							m_digital;
+		frc::Debouncer*								m_debouncer;
+		bool										m_reversed;
+		DigitalInputUsage::DIGITAL_SENSOR_USAGE  	m_type;
 };

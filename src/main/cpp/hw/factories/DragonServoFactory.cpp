@@ -84,7 +84,7 @@ DragonServo* DragonServoFactory::CreateDragonServo
             break;
         default:
             string msg = "Unknown Servo Usage " + to_string( deviceUsage );
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonServoFactory"), string("CreateDragonServo"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonServoFactory"), string("CreateDragonServo"), msg );
             break;
     }
     return servo;

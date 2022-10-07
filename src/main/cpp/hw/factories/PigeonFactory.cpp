@@ -63,10 +63,11 @@ PigeonFactory::PigeonFactory()
 ///         exist and cannot be created.
 DragonPigeon* PigeonFactory::CreatePigeon
 (
-    int 	canID,
-    DragonPigeon::PIGEON_TYPE type, 
-    DragonPigeon::PIGEON_USAGE usage, 
-    double  rotation
+    int 	                    canID,
+    string                      canBusName,
+    DragonPigeon::PIGEON_TYPE   type, 
+    DragonPigeon::PIGEON_USAGE  usage, 
+    double                      rotation
 )
 {
     switch (usage)
@@ -74,14 +75,14 @@ DragonPigeon* PigeonFactory::CreatePigeon
         case DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT:
             if (m_centerPigeon == nullptr)
             {
-                m_centerPigeon = new DragonPigeon( canID, usage, type, rotation );
+                m_centerPigeon = new DragonPigeon( canID, canBusName, usage, type, rotation );
             }
             return m_centerPigeon;
             break;
         case DragonPigeon::PIGEON_USAGE::CENTER_OF_SHOOTER:
             if (m_shooterPigeon == nullptr)
             {
-                m_shooterPigeon = new DragonPigeon( canID, usage, type, rotation );
+                m_shooterPigeon = new DragonPigeon( canID, canBusName, usage, type, rotation );
             }
             return m_shooterPigeon;
             break;

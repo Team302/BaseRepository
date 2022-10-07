@@ -22,7 +22,7 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/drivePrimitives/DoNothing.h>
+#include <auton/drivePrimitives/DriveStop.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/MechanismFactory.h>
@@ -68,7 +68,7 @@ void DriveToTarget::Init
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DriveToTarget"), string("DriveToTarget"), string("No Lidar") );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("DriveToTarget"), string("DriveToTarget"), string("No Lidar") );
     }
 
 }

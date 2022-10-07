@@ -19,15 +19,15 @@
 #include <memory>
 
 using namespace std;
-
 using namespace ctre::phoenix::sensors;
 
 DragonPigeon::DragonPigeon
 (
-    int    canID,
-    DragonPigeon::PIGEON_USAGE usage,
-    DragonPigeon::PIGEON_TYPE type,
-    double rotation
+    int                         canID,
+    string                      canBusName,
+    DragonPigeon::PIGEON_USAGE  usage,
+    DragonPigeon::PIGEON_TYPE   type,
+    double                      rotation
 ) : m_pigeon(nullptr),
     m_pigeon2(nullptr),
     m_initialYaw(rotation),
@@ -47,7 +47,7 @@ DragonPigeon::DragonPigeon
     }
     else
     {
-        m_pigeon2 = new WPI_Pigeon2(canID);
+        m_pigeon2 = new WPI_Pigeon2(canID, canBusName);
         m_pigeon2->ConfigFactoryDefault();
         m_pigeon2->SetYaw(rotation);
 

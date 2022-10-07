@@ -15,11 +15,11 @@
 //====================================================================================================================================================
 #include <string>
 
-#include <basemechanisms/IMech.h>
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IMech.h>
+#include <mechanisms/base/IState.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/StateMgr.h>
+#include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
 #include <utils/Logger.h>
@@ -67,7 +67,7 @@ IState* StateMgrHelper::CreateState
         //    break;
 
         default:
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));
             break;
     }
     return thisState;

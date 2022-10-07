@@ -55,6 +55,7 @@ shared_ptr<DragonDigitalInput> DigitalInputXmlParser::ParseXML
     auto usage = DigitalInputUsage::DIGITAL_SENSOR_USAGE::UNKNOWN_DIGITAL_TYPE;
     int  digitalID = 0;
     bool reversed = false;
+    units::time::second_t debounceTime = 0_s;
     bool hasError = false;
 
     // Parse/validate the XML
@@ -76,18 +77,22 @@ shared_ptr<DragonDigitalInput> DigitalInputXmlParser::ParseXML
             reversed = attr.as_bool();
 
         }
+        else if (attrName.compare("debouncetime") == 0)
+        {
+            debounceTime = units::time::second_t(attr.as_double());
+        }
         else
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DigitalInputXmlParser "), string("ParseXML "), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DigitalInputXmlParser "), string("ParseXML "), msg );
         }
     }
 
     // Create the DragonDigitalInput
     if ( !hasError )
     {
-        input = make_shared<DragonDigitalInput>(networkTableName, usage, digitalID, reversed );
+        input = make_shared<DragonDigitalInput>(networkTableName, usage, digitalID, reversed, debounceTime);
     }
     return input;
 }

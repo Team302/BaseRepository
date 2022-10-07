@@ -24,8 +24,8 @@
 
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
-#include <basemechanisms/Mech1IndMotor.h>
-#include <basemechanisms/Mech1IndMotor.h>
+#include <mechanisms/base/Mech1IndMotor.h>
+#include <mechanisms/base/Mech1IndMotor.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
 
@@ -52,7 +52,7 @@ Mech1IndMotor::Mech1IndMotor
 {
     if (m_motor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech1IndMotor constructor" ), string( "motorController is nullptr" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech1IndMotor constructor" ), string( "motorController is nullptr" ) );
     }
 }
 
@@ -113,8 +113,8 @@ void Mech1IndMotor::SetControlConstants
 void Mech1IndMotor::LogHardwareInformation()
 {
     auto ntName = GetNetworkTableName();
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed", GetSpeed() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position", GetPosition() );
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target", GetTarget() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Speed", GetSpeed() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Position", GetPosition() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, "Target", GetTarget() );
 }
 

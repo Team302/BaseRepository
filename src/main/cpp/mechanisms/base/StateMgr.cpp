@@ -26,11 +26,11 @@
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/MechanismFactory.h>
-#include <basemechanisms/StateMgr.h>
+#include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/StateMgrHelper.h>
-#include <basemechanisms/IMech.h>
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IMech.h>
+#include <mechanisms/base/IState.h>
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
 
@@ -64,7 +64,7 @@ void StateMgr::Init
 
         if (targetData.empty())
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, mech->GetNetworkTableName(), mech->GetControlFileName(), string("No states"));
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, mech->GetNetworkTableName(), mech->GetControlFileName(), string("No states"));
         }
         else
         {
@@ -95,12 +95,12 @@ void StateMgr::Init
             	    }
             	    else
             	    {
-                	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+                	    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
             	    }
         	    }
         	    else
         	    {
-            	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("state not found"));
+            	    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("state not found"));
                 }
             }
         }

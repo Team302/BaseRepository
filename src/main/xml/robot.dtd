@@ -39,8 +39,9 @@
                               40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 
                               50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 
                               60 | 61 | 62 ) "0"
-          rotation CDATA "0.0"
+          canBusName CDATA "rio"
           type      (pigeon1 | pigeon2) "pigeon1"
+          rotation CDATA "0.0"
           usage     (CENTER_OF_ROTATION | SHOOTER_CENTER)  "CENTER_OF_ROTATION"
 >
 
@@ -204,6 +205,7 @@
                               		  40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 
                               		  50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 
                               		  60 | 61 | 62 ) "0"
+          canBusName                CDATA "rio"
 		  pdpID						CDATA #IMPLIED
           type              		( TALONSRX | FALCON | BRUSHLESS_SPARK_MAX | BRUSHED_SPARK_MAX ) "TALONSRX"
           inverted          		( true | false ) "false"
@@ -252,6 +254,7 @@
                               10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 
                               20 | 21 | 22 | 23 | 24 | 25 ) "0"
           reversed          (true | false ) "false"
+          debouncetime      CDATA "0.0"
 >
 
 <!ELEMENT cancoder EMPTY >
@@ -263,6 +266,7 @@
                               40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 
                               50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 
                               60 | 61 | 62 ) "0"
+          canBusName    CDATA "rio"
           offset        CDATA "0.0"
           reverse       (true | false) "false"
 >

@@ -22,7 +22,7 @@
 
 // Team 302 includes
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/Mech.h>
+#include <mechanisms/base/Mech.h>
 
 
 // forward declares

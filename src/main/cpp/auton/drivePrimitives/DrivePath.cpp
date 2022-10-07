@@ -70,27 +70,27 @@ void DrivePath::Init(PrimitiveParams *params)
     m_heading = params->GetHeading();
     m_maxTime = params->GetTime();
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), string(m_pathname));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), string(m_pathname));
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), string(m_pathname));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), string(m_pathname));
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Initialized", "False");
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Running", "False");
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Done", "False");
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "WhyDone", "Not done");
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Times Ran", 0);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Initialized", "False");
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Running", "False");
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Done", "False");
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "WhyDone", "Not done");
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Times Ran", 0);
 
     m_trajectoryStates.clear(); //Clears the primitive of previous path/trajectory
 
     m_wasMoving = false;
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Initialized", "True"); //Signals that drive path is initialized in the console
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Initialized", "True"); //Signals that drive path is initialized in the console
 
     GetTrajectory(params->GetPathName());  //Parses path from json file based on path name given in xml
     
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Trajectory Time", m_trajectory.TotalTime().to<double>());// Debugging
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Trajectory Time", m_trajectory.TotalTime().to<double>());// Debugging
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), to_string(m_trajectoryStates.size()));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, string("DrivePathInit"), to_string(m_trajectoryStates.size()));
     
     if (!m_trajectoryStates.empty()) // only go if path name found
     {
@@ -99,11 +99,11 @@ void DrivePath::Init(PrimitiveParams *params)
         m_timer.get()->Reset(); //Restarts and starts timer
         m_timer.get()->Start();
 
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosX", m_currentChassisPosition.X().to<double>());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosY", m_currentChassisPosition.Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosX", m_currentChassisPosition.X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosY", m_currentChassisPosition.Y().to<double>());
 
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", "0");
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", "0");
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", "0");
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", "0");
 
         //A timer used for position change detection
         m_PosChgTimer.get()->Reset(); 
@@ -132,14 +132,14 @@ void DrivePath::Init(PrimitiveParams *params)
 }
 void DrivePath::Run()
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Running", "True");
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Running", "True");
 
     if (!m_trajectoryStates.empty()) //If we have a path parsed / have states to run
     {
         // debugging
         m_timesRun++;
         
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Times Ran", m_timesRun);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Times Ran", m_timesRun);
 
         // calculate where we are and where we want to be
         CalcCurrentAndDesiredStates();
@@ -181,12 +181,12 @@ void DrivePath::Run()
                     rotation = m_desiredState.pose.Rotation();
                     break;
             }
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose x", m_currentChassisPosition.X().to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose y", m_currentChassisPosition.Y().to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose omega", m_currentChassisPosition.Rotation().Degrees().to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose x", m_desiredState.pose.X().to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose y", m_desiredState.pose.Y().to<double>());
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose omega", m_desiredState.pose.Rotation().Degrees().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose x", m_currentChassisPosition.X().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose y", m_currentChassisPosition.Y().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose omega", m_currentChassisPosition.Rotation().Degrees().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose x", m_desiredState.pose.X().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose y", m_desiredState.pose.Y().to<double>());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose omega", m_desiredState.pose.Rotation().Degrees().to<double>());
             refChassisSpeeds = m_holoController.Calculate(m_currentChassisPosition, 
                                                           m_desiredState, 
                                                           m_desiredState.pose.Rotation());
@@ -197,9 +197,9 @@ void DrivePath::Run()
                                                              m_desiredState);
         }
         // debugging
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsX", refChassisSpeeds.vx());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsY", refChassisSpeeds.vy());
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsX", refChassisSpeeds.vx());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsY", refChassisSpeeds.vy());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
 
         m_chassis->Drive(refChassisSpeeds,
                          IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
@@ -289,13 +289,13 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Done", "True");
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Done", "True");
         return true;
     }
     if (isDone)
     {   //debugging
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "Done", "True");
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "WhyDone", whyDone);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Done", "True");
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "WhyDone", whyDone);
     }
     return isDone;
     
@@ -312,8 +312,8 @@ bool DrivePath::IsSamePose(frc::Pose2d lCurPos, frc::Pose2d lPrevPos, double tol
     double dDeltaX = abs(dPrevPosX - dCurPosX);
     double dDeltaY = abs(dPrevPosY - dCurPosY);
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", to_string(dDeltaX));
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaY", to_string(dDeltaY));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaX", to_string(dDeltaX));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: iDeltaY", to_string(dDeltaY));
 
     //  If Position of X or Y has moved since last scan..  Using Delta X/Y
     return (dDeltaX <= tolerance && dDeltaY <= tolerance);
@@ -336,15 +336,15 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
 
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, string("Deploy path is "), deployDir.c_str()); //Debugging
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, string("Deploy path is "), deployDir.c_str()); //Debugging
         
         //This doesn't work, gives parsing error
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
         //m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/5Ball1.wpilib.json"); //This is a temporary fix
         m_trajectoryStates = m_trajectory.States();  //Creates a vector of all the states or "waypoints" the robot needs to get to
         
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, string("DrivePath - Loaded = "), path);
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: TrajectoryTotalTime", m_trajectory.TotalTime().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, string("DrivePath - Loaded = "), path);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: TrajectoryTotalTime", m_trajectory.TotalTime().to<double>());
     }
 
 }
@@ -358,13 +358,13 @@ void DrivePath::CalcCurrentAndDesiredStates()
 
     // May need to do our own sampling based on position and time     
 
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseX", m_desiredState.pose.X().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseY", m_desiredState.pose.Y().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosX", m_currentChassisPosition.X().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosY", m_currentChassisPosition.Y().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentTime", m_timer.get()->Get().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseX", m_desiredState.pose.X().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseY", m_desiredState.pose.Y().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DesiredPoseOmega", m_desiredState.pose.Rotation().Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosX", m_currentChassisPosition.X().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosY", m_currentChassisPosition.Y().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentPosOmega", m_currentChassisPosition.Rotation().Degrees().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DeltaX", m_desiredState.pose.X().to<double>() - m_currentChassisPosition.X().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: DeltaY", m_desiredState.pose.Y().to<double>() - m_currentChassisPosition.Y().to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: CurrentTime", m_timer.get()->Get().to<double>());
 }

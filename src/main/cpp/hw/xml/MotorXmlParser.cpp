@@ -14,11 +14,7 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// @class MotorXmlParser
-/// @brief XML parsing for motor definitions.  This definition will construct the motor motorControllers.
-///     This parsing leverages the 3rd party Open Source Pugixml library (https://pugixml.org/).
-//========================================================================================================
+/// @brief XML parsing  leverages the 3rd party Open Source Pugixml library (https://pugixml.org/).
 
 // C++ Includes
 #include <memory>
@@ -83,6 +79,7 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
     double voltageCompensationSaturation = 12.0;
     bool enableVoltageCompensation = false;
     IDragonMotorController::MOTOR_TYPE motortype = IDragonMotorController::NONE;
+    std::string canBusName("rio");
 
 
     string mtype;
@@ -101,6 +98,10 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
         {
             canID = attr.as_int();
             hasError = HardwareIDValidation::ValidateCANID( canID, string( "MotorXmlParser::ParseXML" ) );
+        }
+        else if (strcmp(attr.name(), "canbus") == 0)
+        {
+            canBusName = attr.as_string();
         }
 		// PDP ID 0 thru 15 are valid
         else if ( strcmp( attr.name(), "pdpID" ) == 0 )
@@ -182,7 +183,7 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
             {
                 string msg = "Invalid feedback device ";
                 msg += val;
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser "), string("ParseXML "), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser "), string("ParseXML "), msg );
             }
         }
         else if ( strcmp( attr.name(), "motorType" ) == 0 )
@@ -264,7 +265,7 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
             {
                 string msg = "Invalid motor type";
                 msg += val;
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser "), string("ParseXML "), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser "), string("ParseXML "), msg );
             }
         }
 
@@ -345,7 +346,7 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MotorXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -356,6 +357,7 @@ shared_ptr<IDragonMotorController> MotorXmlParser::ParseXML
         controller = DragonMotorControllerFactory::GetInstance()->CreateMotorController( networkTableName,
                                                                                          mtype,
                                                                                          canID,
+                                                                                         canBusName,
                                                                                          pdpID,
                                                                                          usage,
                                                                                          inverted,

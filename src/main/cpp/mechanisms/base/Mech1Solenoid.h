@@ -20,7 +20,7 @@
 #include <string>
 
 // Team 302 includes
-#include <basemechanisms/Mech.h>
+#include <mechanisms/base/Mech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <hw/DragonSolenoid.h>
 

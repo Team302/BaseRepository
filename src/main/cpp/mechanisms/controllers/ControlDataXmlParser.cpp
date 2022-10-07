@@ -143,7 +143,7 @@ ControlData* ControlDataXmlParser::ParseXML
         {
             string msg = string("invalid attribute ");
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ControlDataXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ControlDataXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }

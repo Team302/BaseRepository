@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 
 // forward declare
 class ControlData;

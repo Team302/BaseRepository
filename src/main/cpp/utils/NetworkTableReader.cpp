@@ -46,12 +46,12 @@ string NetworkTableReader::GetNetworkTableString(string ntName, string ntString)
     if (table != nullptr)
     {
         string value = table.get()->GetString(ntString, "Invalid NT String");
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("NetworkTableReader"), string("GetNetorkTableString"), string("Error accessing NT value, invalid string"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("NetworkTableReader"), string("GetNetorkTableString"), string("Error accessing NT value, invalid string"));
         return value;
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("NetworkTableReader"), string("GetNetorkTableString"), string("Network Table is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("NetworkTableReader"), string("GetNetorkTableString"), string("Network Table is a nullptr"));
         return string("Table is nullptr");
     }
 
@@ -63,12 +63,12 @@ double NetworkTableReader::GetNetworkTableDouble(string ntName, string ntDouble)
     if (table != nullptr)
     {
         double value = table.get()->GetNumber(ntDouble, 0);
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("NetworkTableReader"),  string("GetNetorkTableDouble"), string("Error accessing NT value, invalid number"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("NetworkTableReader"),  string("GetNetorkTableDouble"), string("Error accessing NT value, invalid number"));
         return value;
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("NetworkTableReader"),  string("GetNetorkTableDouble"), string("Network Table is a nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("NetworkTableReader"),  string("GetNetorkTableDouble"), string("Network Table is a nullptr"));
         return 0.0;
     }
 }

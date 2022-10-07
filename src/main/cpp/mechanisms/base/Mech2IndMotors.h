@@ -16,36 +16,38 @@
 
 #pragma once
 
+
 // C++ Includes
 #include <memory>
 #include <string>
 
 // Team 302 includes
-#include <basemechanisms/Mech.h>
+#include <mechanisms/base/Mech.h>
 #include <mechanisms/MechanismTypes.h>
 
 // forward declares
-class ControlModes;
-class IDragonMotorController;
 class ControlData;
+class IDragonMotorController;
 
-class Mech1IndMotor :  public Mech
+class Mech2IndMotors : public Mech
 {
 	public:
-        /// @brief Create a generic mechanism wiht 1 independent motor 
+        /// @brief Create a generic mechanism wiht 2 independent motors 
         /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
         /// @param [in] std::string the name of the file that will set control parameters for this mechanism
         /// @param [in] std::string the name of the network table for logging information
-        /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
-        Mech1IndMotor
+        /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
+        /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
+         Mech2IndMotors
         (
             MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     motorController
+            std::shared_ptr<IDragonMotorController>     spinMotor,
+            std::shared_ptr<IDragonMotorController>     liftMotor
         );
-	    Mech1IndMotor() = delete;
-	    ~Mech1IndMotor() override = default;
+	    Mech2IndMotors() = delete;
+	    ~Mech2IndMotors() = default;
 
         /// @brief log data to the network table if it is activated and time period has past
         void LogHardwareInformation() override;
@@ -54,18 +56,27 @@ class Mech1IndMotor :  public Mech
         /// @return void 
         void Update();
 
-        void UpdateTarget
+        void UpdateTargets
         (
-            double      target
+            double      primary,
+            double      secondary
         );
 
-        /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
+        /// @brief  Return the current position of the primary motor in the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPosition() const;
+        double GetPrimaryPosition() const;
 
-        /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
+        /// @brief  Return the current position of the secondary motor in the mechanism.  The value is in inches or degrees.
+        /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
+        double GetSecondaryPosition() const;
+
+        /// @brief  Get the current speed of the primary motor in the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSpeed() const;
+        double GetPrimarySpeed() const;
+
+        /// @brief  Get the current speed of the secondary motor in the mechanism.  The value is in inches per second or degrees per second.
+        /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
+        double GetSecondarySpeed() const;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -75,13 +86,24 @@ class Mech1IndMotor :  public Mech
             int                                         slot,
             ControlData*                                pid                 
         );
-        double GetTarget() const { return m_target; }
-        std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
+        void SetSecondaryControlConstants
+        (
+            int                                         slot,
+            ControlData*                                pid                 
+        );
 
-    private:
+        double GetPrimaryTarget() const { return m_primaryTarget; }
+        double GetSecondaryTarget() const { return m_secondaryTarget; }
 
-        std::shared_ptr<IDragonMotorController>     m_motor;
-        double                                      m_target;
+        inline std::shared_ptr<IDragonMotorController> GetPrimaryMotor() const {return m_primary;};
+        inline std::shared_ptr<IDragonMotorController> GetSecondaryMotor() const {return m_secondary;};
+
+    private: 
+        std::shared_ptr<IDragonMotorController>     m_primary;
+        std::shared_ptr<IDragonMotorController>     m_secondary;
+        double                                      m_primaryTarget;
+        double                                      m_secondaryTarget;
+        
 };
 
 

@@ -39,7 +39,7 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
 #include <mechanisms/MechanismTypes.h>
-#include <basemechanisms/IMech.h>
+#include <mechanisms/base/IMech.h>
 
 // @ADDMECH include for your mechanism 
 

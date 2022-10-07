@@ -209,6 +209,29 @@ void Logger::LogData
     }
 }
 
+void Logger::LogData
+(
+    LoggerData&     info
+)
+{
+    for (auto boollog : info.bools)
+    {
+        LogData(info.level, info.group, boollog.first, boollog.second);
+    }
+    for (auto doublelog : info.doubles)
+    {
+        LogData(info.level, info.group, doublelog.first, doublelog.second);
+    }
+    for (auto intlog : info.ints)
+    {
+        LogData(info.level, info.group, intlog.first, intlog.second);
+    }
+    for (auto stringlog : info.strings)
+    {
+        LogData(info.level, info.group, stringlog.first, stringlog.second);
+    }
+}
+
 /// @brief Determines whether a message should be displayed or not.   For instance if EAT_IT is the logging option, this will return false or if the level is xxx_ONCE, it may return false if the message was already logged.
 /// @param [in] LOGGER_LEVEL: message level
 /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name

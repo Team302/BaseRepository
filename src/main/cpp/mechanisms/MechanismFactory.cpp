@@ -42,7 +42,7 @@
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 #include <mechanisms/MechanismFactory.h>
-#include <basemechanisms/IMech.h>
+#include <mechanisms/base/IMech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 // @ADDMECH include for your mechanism 
@@ -107,7 +107,7 @@ void MechanismFactory::CreateIMechanism
 		{
 			string msg = "unknown Mechanism type ";
 			msg += to_string( type );
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism"), msg );
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism"), msg );
 		}
 		break;
 	}
@@ -148,14 +148,14 @@ shared_ptr<IDragonMotorController> MechanismFactory::GetMotorController
 	{
 		string msg = "motor not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
 	}
 	
 	if ( motor.get() == nullptr )
 	{
 		string msg = "motor is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
 	}
 	return motor;
 }
@@ -177,14 +177,14 @@ shared_ptr<DragonSolenoid> MechanismFactory::GetSolenoid
 	{
 		string msg = "solenoid not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
 	}
 	
 	if ( solenoid.get() == nullptr )
 	{
 		string msg = "solenoid is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
 	}
 	return solenoid;
 }
@@ -204,14 +204,14 @@ DragonServo* MechanismFactory::GetServo
 	{
 		string msg = "servo not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
 	}
 	
 	if ( servo == nullptr )
 	{
 		string msg = "servo is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
 	}
 	return servo;
 
@@ -232,14 +232,14 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	{
 		string msg = "digital input not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
 	}
 	
 	if ( dio.get() == nullptr )
 	{
 		string msg = "digital input is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
 	}
 	return dio;
 }
@@ -260,14 +260,14 @@ DragonAnalogInput* MechanismFactory::GetAnalogInput
 	{
 		string msg = "analog input not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
 	}
 	
 	if ( anIn == nullptr )
 	{
 		string msg = "analog input is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
 	}
 	return anIn;
 }

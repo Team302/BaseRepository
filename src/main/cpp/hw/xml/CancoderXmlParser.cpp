@@ -46,6 +46,7 @@ DragonCanCoder* CancoderXmlParser::ParseXML
     DragonCanCoder* cancoder = nullptr;
 
     string usage;
+    string canBusName("rio");
     int canID = 0;
     double offset = 0.0;
     bool reverse = false;
@@ -63,6 +64,10 @@ DragonCanCoder* CancoderXmlParser::ParseXML
             canID = attr.as_int();
             hasError = HardwareIDValidation::ValidateCANID( canID, string( "CancoderXmlParser::ParseXML" ) );
         }        
+        else if (strcmp(attr.name(), "canbus") == 0)
+        {
+            canBusName = attr.as_string();
+        }
         else if ( strcmp( attr.name(), "offset" ) == 0 )
         {
             offset = attr.as_double();
@@ -73,14 +78,14 @@ DragonCanCoder* CancoderXmlParser::ParseXML
         }        
         else
         {
-            Logger::GetLogger()->LogData (Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("invalid attribute"), string(attr.value()));
+            Logger::GetLogger()->LogData (LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("invalid attribute"), string(attr.value()));
             hasError = true;
         }
 
     }   
     if(!hasError)
     {
-        cancoder = new DragonCanCoder(networkTableName, usage, canID, offset, reverse);
+        cancoder = new DragonCanCoder(networkTableName, usage, canID, canBusName, offset, reverse);
 
     }
     return cancoder;

@@ -18,9 +18,9 @@
 #include <string>
 
 // Team 302 includes
-#include <basemechanisms/Mech1IndMotor.h>
-#include <basemechanisms/Mech1IndMotorSolenoid.h>
-#include <basemechanisms/Mech1Solenoid.h>
+#include <mechanisms/base/Mech1IndMotor.h>
+#include <mechanisms/base/Mech1IndMotorSolenoid.h>
+#include <mechanisms/base/Mech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <mechanisms/controllers/ControlData.h>

@@ -15,7 +15,7 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <basemechanisms/IState.h>
+#include <mechanisms/base/IState.h>
 #include <units/angle.h>
 #include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>

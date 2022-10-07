@@ -160,14 +160,14 @@ shared_ptr<IDragonMotorController> ChassisFactory::GetMotorController
 	{
 		string msg = "motor not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string( "ChassisFactory" ), string( "GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string( "ChassisFactory" ), string( "GetMotorController" ), msg );
 	}
 	
 	if ( motor.get() == nullptr )
 	{
 		string msg = "motor is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string( "ChassisFactory" ), string( ":GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string( "ChassisFactory" ), string( ":GetMotorController" ), msg );
 	}
 	return motor;
 }

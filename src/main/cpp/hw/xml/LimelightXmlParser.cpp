@@ -158,7 +158,7 @@ DragonLimelight* LimelightXmlParser::ParseXML(pugi::xml_node    limelightNode)
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("LimelightXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("LimelightXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }

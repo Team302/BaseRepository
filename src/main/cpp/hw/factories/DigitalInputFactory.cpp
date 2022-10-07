@@ -35,6 +35,7 @@
 
 
 // Third Party Includes
+#include <units/time.h>
 
 using namespace std;
 
@@ -66,7 +67,8 @@ DragonDigitalInput* DigitalInputFactory::CreateInput
     string										    networkTableName,
     DigitalInputUsage::DIGITAL_SENSOR_USAGE			type,
     int 						                    digitalID,
-    bool						                    reversed
+    bool						                    reversed,
+    units::time::second_t                           debounceTime
 )
 {
     DragonDigitalInput* sensor = nullptr;

@@ -24,7 +24,7 @@
 
 // Team 302 includes
 #include <auton/PrimitiveParams.h>
-#include <auton/drivePrimitives/DoNothing.h>
+#include <auton/drivePrimitives/DriveStop.h>
 #include <auton/drivePrimitives/DriveDistance.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <chassis/ChassisFactory.h>

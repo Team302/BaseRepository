@@ -63,7 +63,7 @@ void DragonLeds::Initialize
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonLeds"), string("Already defined"), string("Only one allowed"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonLeds"), string("Already defined"), string("Only one allowed"));
     }
 }
 

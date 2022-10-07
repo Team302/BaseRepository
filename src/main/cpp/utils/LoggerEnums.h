@@ -1,6 +1,6 @@
 
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -14,55 +14,27 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-// C++ Includes
-#include <map>
-#include <memory>
-#include <string>
+#pragma once
 
-// FRC includes
-
-// Team 302 includes
-#include <mechanisms/MechanismTypes.h>
-#include <utils/Logger.h>
-
-// @ADDMECH add your mechanism include 
-
-
-// Third Party Includes
-
-using namespace std;
-
-MechanismTypes* MechanismTypes::m_instance = nullptr;
-MechanismTypes* MechanismTypes::GetInstance()
+/// @enum LOGGER_OPTION
+/// @brief Define where the items being logged should be sent
+enum LOGGER_OPTION
 {
-    if ( m_instance == nullptr )
-    {
-        m_instance = new MechanismTypes();
-    }
-    return m_instance;
-}
+    CONSOLE,        ///< write to the RoboRio Console
+    DASHBOARD,      ///< write to the SmartDashboard
+    EAT_IT          ///< don't write anything (useful at comps where we want to minimize network traffic)
+};
 
-MechanismTypes::MechanismTypes()
+/// @enum LOGGER_LEVEL
+/// @brief Define what level the message is as well as this can be used to write only the messages
+/// @brief of a certain level or worse.
+/// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.        
+enum LOGGER_LEVEL
 {
-    // @ADDMECH add your mechanism to m_typeMap 
-    //m_typeMap["LEFT_INTAKE"]    = MECHANISM_TYPE::LEFT_INTAKE;
-}
-
-MechanismTypes::~MechanismTypes()
-{
-    m_typeMap.clear();
-}
-
-MechanismTypes::MECHANISM_TYPE MechanismTypes::GetType
-(
-    string              typeString
-)
-{
-    auto it = m_typeMap.find(typeString);
-    if (it != m_typeMap.end())
-    {
-        return it->second;
-    }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("MechanismTypes"), string("GetType - unknown mechanism type"), typeString);
-    return MechanismTypes::MECHANISM_TYPE::UNKNOWN_MECHANISM;
-}
+    ERROR_ONCE,     ///< this is catastrophic that we only want to see once
+    ERROR,          ///< this is catastrophic
+    WARNING_ONCE,   ///< this is a medium level error we only want to see once
+    WARNING,        ///< this is a medium level error
+    PRINT_ONCE,     ///< this is an information/debug message we only want to see once
+    PRINT           ///< this is an information/debug message
+};

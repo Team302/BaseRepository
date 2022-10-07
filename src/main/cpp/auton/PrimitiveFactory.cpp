@@ -19,13 +19,13 @@
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveFactory.h>
 #include <auton/PrimitiveParser.h>
-#include <auton/drivePrimitives/DoNothing.h>
+#include <auton/drivePrimitives/DriveStop.h>
 #include <auton/drivePrimitives/DriveDistance.h>
 #include <auton/drivePrimitives/DrivePath.h>
 #include <auton/drivePrimitives/DriveTime.h>
 #include <auton/drivePrimitives/DriveToTarget.h>
 #include <auton/drivePrimitives/DriveToWall.h>
-#include <auton/drivePrimitives/HoldPosition.h>
+#include <auton/drivePrimitives/DriveHoldPosition.h>
 #include <auton/drivePrimitives/IPrimitive.h>
 #include <auton/drivePrimitives/ResetPosition.h>
 #include <auton/drivePrimitives/TurnAngle.h>
@@ -42,11 +42,11 @@ PrimitiveFactory* PrimitiveFactory::GetInstance()
 }
 
 PrimitiveFactory::PrimitiveFactory() :
-				m_doNothing(nullptr),
+				m_DriveStop(nullptr),
 				m_driveTime(nullptr),
 				m_driveDistance(nullptr),
 				m_turnAngle(nullptr),
-				m_holdPosition(nullptr),
+				m_DriveHoldPosition(nullptr),
 				m_driveToWall(nullptr),
 				m_driveLidarDistance( nullptr ),
 				m_resetPosition( nullptr ),
@@ -65,11 +65,11 @@ IPrimitive* PrimitiveFactory::GetIPrimitive(PrimitiveParams* primitivePasser)
 	switch (primitivePasser->GetID())				//Decides which primitive to get or make
 	{
 		case DO_NOTHING:
-			if (m_doNothing == nullptr)
+			if (m_DriveStop == nullptr)
 			{
-				m_doNothing = new DoNothing();
+				m_DriveStop = new DriveStop();
 			}
-			primitive =  m_doNothing;
+			primitive =  m_DriveStop;
 			break;
 
 		case DRIVE_TIME:
@@ -106,11 +106,11 @@ IPrimitive* PrimitiveFactory::GetIPrimitive(PrimitiveParams* primitivePasser)
 			break;
 
 		case HOLD_POSITION:
-			if (m_holdPosition == nullptr)
+			if (m_DriveHoldPosition == nullptr)
 			{
-				m_holdPosition = new HoldPosition();
+				m_DriveHoldPosition = new DriveHoldPosition();
 			}
-			primitive = m_holdPosition;
+			primitive = m_DriveHoldPosition;
 			break;
 
 		case DRIVE_TO_WALL:

@@ -22,30 +22,54 @@
 // FRC includes
 
 // Team 302 includes
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <chassis/IChassis.h>
 
 // Third Party Includes
 
-#include <auton/drivePrimitives/IPrimitive.h>
-
-class IChassis;
+// forward declares
 class PrimitiveParams;
 
-class HoldPosition : public IPrimitive 
-{
-public:
-	void Init(PrimitiveParams*	params) override;
-	void Run() override;
-	bool IsDone() override;
-	HoldPosition();
-	virtual ~HoldPosition() = default;
 
-private:
-	const float kP = 10; //50, /75
-	const float kI = 0.0;
-	const float kD = 0.0;
-	const float kF = 0.0;
-	//Objects
-	std::shared_ptr<IChassis> m_chassis;
-	double m_timeRemaining; //In seconds
+namespace frc
+{
+	class Timer;
+}
+
+
+//========================================================================================================
+/// @class  DriveStop
+/// @brief  This is an auton primitive that causes the chassis to not drive 
+//========================================================================================================
+
+class DriveStop : public IPrimitive 
+{
+	public:
+		/// @brief constructor that creates/initializes the object
+		DriveStop();
+
+		/// @brief destructor, clean  up the memory from this object
+		virtual ~DriveStop() = default;
+
+		/// @brief initialize this usage of the primitive
+		/// @param PrimitiveParms* params the drive parameters
+		/// @return void
+		void Init(PrimitiveParams* params) override;
+		
+		/// @brief run the primitive (periodic routine)
+		/// @return void
+		void Run() override;
+
+		/// @brief check if the end condition has been met
+		/// @return bool true means the end condition was reached, false means it hasn't
+		bool IsDone() override;
+
+	private:
+		float m_maxTime;		//Target time
+		float m_currentTime;	//Time since init
+		std::shared_ptr<IChassis> m_chassis;	
+		std::unique_ptr<frc::Timer> m_timer;
+		double						m_heading;
+		IChassis::HEADING_OPTION	m_headingOption;
 };
 

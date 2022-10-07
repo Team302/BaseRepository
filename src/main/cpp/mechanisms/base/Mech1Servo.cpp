@@ -23,8 +23,8 @@
 
 // Team 302 includes
 #include <hw/DragonServo.h>
-#include <basemechanisms/Mech.h>
-#include <basemechanisms/Mech1Servo.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/Mech1Servo.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -44,7 +44,7 @@ Mech1Servo::Mech1Servo
 {
     if (m_servo == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech1Servo constructor" ), string( "servo is nullptr" ) );
+        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech1Servo constructor" ), string( "servo is nullptr" ) );
     }
 }
 

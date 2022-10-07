@@ -108,7 +108,7 @@ IChassis* ChassisXmlParser::ParseXML
             {
                 string msg = "Unknown Chassis Type";
                 msg += attr.value();
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ChasssiXmlParser"), string( "ParseXML" ), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChasssiXmlParser"), string( "ParseXML" ), msg );
             }
         }
         else if (  attrName.compare("wheelBase") == 0 )
@@ -174,7 +174,7 @@ IChassis* ChassisXmlParser::ParseXML
             {
                 string msg = "unknown Chassis Speed Calc Option ";
                 msg += val;
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser::ParseXML"), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser::ParseXML"), msg );
                 hasError = true;
             }
             **/
@@ -207,7 +207,7 @@ IChassis* ChassisXmlParser::ParseXML
             {
                 string msg = "unknown Chassis Pose Estimation Option ";
                 msg += val;
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"),string("ParseXML"), msg );
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"),string("ParseXML"), msg );
                 hasError = true;
             }
         }
@@ -215,7 +215,7 @@ IChassis* ChassisXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -272,7 +272,7 @@ IChassis* ChassisXmlParser::ParseXML
     	{
             string msg = "unknown child ";
             msg += child.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser"), string("ParseXML"), msg );
     	}
     }
 
@@ -304,7 +304,7 @@ IChassis* ChassisXmlParser::ParseXML
         }
         else  // log errors
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"), string("ParseXML"), string("unable to create chassis") );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"), string("ParseXML"), string("unable to create chassis") );
         }
     }
     return chassis;

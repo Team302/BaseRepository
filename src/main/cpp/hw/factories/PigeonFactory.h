@@ -40,6 +40,7 @@ class PigeonFactory
         DragonPigeon* CreatePigeon
 		( 
 			int canID, 
+			std::string canBusName,
 			DragonPigeon::PIGEON_TYPE type, 
 			DragonPigeon::PIGEON_USAGE usage, 
 			double rotation 

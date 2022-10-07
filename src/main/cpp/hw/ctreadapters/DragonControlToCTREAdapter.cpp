@@ -84,7 +84,7 @@ void DragonControlToCTREAdapter::InitializeDefaults()
 		auto error = m_controller->ConfigFactoryDefault();
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigFactoryDefault"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigFactoryDefault"), string("error"));
 		}
 
 		m_controller->SetNeutralMode(NeutralMode::Brake);
@@ -92,37 +92,37 @@ void DragonControlToCTREAdapter::InitializeDefaults()
 		error = m_controller->ConfigNeutralDeadband(0.01, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNeutralDeadband"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNeutralDeadband"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_controller->ConfigNominalOutputForward(0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNominalOutputForward"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNominalOutputForward"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_controller->ConfigNominalOutputReverse(0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNominalOutputReverse"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigNominalOutputReverse"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_controller->ConfigOpenloopRamp(0.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigOpenloopRamp"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigOpenloopRamp"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_controller->ConfigPeakOutputForward(1.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigPeakOutputForward"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigPeakOutputForward"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 		error = m_controller->ConfigPeakOutputReverse(-1.0, 0);
 		if ( error != ErrorCode::OKAY )
 		{
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigPeakOutputReverse"), string("error"));
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, GetErrorPrompt(), string("ConfigPeakOutputReverse"), string("error"));
 			error = ErrorCode::OKAY;
 		}
 	}
@@ -145,24 +145,24 @@ void DragonControlToCTREAdapter::SetPeakAndNominalValues
 	auto error = m_controller->ConfigPeakOutputForward(peak);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigPeakOutputForward error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigPeakOutputForward error"));
 	}
 	error = m_controller->ConfigPeakOutputReverse(-1.0*peak);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigPeakOutputReverse error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigPeakOutputReverse error"));
 	}
 
 	auto nominal = controlInfo->GetNominalValue();
 	error = m_controller->ConfigNominalOutputForward(nominal);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigNominalOutputForward error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigNominalOutputForward error"));
 	}
 	error = m_controller->ConfigNominalOutputReverse(-1.0*nominal);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigNominalOutputReverse error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigNominalOutputReverse error"));
 	}
 }
 
@@ -176,12 +176,12 @@ void DragonControlToCTREAdapter::SetMaxVelocityAcceleration
 	auto error = m_controller->ConfigMotionAcceleration( controlInfo->GetMaxAcceleration() );
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigMotionAcceleration error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigMotionAcceleration error"));
 	}
 	error = m_controller->ConfigMotionCruiseVelocity( controlInfo->GetCruiseVelocity(), 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigMotionCruiseVelocity error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("ConfigMotionCruiseVelocity error"));
 	}
 }
 
@@ -197,29 +197,29 @@ void DragonControlToCTREAdapter::SetPIDConstants
 	if ( error != ErrorCode::OKAY )
 	{
 		m_controller->Config_kP(controllerSlot, controlInfo->GetP());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kP error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kP error"));
 	}
 	error = m_controller->Config_kI(controllerSlot, controlInfo->GetI());
 	if ( error != ErrorCode::OKAY )
 	{
 		m_controller->Config_kI(controllerSlot, controlInfo->GetI());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kI error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kI error"));
 	}
 	error = m_controller->Config_kD(controllerSlot, controlInfo->GetD());
 	if ( error != ErrorCode::OKAY )
 	{
 		m_controller->Config_kD(controllerSlot, controlInfo->GetD());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kD error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kD error"));
 	}
 	error = m_controller->Config_kF(controllerSlot, controlInfo->GetF());
 	if ( error != ErrorCode::OKAY )
 	{
 		m_controller->Config_kF(controllerSlot, controlInfo->GetF());
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kF error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("Config_kF error"));
 	}
 	error = m_controller->SelectProfileSlot(controllerSlot, 0);
 	if ( error != ErrorCode::OKAY )
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("SelectProfileSlot error"));
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, networkTableName, GetErrorPrompt(), string("SelectProfileSlot error"));
 	}
 }

@@ -48,6 +48,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     string                                          networkTableName,
 	string		                                    mtype,
     int 											canID,
+    string                                          canBusName,
 	int 											pdpID,
     string                                          usage,
     bool 											inverted, 
@@ -110,7 +111,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     }
     else if ( type == MOTOR_TYPE::FALCON )
     {
-        auto talon = new DragonFalcon(networkTableName, MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, calsStruc, motorType);
+        auto talon = new DragonFalcon(networkTableName, MotorControllerUsage::GetInstance()->GetUsage(usage), canID, canBusName, pdpID, calsStruc, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         talon->ConfigSelectedFeedbackSensor( feedbackDevice, 0, 50 );
@@ -177,7 +178,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::GetController
 	{
 	    string msg = "invalid CAN ID ";
 	    msg += to_string( canID );
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonMotorControllerFactory"), string("GetController"), msg );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonMotorControllerFactory"), string("GetController"), msg );
 	}
 	return controller;
 }

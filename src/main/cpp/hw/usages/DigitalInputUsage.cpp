@@ -68,7 +68,7 @@ DigitalInputUsage::DIGITAL_SENSOR_USAGE DigitalInputUsage::GetUsage
     {
         return it->second;
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DigitalInputUsage::GetUsage"), string("unknown usage"), usageString);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("DigitalInputUsage::GetUsage"), string("unknown usage"), usageString);
     return DigitalInputUsage::DIGITAL_SENSOR_USAGE::UNKNOWN_DIGITAL_TYPE;
 }
 
