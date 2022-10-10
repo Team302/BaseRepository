@@ -30,19 +30,19 @@
 // FRC includes
 
 // Team 302 includes
+#include <hw/DragonAnalogInput.h>
 #include <hw/DragonCanCoder.h>
+#include <hw/DragonDigitalInput.h>
+#include <hw/DragonServo.h>
+#include <hw/DragonSolenoid.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/AnalogInputMap.h>
 #include <hw/usages/DigitalInputMap.h>
 #include <hw/usages/DragonSolenoidMap.h>
+#include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
-#include <hw/DragonSolenoid.h>
-#include <hw/DragonServo.h>
-#include <hw/DragonAnalogInput.h>
-#include <hw/DragonDigitalInput.h>
+#include <mechanisms/base/Mech.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/base/IMech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 // @ADDMECH include for your mechanism 
@@ -82,7 +82,7 @@ MechanismFactory::MechanismFactory() // @ADDMECH Initialize mechanism to NULLPTR
 /// @param [in] 
 /// @param [in] 
 /// @param [in] 
-void MechanismFactory::CreateIMechanism
+void MechanismFactory::CreateMechanism
 (
 	MechanismTypes::MECHANISM_TYPE			type,
 	string									networkTableName,
@@ -107,14 +107,14 @@ void MechanismFactory::CreateIMechanism
 		{
 			string msg = "unknown Mechanism type ";
 			msg += to_string( type );
-			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism"), msg );
+			Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateMechanism"), msg );
 		}
 		break;
 	}
 }
 
 
-IMech* MechanismFactory::GetMechanism
+Mech* MechanismFactory::GetMechanism
 (
 	MechanismTypes::MECHANISM_TYPE	type
 ) const

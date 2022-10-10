@@ -25,7 +25,7 @@
 #include <mechanisms/StateStruc.h>
 
 // forward declare 
-class IMech;
+class Mech;
 
 // Third Party Includes
 
@@ -37,7 +37,7 @@ class StateMgr
         ~StateMgr() = default;
         void Init
         (
-            IMech*                                      mech,
+            Mech*                                       mech,
             const std::map<std::string,StateStruc>&     stateMap
         );
 
@@ -65,7 +65,7 @@ class StateMgr
 
     private:
 
-        IMech*                  m_mech;
+        Mech*                   m_mech;
         IState*                 m_currentState;
         std::vector<IState*>    m_stateVector;
         int                     m_currentStateID;

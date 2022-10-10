@@ -14,15 +14,6 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// DigitalInputFactory.cpp
-//========================================================================================================
-///
-/// File Description:
-///     This controls the creation of Digital inputs
-///
-//========================================================================================================
-
 // C++ Includes
 #include <string>
 
@@ -40,11 +31,8 @@
 using namespace std;
 
 
-//=====================================================================================
-/// Method:         GetFactory
-/// Description:    Find or create the Digital input factory
-/// Returns:        DigitalInputFactory* pointer to the factory
-//=====================================================================================
+/// @brief    Find or create the Digital input factory
+/// @returns  DigitalInputFactory* pointer to the factory
 DigitalInputFactory* DigitalInputFactory::m_factory = nullptr;
 DigitalInputFactory* DigitalInputFactory::GetFactory()
 {
@@ -56,12 +44,8 @@ DigitalInputFactory* DigitalInputFactory::GetFactory()
 }
 
 
-//=====================================================================================
-/// Method:         CreateInput
-/// Description:    Create the requested Digital input
-/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-///                                 doesn't exist and cannot be created.
-//=====================================================================================
+/// @brief   Create the requested Digital input
+/// @returns DragonDigitalInput*     pointer to the digital input or nullptr if it fails
 DragonDigitalInput* DigitalInputFactory::CreateInput
 (
     string										    networkTableName,
@@ -81,13 +65,8 @@ DragonDigitalInput* DigitalInputFactory::CreateInput
     return sensor;
 }
 
-
-//=====================================================================================
-/// Method:         GetInput
-/// Description:    Get the requested Digital input
-/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-///                                 doesn't exist.
-//=====================================================================================
+/// @brief   Get the requested Digital input
+/// @returns DragonDigitalInput*     pointer to the digital input or nullptr if it doesn't exist
 DragonDigitalInput* DigitalInputFactory::GetInput
 (
     DigitalInputUsage::DIGITAL_SENSOR_USAGE			type

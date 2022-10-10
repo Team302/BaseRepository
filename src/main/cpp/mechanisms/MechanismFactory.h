@@ -39,7 +39,7 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/base/IMech.h>
+#include <mechanisms/base/Mech.h>
 
 // @ADDMECH include for your mechanism 
 
@@ -52,7 +52,7 @@ class DragonDigitalInput;
 class DragonServo;
 class DragonSolenoid;
 class IDragonMotorController;
-class IMech;
+class Mech;
 
 
 class MechanismFactory
@@ -62,11 +62,8 @@ class MechanismFactory
 		static MechanismFactory* GetMechanismFactory();
 
 
-		//=====================================================================================
-		/// Method:         CreateIMechanism
-		/// Description:    Find or create the requested mechanism
-		//=====================================================================================
-		void  CreateIMechanism
+		/// @brief    Find or create the requested mechanism
+		void  CreateMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE							type,
 			std::string												networkTableName,
@@ -81,7 +78,7 @@ class MechanismFactory
 		
 		// @ADDMECH  Add inline Get method for your mechanism
 
-		IMech* GetMechanism
+		Mech* GetMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE	type
 		) const;

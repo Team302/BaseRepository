@@ -18,7 +18,7 @@
 
 #include <mechanisms/StateStruc.h>
 
-class IMech;
+class Mech;
 class MechanismTargetData;
 class StateMgrHelper 
 {
@@ -26,7 +26,7 @@ class StateMgrHelper
         static void RunCurrentMechanismStates();
         static IState* CreateState
         (
-            IMech*                      mech,
+            Mech*                       mech,
             StateStruc&                 stateInfo,
             MechanismTargetData*        targetData
         );

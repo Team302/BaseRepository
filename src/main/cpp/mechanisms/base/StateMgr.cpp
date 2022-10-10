@@ -24,15 +24,15 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/MechanismFactory.h>
-#include <mechanisms/base/StateMgr.h>
-#include <mechanisms/StateStruc.h>
-#include <mechanisms/StateMgrHelper.h>
-#include <mechanisms/base/IMech.h>
 #include <mechanisms/base/IState.h>
-#include <utils/Logger.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/StateMgr.h>
+#include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/StateMgrHelper.h>
+#include <mechanisms/StateStruc.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -49,7 +49,7 @@ StateMgr::StateMgr() : m_mech(nullptr),
 }
 void StateMgr::Init
 (
-    IMech*                                  mech,
+    Mech*                                   mech,
     const map<string,StateStruc>&           stateMap
 ) 
 {

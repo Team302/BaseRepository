@@ -27,8 +27,6 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/base/IMech.h>
-#include <mechanisms/base/MechanismXmlParser.h>
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
@@ -43,6 +41,8 @@
 #include <hw/xml/MotorXmlParser.h>
 #include <hw/xml/ServoXmlParser.h> 
 #include <hw/xml/SolenoidXmlParser.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/MechanismXmlParser.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
@@ -57,8 +57,7 @@ using namespace std;
 
 
 
-/// @brief  Parse a Mechanism XML element and create an IMechanism from its definition.
-/// @return IMechanism*   pointer to the mechanism
+/// @brief  Parse a Mechanism XML element and create a Mechanism from its definition.
 void MechanismXmlParser::ParseXML
 (
     xml_node      mechanismNode
@@ -173,7 +172,7 @@ void MechanismXmlParser::ParseXML
     if ( !hasError )
     {
         MechanismFactory* factory =  MechanismFactory::GetMechanismFactory();
-        factory->CreateIMechanism( type, 
+        factory->CreateMechanism(  type, 
                                    networkTableName,
                                    controlFileName,
                                    motors, 

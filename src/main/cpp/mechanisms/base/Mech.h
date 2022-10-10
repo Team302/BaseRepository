@@ -20,6 +20,7 @@
 #include <string>
 
 // Team 302 includes
+#include <mechanisms/base/ILoggableItem.h>
 #include <mechanisms/MechanismTypes.h>
 
 // Forward Declares
@@ -27,7 +28,7 @@ class StateMgr;
 
 ///	 @class Mech
 ///  @brief	base mechanism class
-class Mech
+class Mech : public ILoggableItem
 {
 	public:
         /// @brief create the general mechanism
@@ -54,7 +55,7 @@ class Mech
         virtual std::string GetNetworkTableName() const;
 
         /// @brief log data to the network table if it is activated and time period has past
-        virtual void LogHardwareInformation();
+        void LogHardwareInformation() override;
 
         virtual StateMgr* GetStateMgr() const;
         virtual void AddStateMgr

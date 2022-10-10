@@ -15,15 +15,15 @@
 //====================================================================================================================================================
 #include <string>
 
-#include <mechanisms/base/IMech.h>
 #include <mechanisms/base/IState.h>
+#include <mechanisms/base/Mech.h>
+#include <mechanisms/base/StateMgr.h>
+#include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
-#include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
 #include <utils/Logger.h>
-#include <mechanisms/controllers/MechanismTargetData.h>
 
 using namespace std;
 
@@ -42,7 +42,7 @@ void StateMgrHelper::RunCurrentMechanismStates()
 
 IState* StateMgrHelper::CreateState
 (
-    IMech*                      mech,
+    Mech*                       mech,
     StateStruc&                 stateInfo,
     MechanismTargetData*        targetData
 )
