@@ -42,6 +42,7 @@
 #include <hw/DragonLimelight.h>
 #include <hw/DragonPigeon.h>
 #include <hw/factories/PigeonFactory.h>
+#include <chassis/swerve/SwerveOdometry.h>
 
 class SwerveChassis : public IChassis
 {
@@ -105,10 +106,7 @@ class SwerveChassis : public IChassis
             frc::ChassisSpeeds speeds, 
             CHASSIS_DRIVE_MODE  mode,
             HEADING_OPTION      headingOption
-        ) override;
-
-        /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
-        void UpdateOdometry();
+        ) override;        
 
         /// @brief Provide the current chassis speed information
         frc::ChassisSpeeds GetChassisSpeeds() const;
@@ -118,6 +116,9 @@ class SwerveChassis : public IChassis
 
         /// @brief Get encoder values
         double GetEncoderValues(std::shared_ptr<SwerveModule> motor);
+
+        /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
+        void UpdateOdometry();
 
         /// @brief Reset the current chassis pose based on the provided pose and rotation
         /// @param [in] const Pose2d&       pose        Current XY position
@@ -224,11 +225,12 @@ class SwerveChassis : public IChassis
         frc::SwerveModuleState                                      m_frState;
         frc::SwerveModuleState                                      m_blState;
         frc::SwerveModuleState                                      m_brState;
+
+        SwerveOdometry*                                             m_odometry;
         
         units::length::inch_t                                       m_wheelDiameter;       
         units::length::inch_t                                       m_wheelBase;       
         units::length::inch_t                                       m_track;
-        double                                                      m_odometryComplianceCoefficient;
         units::velocity::meters_per_second_t                        m_maxSpeed;
         units::radians_per_second_t                                 m_maxAngularSpeed;
         units::acceleration::meters_per_second_squared_t            m_maxAcceleration;
@@ -237,9 +239,6 @@ class SwerveChassis : public IChassis
         DragonPigeon*                                               m_pigeon;
         frc::BuiltInAccelerometer                                   m_accel;
         bool                                                        m_runWPI;
-        PoseEstimatorEnum                                           m_poseOpt;
-        frc::Pose2d                                                 m_pose;
-        units::angle::degree_t                                      m_offsetPoseAngle;
         frc::Timer                                                  m_timer;
         units::velocity::meters_per_second_t                        m_drive;
         units::velocity::meters_per_second_t                        m_steer;
@@ -257,15 +256,6 @@ class SwerveChassis : public IChassis
                                                    m_backLeftLocation, 
                                                    m_backRightLocation};
 
-
-        // Gains are for example purposes only - must be determined for your own robot!
-        //Clean up to get clearer information
-        frc::SwerveDrivePoseEstimator<4> m_poseEstimator{  frc::Rotation2d(), 
-                                                           frc::Pose2d(), 
-                                                           m_kinematics,
-                                                           {0.1, 0.1, 0.1},   // state standard deviations
-                                                           {0.05},            // local measurement standard deviations
-                                                           {0.1, 0.1, 0.1} }; // vision measurement standard deviations
         const double kPMaintainHeadingControl = 1.5; //4.0, 3.0
         const double kPAutonSpecifiedHeading = 3.0;  // 4.0
         const double kPAutonGoalHeadingControl = 5.0;  // 2.0

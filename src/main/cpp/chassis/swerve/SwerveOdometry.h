@@ -25,6 +25,27 @@
 class SwerveOdometry
 {
     public:
+        /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
+        void UpdateOdometry();
+
+        /// @brief Reset the current chassis pose based on the provided pose and rotation
+        /// @param [in] const Pose2d&       pose        Current XY position
+        /// @param [in] const Rotation2d&   angle       Current rotation angle
+        void ResetPose
+        ( 
+            const frc::Pose2d&       pose,
+            const frc::Rotation2d&   angle
+        );
+
+        /// @brief Reset the current chassis pose based on the provided pose (the rotation comes from the Pigeon)
+        /// @param [in] const Pose2d&       pose        Current XY position
+        void ResetPose
+        ( 
+            const frc::Pose2d&       pose
+        );
+
+        /// @brief Get the current chassis pose
+        frc::Pose2d GetPose() const;
 
     private:
         SwerveChassis* m_chassis = ChassisFactory::GetChassisFactory()->GetSwerveChassis();
@@ -34,8 +55,22 @@ class SwerveOdometry
         frc::Translation2d m_backLeftLocation;
         frc::Translation2d m_backRightLocation;
 
+        std::shared_ptr<SwerveModule>                               m_frontLeft;
+        std::shared_ptr<SwerveModule>                               m_frontRight;
+        std::shared_ptr<SwerveModule>                               m_backLeft;
+        std::shared_ptr<SwerveModule>                               m_backRight;
+
         frc::SwerveDriveKinematics<4> m_kinematics{m_frontLeftLocation, 
                                                    m_frontRightLocation, 
                                                    m_backLeftLocation, 
                                                    m_backRightLocation};
+
+        // Gains are for example purposes only - must be determined for your own robot!
+        //Clean up to get clearer information
+        frc::SwerveDrivePoseEstimator<4> m_poseEstimator{  frc::Rotation2d(), 
+                                                           frc::Pose2d(), 
+                                                           m_kinematics,
+                                                           {0.1, 0.1, 0.1},   // state standard deviations
+                                                           {0.05},            // local measurement standard deviations
+                                                           {0.1, 0.1, 0.1} }; // vision measurement standard deviations
 };
