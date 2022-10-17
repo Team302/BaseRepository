@@ -15,21 +15,13 @@
 
 #pragma once
 
-//FRC Includes
-#include <frc/kinematics/ChassisSpeeds.h>
-#include <frc/trajectory/TrajectoryUtil.h>
-
 //Team302 Includes
-#include <utils/Point2d.h>
 #include <chassis/swerve/SwerveEnums.h>
 
-
-struct ChassisMovement
+class ISwerveDriveOrientation
 {
-    frc::ChassisSpeeds  chassisSpeeds;
-    frc::Trajectory     trajectory;
-    SwerveEnums::HeadingOption       headingOption;
-    Point2d             centerOfRotation;
-    SwerveEnums::NoMovementOption    noMovementOption;
-    SwerveEnums::AutonControllerType controllerType;
+    public:
+        ISwerveDriveOrientation(SwerveEnums::HeadingOption headingOption);
+
+        void UpdateChassisSpeeds();
 };

@@ -15,21 +15,27 @@
 
 #pragma once
 
-//FRC Includes
-#include <frc/kinematics/ChassisSpeeds.h>
-#include <frc/trajectory/TrajectoryUtil.h>
-
-//Team302 Includes
-#include <utils/Point2d.h>
-#include <chassis/swerve/SwerveEnums.h>
-
-
-struct ChassisMovement
+class SwerveEnums
 {
-    frc::ChassisSpeeds  chassisSpeeds;
-    frc::Trajectory     trajectory;
-    SwerveEnums::HeadingOption       headingOption;
-    Point2d             centerOfRotation;
-    SwerveEnums::NoMovementOption    noMovementOption;
-    SwerveEnums::AutonControllerType controllerType;
+    public:
+        enum HeadingOption
+        {
+            MAINTAIN,
+            TOWARD_GOAL,
+            SPECIFIED_ANGLE
+        };
+    
+        enum NoMovementOption
+        {
+            STOP,
+            HOLD_POSITION
+        };
+    
+        enum AutonControllerType
+        {
+            RAMSETE,
+            HOLONOMIC
+        };
+
+    SwerveEnums() = delete;   
 };
