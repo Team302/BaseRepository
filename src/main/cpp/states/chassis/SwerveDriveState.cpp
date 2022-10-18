@@ -12,3 +12,23 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+
+//Team302 Includes
+#include <states/chassis/SwerveDriveState.h>
+
+SwerveDriveState::SwerveDriveState(SwerveDriveStateType stateType, frc::ChassisSpeeds chassisSpeeds, ISwerveDriveOrientation swerveOrientation
+) : m_chassisSpeeds(chassisSpeeds),
+    m_orientation(swerveOrientation)
+{
+
+}
+
+void SwerveDriveState::UpdateChassisSpeeds(frc::ChassisSpeeds chassisSpeeds)
+{
+    m_chassisSpeeds = chassisSpeeds;
+}
+
+void SwerveDriveState::UpdateOrientationOption(ISwerveDriveOrientation swerveOrientation)
+{
+    m_orientation = swerveOrientation;
+}

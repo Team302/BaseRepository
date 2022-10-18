@@ -27,10 +27,25 @@ enum SwerveDriveStateType
    TrajectoryDrive,
    PolarDrive,
    HoldDrive,
-   StopDrive 
+   StopDrive
 };
 
 class SwerveDriveState
 {
-    SwerveDriveState(SwerveDriveStateType stateType, frc::ChassisSpeeds chassisSpeeds, );
+    public:
+        SwerveDriveState(SwerveDriveStateType stateType, frc::ChassisSpeeds chassisSpeeds, ISwerveDriveOrientation swerveOrientation);
+
+        void UpdateChassisSpeeds(frc::ChassisSpeeds chassisSpeeds);
+
+        void UpdateOrientationOption(ISwerveDriveOrientation swerveOrientation);
+
+        frc::ChassisSpeeds GetChassisSpeeds() const {return m_chassisSpeeds;};
+
+        ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
+        
+        virtual void CalcSwerveModuleState() = 0;
+
+    private:
+        frc::ChassisSpeeds          m_chassisSpeeds;
+        ISwerveDriveOrientation     m_orientation;
 };
