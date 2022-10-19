@@ -15,11 +15,10 @@
 
 #pragma once
 
-//FRC Includes
-#include <frc/kinematics/ChassisSpeeds.h>
-
 //Team302 Includes
 #include <chassis/swerve/ISwerveDriveOrientation.h>
+#include <chassis/swerve/ChassisMovement.h>
+#include <frc/kinematics/SwerveModuleState.h>
 
 enum SwerveDriveStateType
 {
@@ -33,19 +32,17 @@ enum SwerveDriveStateType
 class SwerveDriveState
 {
     public:
-        SwerveDriveState(SwerveDriveStateType stateType, frc::ChassisSpeeds chassisSpeeds, ISwerveDriveOrientation swerveOrientation);
+        SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
-        void UpdateChassisSpeeds(frc::ChassisSpeeds chassisSpeeds);
-
-        void UpdateOrientationOption(ISwerveDriveOrientation swerveOrientation);
-
-        frc::ChassisSpeeds GetChassisSpeeds() const {return m_chassisSpeeds;};
+        frc::ChassisSpeeds GetChassisSpeeds() const {return m_chassisMovement.chassisSpeeds;};
 
         ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
-        
-        virtual void CalcSwerveModuleState() = 0;
 
-    private:
-        frc::ChassisSpeeds          m_chassisSpeeds;
+        void virtual Init() = 0;
+        
+        virtual  std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() = 0;
+
+    protected:
+        ChassisMovement             m_chassisMovement;
         ISwerveDriveOrientation     m_orientation;
 };

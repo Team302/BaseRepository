@@ -23,5 +23,7 @@ class HoldDrive : public SwerveDriveState
     public:
         using SwerveDriveState::SwerveDriveState;
 
-        void CalcSwerveModuleStates() override;
+        std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
+
+        void Init() override;
 };
