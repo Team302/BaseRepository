@@ -18,9 +18,10 @@
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
 
-class RobotDrive : public SwerveDriveState
+class HoldDrive : public SwerveDriveState
 {
-    using SwerveDriveState::SwerveDriveState;
+    public:
+        using SwerveDriveState::SwerveDriveState;
 
-    void CalcSwerveModuleState() override;
+        void CalcSwerveModuleStates() override;
 };

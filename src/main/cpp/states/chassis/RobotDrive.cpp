@@ -16,12 +16,6 @@
 //Team302 Includes
 #include <states/chassis/RobotDrive.h>
 
-RobotDrive::RobotDrive(SwerveDriveStateType stateType, frc::ChassisSpeeds chassisSpeeds, ISwerveDriveOrientation swerveOrientation
-) : SwerveDriveState(stateType, chassisSpeeds, swerveOrientation)
-{
-
-}
-
 void RobotDrive::CalcSwerveModuleState()
 {
 
