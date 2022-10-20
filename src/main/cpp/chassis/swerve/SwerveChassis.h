@@ -167,6 +167,9 @@ class SwerveChassis : public IChassis
 
         void DriveHoldPosition();
 
+        ///NEW REFACTOR CODE
+        SwerveOdometry* GetOdometry() const { return m_odometry;};
+
     private:
         frc::ChassisSpeeds GetFieldRelativeSpeeds
         (
@@ -225,8 +228,6 @@ class SwerveChassis : public IChassis
         frc::SwerveModuleState                                      m_frState;
         frc::SwerveModuleState                                      m_blState;
         frc::SwerveModuleState                                      m_brState;
-
-        SwerveOdometry*                                             m_odometry;
         
         units::length::inch_t                                       m_wheelDiameter;       
         units::length::inch_t                                       m_wheelBase;       
@@ -273,6 +274,9 @@ class SwerveChassis : public IChassis
         DragonLimelight*        m_limelight;
 
         const units::length::inch_t m_shootingDistance = units::length::inch_t(105.0); // was 105.0
+
+        /// NEW REFACTOR CODE
+        SwerveOdometry*                                             m_odometry;
 
 
 };

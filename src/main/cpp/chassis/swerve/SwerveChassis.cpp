@@ -82,7 +82,6 @@ SwerveChassis::SwerveChassis
     m_frState(),
     m_blState(),
     m_brState(),
-    m_odometry(new SwerveOdometry())
     m_wheelDiameter(wheelDiameter),
     m_wheelBase(wheelBase),
     m_track(track),
@@ -104,7 +103,8 @@ SwerveChassis::SwerveChassis
     m_storedYaw(m_pigeon->GetYaw()),
     m_yawCorrection(units::angular_velocity::degrees_per_second_t(0.0)),
     m_targetHeading(units::angle::degree_t(0)),
-    m_limelight(LimelightFactory::GetLimelightFactory()->GetLimelight())
+    m_limelight(LimelightFactory::GetLimelightFactory()->GetLimelight()),
+    m_odometry(new SwerveOdometry())
 {
     m_timer.Reset();
     m_timer.Start();

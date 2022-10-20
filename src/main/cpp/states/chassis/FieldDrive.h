@@ -17,34 +17,19 @@
 
 //FRC Includes
 #include <frc/kinematics/SwerveModuleState.h>
+#include <frc/kinematics/ChassisSpeeds.h>
 
 //Team302 Includes
-#include <chassis/swerve/ISwerveDriveOrientation.h>
-#include <chassis/swerve/ChassisMovement.h>
+#include <states/chassis/RobotDrive.h>
 
-enum SwerveDriveStateType
-{
-   FieldDrive,
-   TrajectoryDrive,
-   PolarDrive,
-   HoldDrive,
-   StopDrive
-};
-
-class SwerveDriveState
+class FieldDrive : public RobotDrive
 {
     public:
-        SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
+        FieldDrive(RobotDrive robotDrive);
 
-        frc::ChassisSpeeds GetChassisSpeeds() const {return m_chassisMovement.chassisSpeeds;};
+        std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
 
-        ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
-
-        void virtual Init() = 0;
-        
-        virtual  std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() = 0;
-
-    protected:
-        ChassisMovement             m_chassisMovement;
-        ISwerveDriveOrientation     m_orientation;
+        void Init() override;
+    private:
+        frc::ChassisSpeeds      m_chassisSpeeds;
 };
