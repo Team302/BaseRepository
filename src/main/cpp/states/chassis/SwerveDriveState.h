@@ -36,7 +36,9 @@ class SwerveDriveState
     public:
         SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
-        frc::ChassisSpeeds GetChassisSpeeds() const {return m_chassisMovement.chassisSpeeds;};
+        SwerveDriveStateType GetStateType() const {return m_stateType;};
+
+        ChassisMovement GetChassisMovement() const {return m_chassisMovement;};
 
         ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
 
@@ -45,6 +47,7 @@ class SwerveDriveState
         virtual  std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() = 0;
 
     protected:
+        SwerveDriveStateType        m_stateType;
         ChassisMovement             m_chassisMovement;
         ISwerveDriveOrientation     m_orientation;
 };

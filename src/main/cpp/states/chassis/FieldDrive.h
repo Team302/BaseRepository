@@ -32,4 +32,5 @@ class FieldDrive : public RobotDrive
         void Init() override;
     private:
         frc::ChassisSpeeds      m_chassisSpeeds;
+        RobotDrive              m_robotDrive;
 };

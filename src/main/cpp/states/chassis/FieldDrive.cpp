@@ -18,10 +18,9 @@
 #include <chassis/swerve/SwerveOdometry.h>
 
 FieldDrive::FieldDrive(RobotDrive robotDrive
-)
+) : RobotDrive(robotDrive.GetStateType(), robotDrive.GetChassisMovement(), robotDrive.GetDriveOrientation()),
+    m_robotDrive(robotDrive)
 {
-    ///Do we have to construct RobotDrive???
-    
     m_chassisSpeeds = m_chassisMovement.chassisSpeeds;
 }
 
@@ -31,6 +30,8 @@ std::array<frc::SwerveModuleState*, 4> FieldDrive::CalcSwerveModuleStates()
                                                                                          m_chassisSpeeds.vy,
                                                                                          m_chassisSpeeds.omega,
                                                                                          m_chassis->GetOdometry()->GetPose().Rotation());
-    RobotDrive::CalcSwerveModuleStates();
+
+    m_chassisMovement.chassisSpeeds = fieldRelativeSpeeds;
+    m_robotDrive.CalcSwerveModuleStates();
 }
 
