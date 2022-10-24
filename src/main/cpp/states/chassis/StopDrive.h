@@ -26,4 +26,9 @@ class StopDrive : public SwerveDriveState
         std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
 
         void Init() override;
+    private:
+        frc::SwerveModuleState* m_flState = new frc::SwerveModuleState();
+        frc::SwerveModuleState* m_frState = new frc::SwerveModuleState();
+        frc::SwerveModuleState* m_blState = new frc::SwerveModuleState();
+        frc::SwerveModuleState* m_brState = new frc::SwerveModuleState();
 };

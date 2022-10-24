@@ -18,12 +18,7 @@
 
 std::array<frc::SwerveModuleState*, 4> StopDrive::CalcSwerveModuleStates()
 {
-    frc::SwerveModuleState* flState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* frState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* blState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* brState = new frc::SwerveModuleState();
-
-    return {flState, frState, blState, brState};
+    return {m_flState, m_frState, m_blState, m_brState};
 }
 
 void StopDrive::Init()

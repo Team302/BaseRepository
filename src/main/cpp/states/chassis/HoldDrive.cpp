@@ -21,20 +21,13 @@
 
 std::array<frc::SwerveModuleState*, 4> HoldDrive::CalcSwerveModuleStates()
 {
-    frc::SwerveModuleState* flState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* frState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* blState = new frc::SwerveModuleState();
-    frc::SwerveModuleState* brState = new frc::SwerveModuleState();
-
-    flState->angle = {units::angle::degree_t(45)};
-    frState->angle = {units::angle::degree_t(-45)};
-    blState->angle = {units::angle::degree_t(135)};
-    brState->angle = {units::angle::degree_t(-135)};
-
-    return {flState, frState, blState, brState};
+    return {m_flState, m_frState, m_blState, m_brState};
 }
 
 void HoldDrive::Init()
 {
-    // Do we need to do anything here?
+    m_flState->angle = {units::angle::degree_t(45)};
+    m_frState->angle = {units::angle::degree_t(-45)};
+    m_blState->angle = {units::angle::degree_t(135)};
+    m_brState->angle = {units::angle::degree_t(-135)};
 }
