@@ -149,8 +149,7 @@ class SwerveChassis : public IChassis
         std::shared_ptr<SwerveModule> GetFrontLeft() const { return m_frontLeft;}
         std::shared_ptr<SwerveModule> GetFrontRight() const { return m_frontRight;}
         std::shared_ptr<SwerveModule> GetBackLeft() const { return m_backLeft;}
-        std::shared_ptr<SwerveModule> GetBackRight() const { return m_backRight;}
-        frc::SwerveDrivePoseEstimator<4> GetPoseEst() const { return m_poseEstimator; }  
+        std::shared_ptr<SwerveModule> GetBackRight() const { return m_backRight;}; 
         frc::Pose2d GetPose() const;
         units::angle::degree_t GetYaw() const override;
 
@@ -158,9 +157,7 @@ class SwerveChassis : public IChassis
         inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
         inline void Initialize() override {};
 
-        void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; }
-        void SetPoseEstOption(PoseEstimatorEnum opt ) { m_poseOpt = opt; }
-        double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
+        void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; };
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
 
         void ReZero();

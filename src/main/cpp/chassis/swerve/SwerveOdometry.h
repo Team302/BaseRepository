@@ -21,7 +21,7 @@
 
 //Team302 Includes
 #include <chassis/ChassisFactory.h>
-#include <chassis/SwerveChassis.h>
+#include <chassis/swerve/SwerveChassis.h>
 
 class SwerveOdometry
 {
