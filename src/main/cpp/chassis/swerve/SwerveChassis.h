@@ -29,7 +29,7 @@
 #include <chassis/swerve/SwerveModule.h>
 #include <chassis/swerve/SwerveOdometry.h>
 
-class SwerveChassis
+class SwerveChassis : public IChassis
 {
     public:
         /// @brief Construct a SwerveChassis
@@ -107,7 +107,7 @@ class SwerveChassis
         std::shared_ptr<SwerveModule>                                       m_frontRight;
         std::shared_ptr<SwerveModule>                                       m_backLeft;
         std::shared_ptr<SwerveModule>                                       m_backRight;
-        
+
         units::length::inch_t                                               m_wheelDiameter;       
         units::length::inch_t                                               m_wheelBase;       
         units::length::inch_t                                               m_track;
