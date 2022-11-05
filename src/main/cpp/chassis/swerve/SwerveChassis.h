@@ -24,6 +24,7 @@
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
 #include <chassis/swerve/ISwerveDriveOrientation.h>
+#include <chassis/swerve/SwerveEnums.h>
 
 class SwerveChassis
 {
@@ -39,7 +40,11 @@ class SwerveChassis
 
         /// @brief Returns the current SwerveDriveState
         /// @return SwerveDriveState* - current SwerveDriveState
-        SwerveDriveState* GetCurrentDriveState();
+        SwerveDriveState* GetCurrentDriveState() const {return m_currentDriveState;};
+
+        /// @brief Get the specified SwerveDriveState
+        /// @return SwerveDriveState* - specified state
+        SwerveDriveState* GetDriveState(SwerveDriveState::SwerveDriveStateType stateType);
 
         /// @brief Get current estimated chassis position as Pose2d
         /// @return frc::Pose2d - current chassis position
@@ -57,9 +62,13 @@ class SwerveChassis
         ISwerveDriveOrientation* GetOrientation();
     
     private:
-        std::vector<SwerveDriveState*>          m_swerveDriveStates;
-        SwerveDriveState*                       m_currentDriveState;
+        //Dont know if this and orientation should be vectors or maps, b/c of GetDriveState: I feel like they should be maps
+        //std::vector<SwerveDriveState*>          m_swerveDriveStates;
+        SwerveDriveState*                                                   m_currentDriveState;
 
-        std::vector<ISwerveDriveOrientation*>   m_swerveOrientation;
-        ISwerveDriveOrientation*                m_currentOrientation;
+        std::map<SwerveDriveState::SwerveDriveStateType, SwerveDriveState*> m_swerveDriveStates;
+
+        //std::vector<ISwerveDriveOrientation*>   m_swerveOrientation;
+        std::map<SwerveEnums::HeadingOption, ISwerveDriveOrientation*>      m_swerveOrientation;
+        ISwerveDriveOrientation*                                            m_currentOrientation;
 };

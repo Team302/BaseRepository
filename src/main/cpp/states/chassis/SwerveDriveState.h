@@ -22,18 +22,20 @@
 #include <chassis/swerve/ISwerveDriveOrientation.h>
 #include <chassis/swerve/ChassisMovement.h>
 
-enum SwerveDriveStateType
-{
-   FieldDrive,
-   TrajectoryDrive,
-   PolarDrive,
-   HoldDrive,
-   StopDrive
-};
+
 
 class SwerveDriveState
 {
     public:
+        enum SwerveDriveStateType
+        {
+        FieldDrive,
+        TrajectoryDrive,
+        PolarDrive,
+        HoldDrive,
+        StopDrive
+        };
+
         SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
         /// @brief Get the state type
