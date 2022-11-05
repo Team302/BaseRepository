@@ -28,7 +28,7 @@ class TrajectoryDrive : public RobotDrive
     public:
         TrajectoryDrive(RobotDrive robotDrive);
 
-        std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
+        std::array<frc::SwerveModuleState, 4> CalcSwerveModuleStates() override;
         
         void Init() override;
     private:

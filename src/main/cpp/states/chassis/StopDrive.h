@@ -23,7 +23,7 @@ class StopDrive : public SwerveDriveState
     public:
         using SwerveDriveState::SwerveDriveState;
 
-        std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
+        std::array<frc::SwerveModuleState, 4> CalcSwerveModuleStates() override;
 
         void Init() override;
     private:

@@ -47,7 +47,7 @@ void TrajectoryDrive::Init()
     }
 }
 
-std::array<frc::SwerveModuleState*, 4> TrajectoryDrive::CalcSwerveModuleStates()
+std::array<frc::SwerveModuleState, 4> TrajectoryDrive::CalcSwerveModuleStates()
 {
     if (!m_trajectoryStates.empty()) //If we have a path parsed / have states to run
     {

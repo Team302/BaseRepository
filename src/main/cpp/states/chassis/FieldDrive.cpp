@@ -24,7 +24,7 @@ FieldDrive::FieldDrive(RobotDrive robotDrive
     m_chassisSpeeds = m_chassisMovement.chassisSpeeds;
 }
 
-std::array<frc::SwerveModuleState*, 4> FieldDrive::CalcSwerveModuleStates()
+std::array<frc::SwerveModuleState, 4> FieldDrive::CalcSwerveModuleStates()
 {
     frc::ChassisSpeeds fieldRelativeSpeeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(m_chassisSpeeds.vx,
                                                                                          m_chassisSpeeds.vy,

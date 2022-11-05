@@ -25,7 +25,7 @@ class RobotDrive : public SwerveDriveState
     public:
         RobotDrive(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
-        std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() override;
+        std::array<frc::SwerveModuleState, 4> CalcSwerveModuleStates() override;
 
         void Init() override;
     protected:

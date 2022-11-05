@@ -31,7 +31,7 @@ RobotDrive::RobotDrive(SwerveDriveStateType stateType, ChassisMovement chassisMo
 
 }
 
-std::array<frc::SwerveModuleState*, 4> RobotDrive::CalcSwerveModuleStates()
+std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
 {
     // These calculations are based on Ether's Chief Delphi derivation
     // The only changes are that that derivation is based on positive angles being clockwise
@@ -111,7 +111,7 @@ std::array<frc::SwerveModuleState*, 4> RobotDrive::CalcSwerveModuleStates()
         m_brState.speed *= ratio;
     }
 
-    return {&m_flState, &m_frState, &m_blState, &m_brState};
+    return {m_flState, m_frState, m_blState, m_brState};
 }
 
 void RobotDrive::Init()

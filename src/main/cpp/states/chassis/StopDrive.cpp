@@ -16,9 +16,9 @@
 //Team302 Includes
 #include <states/chassis/StopDrive.h>
 
-std::array<frc::SwerveModuleState*, 4> StopDrive::CalcSwerveModuleStates()
+std::array<frc::SwerveModuleState, 4> StopDrive::CalcSwerveModuleStates()
 {
-    return {m_flState, m_frState, m_blState, m_brState};
+    return {*m_flState, *m_frState, *m_blState, *m_brState};
 }
 
 void StopDrive::Init()
