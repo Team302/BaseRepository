@@ -65,3 +65,18 @@ SwerveChassis::SwerveChassis
 
     //...... continue doing this, waiting to finish until I determine if this is right idea
 }
+
+void SwerveChassis::Drive()
+{
+    auto states = wpi::array(m_currentDriveState->CalcSwerveModuleStates());
+
+    auto kinematics = m_odometry->GetSwerveKinematics();
+    kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+
+    auto [fl,fr,bl,br] = states;
+
+    m_frontLeft.get()->SetDesiredState(fl);
+    m_frontRight.get()->SetDesiredState(fr);
+    m_backLeft.get()->SetDesiredState(bl);
+    m_backRight.get()->SetDesiredState(br);
+}
