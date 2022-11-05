@@ -28,7 +28,8 @@ using namespace frc;
 
 SwerveOdometry::SwerveOdometry(
 
-) : m_frontLeftLocation(m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
+) : m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
+    m_frontLeftLocation(m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
     m_frontRightLocation(m_chassis->GetWheelBase()/2.0, -1.0*m_chassis->GetTrack()/2.0),
     m_backLeftLocation(-1.0*m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
     m_backRightLocation(-1.0*m_chassis->GetWheelBase()/2.0, -1.0*m_chassis->GetTrack()/2.0),

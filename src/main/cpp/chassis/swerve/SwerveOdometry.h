@@ -46,10 +46,15 @@ class SwerveOdometry
         );
 
         /// @brief Get the current chassis pose
+        /// @return frc::Pose2d - current estimated chassis pose
         frc::Pose2d GetPose() const;
 
+        /// @brief Get the kinematics object
+        /// @return frc::SwerveDriveKinematics<4> - kinematics object
+        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const {return m_kinematics;};
+
     private:
-        SwerveChassis* m_chassis = ChassisFactory::GetChassisFactory()->GetSwerveChassis();
+        SwerveChassis* m_chassis;
 
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
