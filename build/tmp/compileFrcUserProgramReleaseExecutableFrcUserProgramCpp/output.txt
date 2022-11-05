@@ -1,46 +1,772 @@
-See file:///C:/GitRepos/2022RapidReact_UpdatedStructure/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
-compiling PrimitiveFactory.cpp successful.
+See file:///C:/GitRepos/BaseRepository-2023/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling AutonSelector.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\AutonSelector.cpp:30:10: fatal error: auton/AutonSelector.h: No such file or directory
+   30 | #include <auton/AutonSelector.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DoNothing.cpp successful.
+compiling CyclePrimitives.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\CyclePrimitives.cpp:26:10: fatal error: auton/AutonSelector.h: No such file or directory
+   26 | #include <auton/AutonSelector.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DriveDistance.cpp successful.
+compiling DriveDistance.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveDistance.cpp:26:10: fatal error: auton/PrimitiveParams.h: No such file or directory
+   26 | #include <auton/PrimitiveParams.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DrivePath.cpp successful.
+compiling DriveHoldPosition.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveHoldPosition.cpp:24:10: fatal error: auton/PrimitiveFactory.h: No such file or directory
+   24 | #include <auton/PrimitiveFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DriveToWall.cpp successful.
+compiling DrivePath.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DrivePath.cpp:28:10: fatal error: auton/drivePrimitives/DrivePath.h: No such file or directory
+   28 | #include <auton/drivePrimitives/DrivePath.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling SuperDrive.cpp successful.
+compiling PrimitiveFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\PrimitiveFactory.cpp:19:10: fatal error: auton/PrimitiveEnums.h: No such file or directory
+   19 | #include <auton/PrimitiveEnums.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling TurnAngle.cpp successful.
+compiling DriveStop.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveStop.cpp:26:10: fatal error: auton/drivePrimitives/DriveStop.h: No such file or directory
+   26 | #include <auton/drivePrimitives/DriveStop.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling ResetPosition.cpp successful.
+compiling PrimitiveParams.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\PrimitiveParams.cpp:17:10: fatal error: auton/PrimitiveEnums.h: No such file or directory
+   17 | #include <auton/PrimitiveEnums.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling ChassisFactory.cpp successful.
+compiling DriveToTarget.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveToTarget.cpp:25:10: fatal error: auton/drivePrimitives/DriveStop.h: No such file or directory
+   25 | #include <auton/drivePrimitives/DriveStop.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling ChassisXmlParser.cpp successful.
+compiling DriveToWall.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveToWall.cpp:25:10: fatal error: auton/drivePrimitives/DriveStop.h: No such file or directory
+   25 | #include <auton/drivePrimitives/DriveStop.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling HoldPosition.cpp successful.
+compiling ResetPosition.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\ResetPosition.cpp:23:10: fatal error: auton/drivePrimitives/ResetPosition.h: No such file or directory
+   23 | #include <auton/drivePrimitives/ResetPosition.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling EtherDirtySwerve.cpp successful.
+compiling DragonTargetFinder.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\DragonTargetFinder.cpp:25:10: fatal error: chassis/DragonTargetFinder.h: No such file or directory
+   25 | #include <chassis/DragonTargetFinder.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling EtherFieldSwerve.cpp successful.
+compiling SwerveChassis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\SwerveChassis.cpp:19:10: fatal error: chassis/swerve/SwerveChassis.h: No such file or directory
+   19 | #include <chassis/swerve/SwerveChassis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DragonVision.cpp successful.
+compiling SuperDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\SuperDrive.cpp:26:10: fatal error: auton/drivePrimitives/IPrimitive.h: No such file or directory
+   26 | #include <auton/drivePrimitives/IPrimitive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling SwerveDrive.cpp successful.
+compiling TurnAngle.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\TurnAngle.cpp:28:10: fatal error: auton/PrimitiveParams.h: No such file or directory
+   28 | #include <auton/PrimitiveParams.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling SwerveModule.cpp successful.
+compiling DriveTime.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\drivePrimitives\DriveTime.cpp:25:10: fatal error: auton/drivePrimitives/DriveStop.h: No such file or directory
+   25 | #include <auton/drivePrimitives/DriveStop.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling DifferentialChassis.cpp successful.
+compiling ChassisFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\ChassisFactory.cpp:40:10: fatal error: chassis/ChassisFactory.h: No such file or directory
+   40 | #include <chassis/ChassisFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling WPIDirtySwerve.cpp successful.
+compiling DeadbandValue.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\DeadbandValue.cpp:17:10: fatal error: gamepad/axis/DeadbandValue.h: No such file or directory
+   17 | #include <gamepad/axis/DeadbandValue.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling TurnToAngle.cpp successful.
+compiling ArcadeDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\differential\ArcadeDrive.cpp:21:10: fatal error: frc/drive/Vector2d.h: No such file or directory
+   21 | #include <frc/drive/Vector2d.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling WPIFieldSwerve.cpp successful.
+compiling SwerveChassis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\oldSwerve\SwerveChassis.cpp:23:10: fatal error: frc/drive/Vector2d.h: No such file or directory
+   23 | #include <frc/drive/Vector2d.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling Robot.cpp successful.
+compiling InvertAxis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\InvertAxis.cpp:17:10: fatal error: gamepad/axis/InvertAxis.h: No such file or directory
+   17 | #include <gamepad/axis/InvertAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-compiling SwerveChassis.cpp successful.
+compiling SwerveModuleXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\SwerveModuleXmlParser.cpp:32:10: fatal error: chassis/ChassisFactory.h: No such file or directory
+   32 | #include <chassis/ChassisFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/2022RapidReact_UpdatedStructure/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
+compiling LinearProfile.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\LinearProfile.cpp:17:10: fatal error: gamepad/axis/IProfile.h: No such file or directory
+   17 | #include <gamepad/axis/IProfile.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\SwerveDrive.cpp:21:10: fatal error: frc/drive/Vector2d.h: No such file or directory
+   21 | #include <frc/drive/Vector2d.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PrimitiveParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\auton\PrimitiveParser.cpp:21:10: fatal error: auton/AutonSelector.h: No such file or directory
+   21 | #include <auton/AutonSelector.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ChassisXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\ChassisXmlParser.cpp:38:10: fatal error: chassis/ChassisFactory.h: No such file or directory
+   38 | #include <chassis/ChassisFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling NoDeadbandValue.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\NoDeadbandValue.cpp:17:10: fatal error: gamepad/axis/NoDeadbandValue.h: No such file or directory
+   17 | #include <gamepad/axis/NoDeadbandValue.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ScaledAxis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\ScaledAxis.cpp:25:10: fatal error: gamepad/axis/ScaledAxis.h: No such file or directory
+   25 | #include <gamepad/axis/ScaledAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DifferentialChassis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\differential\DifferentialChassis.cpp:23:10: fatal error: chassis/differential/DifferentialChassis.h: No such file or directory
+   23 | #include <chassis/differential/DifferentialChassis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CubedProfile.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\CubedProfile.cpp:29:10: fatal error: gamepad/axis/CubedProfile.h: No such file or directory
+   29 | #include <gamepad/axis/CubedProfile.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SquaredProfile.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\SquaredProfile.cpp:25:10: fatal error: gamepad/axis/IProfile.h: No such file or directory
+   25 | #include <gamepad/axis/IProfile.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ScaledDeadbandValue.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\ScaledDeadbandValue.cpp:17:10: fatal error: gamepad/axis/ScaledDeadbandValue.h: No such file or directory
+   17 | #include <gamepad/axis/ScaledDeadbandValue.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ButtonDecorator.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\button\ButtonDecorator.cpp:25:10: fatal error: gamepad/button/ButtonDecorator.h: No such file or directory
+   25 | #include <gamepad/button/ButtonDecorator.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ToggleButton.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\button\ToggleButton.cpp:17:10: fatal error: gamepad/button/ToggleButton.h: No such file or directory
+   17 | #include <gamepad/button/ToggleButton.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveOdometry.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\SwerveOdometry.cpp:20:10: fatal error: chassis/swerve/SwerveOdometry.h: No such file or directory
+   20 | #include <chassis/swerve/SwerveOdometry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PiecewiseLinearProfile.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\PiecewiseLinearProfile.cpp:29:10: fatal error: gamepad/axis/PiecewiseLinearProfile.h: No such file or directory
+   29 | #include <gamepad/axis/PiecewiseLinearProfile.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPercentOutputToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonPercentOutputToCTREAdapter.cpp:23:10: fatal error: hw/ctreadapters/DragonControlToCTREAdapter.h: No such file or directory
+   23 | #include <hw/ctreadapters/DragonControlToCTREAdapter.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveModule.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\swerve\SwerveModule.cpp:30:10: fatal error: wpi/numbers: No such file or directory
+   30 | #include <wpi/numbers>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+
+compiling TurnToAngle.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\chassis\TurnToAngle.cpp:25:10: fatal error: chassis/ChassisFactory.h: No such file or directory
+   25 | #include <chassis/ChassisFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling AnalogButton.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\button\AnalogButton.cpp:18:10: fatal error: gamepad/axis/AnalogAxis.h: No such file or directory
+   18 | #include <gamepad/axis/AnalogAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonVoltageToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonVoltageToCTREAdapter.cpp:23:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   23 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalButton.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\button\DigitalButton.cpp:21:10: fatal error: gamepad/button/DigitalButton.h: No such file or directory
+   21 | #include <gamepad/button/DigitalButton.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonXBox.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\DragonXBox.cpp:22:10: fatal error: gamepad/axis/AnalogAxis.h: No such file or directory
+   22 | #include <gamepad/axis/AnalogAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling POVButton.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\button\POVButton.cpp:19:10: fatal error: gamepad/button/POVButton.h: No such file or directory
+   19 | #include <gamepad/button/POVButton.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonGamepad.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\DragonGamepad.cpp:22:10: fatal error: gamepad/axis/AnalogAxis.h: No such file or directory
+   22 | #include <gamepad/axis/AnalogAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonTrapezoidToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonTrapezoidToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonControlToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonControlToCTREAdapter.cpp:24:10: fatal error: hw/interfaces/IDragonControlToVendorControlAdapter.h: No such file or directory
+   24 | #include <hw/interfaces/IDragonControlToVendorControlAdapter.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPositionDegreeToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonPositionDegreeToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonVelocityDegreeToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonVelocityDegreeToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPositionInchToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonPositionInchToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonServo.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonServo.cpp:18:10: fatal error: hw/DragonServo.h: No such file or directory
+   18 | #include <hw/DragonServo.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonVelocityRPSToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonVelocityRPSToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonVelocityInchToCTREAdapter.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\ctreadapters\DragonVelocityInchToCTREAdapter.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonAnalogInput.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonAnalogInput.cpp:19:10: fatal error: hw/DragonAnalogInput.h: No such file or directory
+   19 | #include <hw/DragonAnalogInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonCanCoder.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonCanCoder.cpp:19:10: fatal error: hw/DragonCanCoder.h: No such file or directory
+   19 | #include <hw/DragonCanCoder.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonVision.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonVision.cpp:17:11: fatal error: hw/DragonVision.h: No such file or directory
+   17 |  #include <hw/DragonVision.h>
+      |           ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPigeon.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonPigeon.cpp:17:10: fatal error: ctre/phoenix/Sensors/PigeonIMU.h: No such file or directory
+   17 | #include <ctre/phoenix/Sensors/PigeonIMU.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MotorData.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\MotorData.cpp:17:10: fatal error: hw/MotorData.h: No such file or directory
+   17 | #include <hw/MotorData.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalInputFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\DigitalInputFactory.cpp:23:10: fatal error: hw/DragonDigitalInput.h: No such file or directory
+   23 | #include <hw/DragonDigitalInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPDP.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonPDP.cpp:7:10: fatal error: hw/DragonPDP.h: No such file or directory
+    7 | #include <hw/DragonPDP.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling LimelightFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\LimelightFactory.cpp:19:10: fatal error: hw/factories/LimelightFactory.h: No such file or directory
+   19 | #include "hw/factories/LimelightFactory.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonControlToCTREAdapterFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\DragonControlToCTREAdapterFactory.cpp:24:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   24 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonMotorControllerFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\DragonMotorControllerFactory.cpp:5:10: fatal error: hw/factories/DragonMotorControllerFactory.h: No such file or directory
+    5 | #include <hw/factories/DragonMotorControllerFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonLeds.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonLeds.cpp:21:10: fatal error: hw/DragonLeds.h: No such file or directory
+   21 | #include <hw/DragonLeds.h>
+      |          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonDigitalInput.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonDigitalInput.cpp:24:10: fatal error: hw/DragonDigitalInput.h: No such file or directory
+   24 | #include <hw/DragonDigitalInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PigeonFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\PigeonFactory.cpp:32:10: fatal error: hw/factories/PigeonFactory.h: No such file or directory
+   32 | #include <hw/factories/PigeonFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalInputUsage.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\usages\DigitalInputUsage.cpp:25:10: fatal error: hw/usages/DigitalInputUsage.h: No such file or directory
+   25 | #include <hw/usages/DigitalInputUsage.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PDPFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\PDPFactory.cpp:28:10: fatal error: hw/factories/PDPFactory.h: No such file or directory
+   28 | #include <hw/factories/PDPFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonServoFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\factories\DragonServoFactory.cpp:31:10: fatal error: hw/factories/DragonServoFactory.h: No such file or directory
+   31 | #include <hw/factories/DragonServoFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonTalonSRX.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonTalonSRX.cpp:29:10: fatal error: hw/ctreadapters/DragonControlToCTREAdapter.h: No such file or directory
+   29 | #include <hw/ctreadapters/DragonControlToCTREAdapter.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonFalcon.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonFalcon.cpp:29:10: fatal error: hw/DistanceAngleCalcStruc.h: No such file or directory
+   29 | #include <hw/DistanceAngleCalcStruc.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonLimelight.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonLimelight.cpp:31:10: fatal error: hw/DragonLimelight.h: No such file or directory
+   31 | #include <hw/DragonLimelight.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonSolenoid.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\DragonSolenoid.cpp:22:10: fatal error: hw/DragonSolenoid.h: No such file or directory
+   22 | #include <hw/DragonSolenoid.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CancoderXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\CancoderXmlParser.cpp:24:10: fatal error: hw/DragonCanCoder.h: No such file or directory
+   24 | #include <hw/DragonCanCoder.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MotorControllerUsage.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\usages\MotorControllerUsage.cpp:25:10: fatal error: hw/usages/MotorControllerUsage.h: No such file or directory
+   25 | #include <hw/usages/MotorControllerUsage.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DigitalInputXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\DigitalInputXmlParser.cpp:24:10: fatal error: hw/DragonDigitalInput.h: No such file or directory
+   24 | #include <hw/DragonDigitalInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SolenoidUsage.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\usages\SolenoidUsage.cpp:25:10: fatal error: hw/usages/SolenoidUsage.h: No such file or directory
+   25 | #include <hw/usages/SolenoidUsage.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ServoUsage.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\usages\ServoUsage.cpp:25:10: fatal error: hw/usages/ServoUsage.h: No such file or directory
+   25 | #include <hw/usages/ServoUsage.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling AnalogInputXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\AnalogInputXmlParser.cpp:56:10: fatal error: hw/DragonAnalogInput.h: No such file or directory
+   56 | #include <hw/DragonAnalogInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling CameraXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\CameraXmlParser.cpp:33:10: fatal error: utils/Logger.h: No such file or directory
+   33 | #include <utils/Logger.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling LedXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\LedXmlParser.cpp:24:10: fatal error: hw/DragonLeds.h: No such file or directory
+   24 | #include <hw/DragonLeds.h>
+      |          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling LimelightXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\LimelightXmlParser.cpp:19:10: fatal error: hw/DragonLimelight.h: No such file or directory
+   19 | #include <hw/DragonLimelight.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ThroughBoreEncoderXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\ThroughBoreEncoderXmlParser.cpp:2:10: fatal error: utils/Logger.h: No such file or directory
+    2 | #include <utils/Logger.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PCMXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\PCMXmlParser.cpp:27:10: fatal error: utils/HardwareIDValidation.h: No such file or directory
+   27 | #include <utils/HardwareIDValidation.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PigeonXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\PigeonXmlParser.cpp:24:10: fatal error: hw/xml/PigeonXmlParser.h: No such file or directory
+   24 | #include <hw/xml/PigeonXmlParser.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MotorXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\MotorXmlParser.cpp:26:10: fatal error: hw/DragonTalonSRX.h: No such file or directory
+   26 | #include <hw/DragonTalonSRX.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ServoXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\ServoXmlParser.cpp:24:10: fatal error: hw/DragonServo.h: No such file or directory
+   24 | #include <hw/DragonServo.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SolenoidXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\SolenoidXmlParser.cpp:29:10: fatal error: hw/xml/SolenoidXmlParser.h: No such file or directory
+   29 | #include <hw/xml/SolenoidXmlParser.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling PDPXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\hw\xml\PDPXmlParser.cpp:28:10: fatal error: hw/factories/PDPFactory.h: No such file or directory
+   28 | #include <hw/factories/PDPFactory.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech.cpp:23:10: fatal error: mechanisms/base/Mech.h: No such file or directory
+   23 | #include <mechanisms/base/Mech.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1IndMotorSolenoid.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1IndMotorSolenoid.cpp:21:10: fatal error: mechanisms/base/Mech1IndMotor.h: No such file or directory
+   21 | #include <mechanisms/base/Mech1IndMotor.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1IndMotor.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1IndMotor.cpp:26:10: fatal error: mechanisms/controllers/ControlData.h: No such file or directory
+   26 | #include <mechanisms/controllers/ControlData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1Servo.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1Servo.cpp:25:10: fatal error: hw/DragonServo.h: No such file or directory
+   25 | #include <hw/DragonServo.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1MotorState.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1MotorState.cpp:23:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   23 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonBangBang.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\DragonBangBang.cpp:16:10: fatal error: mechanisms/controllers/DragonBangBang.h: No such file or directory
+   16 | #include <mechanisms/controllers/DragonBangBang.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1IndMotorSolenoidState.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1IndMotorSolenoidState.cpp:23:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   23 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ControlData.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\ControlData.cpp:20:10: fatal error: mechanisms/controllers/ControlData.h: No such file or directory
+   20 | #include <mechanisms/controllers/ControlData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech1Solenoid.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech1Solenoid.cpp:23:10: fatal error: mechanisms/base/Mech.h: No such file or directory
+   23 | #include <mechanisms/base/Mech.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling ControlDataXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\ControlDataXmlParser.cpp:26:10: fatal error: mechanisms/controllers/ControlData.h: No such file or directory
+   26 | #include <mechanisms/controllers/ControlData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MechanismXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\MechanismXmlParser.cpp:30:10: fatal error: hw/DragonAnalogInput.h: No such file or directory
+   30 | #include <hw/DragonAnalogInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech2MotorState.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech2MotorState.cpp:23:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   23 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MechSolenoidState.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\MechSolenoidState.cpp:23:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   23 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Robot.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\Robot.cpp:6:10: fatal error: Robot.h: No such file or directory
+    6 | #include <Robot.h>
+      |          ^~~~~~~~~
+compilation terminated.
+
+compiling MechanismTargetData.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\MechanismTargetData.cpp:20:10: fatal error: mechanisms/controllers/ControlModes.h: No such file or directory
+   20 | #include <mechanisms/controllers/ControlModes.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MechanismTargetXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\MechanismTargetXmlParser.cpp:25:10: fatal error: mechanisms/controllers/MechanismTargetData.h: No such file or directory
+   25 | #include <mechanisms/controllers/MechanismTargetData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StateMgr.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\StateMgr.cpp:27:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   27 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling FieldDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\FieldDrive.cpp:17:10: fatal error: states/chassis/FieldDrive.h: No such file or directory
+   17 | #include <states/chassis/FieldDrive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Mech2IndMotors.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\base\Mech2IndMotors.cpp:28:10: fatal error: mechanisms/base/Mech.h: No such file or directory
+   28 | #include <mechanisms/base/Mech.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StopDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\StopDrive.cpp:17:10: fatal error: states/chassis/StopDrive.h: No such file or directory
+   17 | #include <states/chassis/StopDrive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveDriveState.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\SwerveDriveState.cpp:17:10: fatal error: states/chassis/SwerveDriveState.h: No such file or directory
+   17 | #include <states/chassis/SwerveDriveState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonPID.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\DragonPID.cpp:18:10: fatal error: mechanisms/controllers/ControlData.h: No such file or directory
+   18 | #include <mechanisms/controllers/ControlData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StateMgrHelper.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\StateMgrHelper.cpp:18:10: fatal error: mechanisms/base/IState.h: No such file or directory
+   18 | #include <mechanisms/base/IState.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling TrajectoryDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\TrajectoryDrive.cpp:17:10: fatal error: states/chassis/TrajectoryDrive.h: No such file or directory
+   17 | #include <states/chassis/TrajectoryDrive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling StateDataXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\controllers\StateDataXmlParser.cpp:42:10: fatal error: mechanisms/controllers/ControlData.h: No such file or directory
+   42 | #include <mechanisms/controllers/ControlData.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling SwerveDriveStates.cpp successful.
+
+compiling MechanismFactory.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\MechanismFactory.cpp:33:10: fatal error: hw/DragonAnalogInput.h: No such file or directory
+   33 | #include <hw/DragonAnalogInput.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling MechanismTypes.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\mechanisms\MechanismTypes.cpp:25:10: fatal error: mechanisms/MechanismTypes.h: No such file or directory
+   25 | #include <mechanisms/MechanismTypes.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Point2d.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\Point2d.cpp:16:10: fatal error: utils/Point2d.h: No such file or directory
+   16 | #include <utils/Point2d.h>
+      |          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling RobotXmlParser.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\RobotXmlParser.cpp:40:10: fatal error: hw/DragonPigeon.h: No such file or directory
+   40 | #include <hw/DragonPigeon.h>
+      |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling AngleUtils.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\AngleUtils.cpp:23:10: fatal error: utils/AngleUtils.h: No such file or directory
+   23 | #include <utils/AngleUtils.h>
+      |          ^~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling TeleopControl.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\TeleopControl.cpp:27:10: fatal error: gamepad/IDragonGamePad.h: No such file or directory
+   27 | #include <gamepad/IDragonGamePad.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling HardwareIDValidation.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\HardwareIDValidation.cpp:31:10: fatal error: utils/HardwareIDValidation.h: No such file or directory
+   31 | #include <utils/HardwareIDValidation.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling RobotDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\RobotDrive.cpp:21:10: fatal error: states/chassis/RobotDrive.h: No such file or directory
+   21 | #include <states/chassis/RobotDrive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling UsageValidation.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\UsageValidation.cpp:32:10: fatal error: utils/UsageValidation.h: No such file or directory
+   32 | #include <utils/UsageValidation.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling HoldDrive.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\states\chassis\HoldDrive.cpp:20:10: fatal error: states/chassis/HoldDrive.h: No such file or directory
+   20 | #include <states/chassis/HoldDrive.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling AnalogAxis.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\gamepad\axis\AnalogAxis.cpp:25:10: fatal error: gamepad/axis/AnalogAxis.h: No such file or directory
+   25 | #include <gamepad/axis/AnalogAxis.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling DragonAssert.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\DragonAssert.cpp:28:10: fatal error: utils/DragonAssert.h: No such file or directory
+   28 | #include <utils/DragonAssert.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling NetworkTableReader.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\NetworkTableReader.cpp:25:10: fatal error: utils/NetworkTableReader.h: No such file or directory
+   25 | #include <utils/NetworkTableReader.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+compiling Logger.cpp failed.
+C:\GitRepos\BaseRepository-2023\src\main\cpp\utils\Logger.cpp:41:10: fatal error: utils/Logger.h: No such file or directory
+   41 | #include <utils/Logger.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/GitRepos/BaseRepository-2023/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.

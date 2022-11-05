@@ -137,7 +137,7 @@ class SwerveChassis : public IChassis
         ) override;
 
         //static constexpr auto MaxSpeed = 3.0_mps; 
-        //static constexpr units::angular_velocity::radians_per_second_t MaxAngularSpeed{wpi::math::pi};
+        //static constexpr units::angular_velocity::radians_per_second_t MaxAngularSpeed{wpi::numbers::pi};
 
         units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter; }  
         units::length::inch_t GetWheelBase() const {return m_wheelBase; }  
