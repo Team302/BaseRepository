@@ -22,3 +22,13 @@ SwerveDriveState::SwerveDriveState(SwerveDriveStateType stateType, ChassisMoveme
 {
 
 }
+
+void SwerveDriveState::UpdateChassisMovement(ChassisMovement chassisMovement)
+{
+    m_chassisMovement = chassisMovement;
+}
+
+void SwerveDriveState::UpdateOrientationOption(ISwerveDriveOrientation orientation)
+{
+    m_orientation = orientation;
+}

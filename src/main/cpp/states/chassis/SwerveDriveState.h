@@ -36,15 +36,32 @@ class SwerveDriveState
     public:
         SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
+        /// @brief Get the state type
+        /// @return SwerveDriveStateType - type of state
         SwerveDriveStateType GetStateType() const {return m_stateType;};
 
+        /// @brief Get the current ChassisMovement object
+        /// @return ChassisMovement - current ChassisMovement
         ChassisMovement GetChassisMovement() const {return m_chassisMovement;};
 
+        /// @brief Get the current swerve drive orientation
+        /// @return ISwerveDriveOrientation - current orientation
         ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
 
+        /// @brief Initialize the state
         void virtual Init() = 0;
         
+        /// @brief Calculate the swerve module states based on chassis movement and orientation option
+        /// @return std::array<frc::SwerveModuleState*, 4> - 4 calculated swerve module states
         virtual  std::array<frc::SwerveModuleState*, 4> CalcSwerveModuleStates() = 0;
+
+        /// @brief Update the ChassisMovement for the state
+        /// @param [in] ChassisMovement chassisMovement - new chassisMovement
+        void UpdateChassisMovement(ChassisMovement chassisMovement);
+
+        /// @brief Update the orientation option for the state
+        /// @param [in] ISwerveDriveOrientation orientation - new orientation
+        void UpdateOrientationOption(ISwerveDriveOrientation orientation);
 
     protected:
         SwerveDriveStateType        m_stateType;

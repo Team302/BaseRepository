@@ -19,21 +19,47 @@
 #include <memory>
 
 //FRC Includes
+#include <frc/geometry/Pose2d.h>
 
 //Team302 Includes
+#include <states/chassis/SwerveDriveState.h>
+#include <chassis/swerve/ISwerveDriveOrientation.h>
 
 class SwerveChassis
 {
     public:
         SwerveChassis();
 
+        /// @brief Runs the current SwerveDriveState
         void Drive();
-        void Drive(SwerveDriveState);
 
-        frc::Posed2d GetPose();
+        /// @brief Initializes the targetState, updates the current SwerveDriveState
+        /// @param [in] SwerveDriveState    targetState - the new state that should be ran
+        void Drive(SwerveDriveState* targetState);
+
+        /// @brief Returns the current SwerveDriveState
+        /// @return SwerveDriveState* - current SwerveDriveState
+        SwerveDriveState* GetCurrentDriveState();
+
+        /// @brief Get current estimated chassis position as Pose2d
+        /// @return frc::Pose2d - current chassis position
+        frc::Pose2d GetPose();
+
+        /// @brief Set the current chassis position to the target pose
+        /// @param [in] frc::Pose2d pose - target pose
         void ResetPose(frc::Pose2d pose);
 
+        /// @brief Update current estimated chassis position based on encoders and sensors
         void UpdateOdometry();
 
-        SwerveDriveState* GetCurrentDriveState();
+        /// @brief Get the current chassis orientation "state"
+        /// @return ISwerveDriveOrientation* - current orientation
+        ISwerveDriveOrientation* GetOrientation();
+    
+    private:
+        std::vector<SwerveDriveState*>          m_swerveDriveStates;
+        SwerveDriveState*                       m_currentDriveState;
+
+        std::vector<ISwerveDriveOrientation*>   m_swerveOrientation;
+        ISwerveDriveOrientation*                m_currentOrientation;
 };
