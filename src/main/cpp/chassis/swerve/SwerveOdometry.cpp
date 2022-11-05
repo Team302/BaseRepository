@@ -82,7 +82,7 @@ void SwerveOdometry::ResetPose
     pigeon->ReZeroPigeon(angle.Degrees().to<double>(), 0);
 }
 
-void SwerveChassis::ResetPose
+void SwerveOdometry::ResetPose
 ( 
     const Pose2d&       pose
 )

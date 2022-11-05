@@ -29,11 +29,12 @@ class SwerveDriveState
     public:
         enum SwerveDriveStateType
         {
-        FieldDrive,
-        TrajectoryDrive,
-        PolarDrive,
-        HoldDrive,
-        StopDrive
+            RobotDrive,
+            FieldDrive,
+            TrajectoryDrive,
+            PolarDrive,
+            HoldDrive,
+            StopDrive
         };
 
         SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
