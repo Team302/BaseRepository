@@ -15,10 +15,11 @@
 
 //FRC Includes
 #include <frc/geometry/Rotation2d.h>
+#include <frc/kinematics/SwerveModulePosition.h>
+#include <wpi/array.h>
 
 //Team302 Includes
 #include <chassis/swerve/SwerveOdometry.h>
-#include <chassis/swerve/SwerveChassis.h>
 
 #include <hw/factories/PigeonFactory.h>
 
@@ -38,7 +39,18 @@ SwerveOdometry::SwerveOdometry(
     m_backLeft(m_chassis->GetBackLeft()),
     m_backRight(m_chassis->GetBackRight())
 {
+    //default swerve module position
+    SwerveModulePosition defaultSwervePose = {units::meter_t(0.0), frc::Rotation2d()};
+    wpi::array<SwerveModulePosition, 4> swerveModulePositionArray = {defaultSwervePose, defaultSwervePose, defaultSwervePose, defaultSwervePose};
+
     /// @TODO: May want to create swervemodule locations in a different class, call getter here and in swerve chassis
+    m_poseEstimator = {frc::Rotation2d(), 
+                        frc::Pose2d(),
+                        swerveModulePositionArray,
+                        m_kinematics,
+                        {0.1, 0.1, 0.1},   // state standard deviations
+                        {0.05},            // local measurement standard deviations
+                        {0.1, 0.1, 0.1} }; // vision measurement standard deviations
 }
 
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
@@ -91,4 +103,9 @@ void SwerveOdometry::ResetPose
     Rotation2d angle = pose.Rotation();
 
     ResetPose(pose, angle);
+}
+
+frc::SwerveDriveKinematics<4> SwerveOdometry::GetSwerveKinematics() const
+{
+    return m_kinematics;
 }

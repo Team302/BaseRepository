@@ -27,7 +27,7 @@
 #include <networktables/NetworkTableEntry.h>
 #include <units/angle.h>
 #include <units/velocity.h>
-#include <wpi/numbers>
+#include <numbers>
 
 // Team 302 includes
 #include <chassis/ChassisFactory.h>
@@ -237,7 +237,7 @@ void SwerveModule::ZeroAlignModule()
 SwerveModuleState SwerveModule::GetState() const 
 {
     // Get the Module Drive Motor Speed
-    auto mpr = units::length::meter_t(GetWheelDiameter() * wpi::numbers::pi );               
+    auto mpr = units::length::meter_t(GetWheelDiameter() * std::numbers::pi );               
     auto mps = units::velocity::meters_per_second_t(mpr.to<double>() * m_driveMotor.get()->GetRPS());
 
     // Get the Module Current Rotation Angle
@@ -352,7 +352,7 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
     if (m_runClosedLoopDrive)
     {
         // convert mps to unitless rps by taking the speed and dividing by the circumference of the wheel
-        auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * wpi::numbers::pi);  
+        auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * std::numbers::pi);  
         driveTarget /= m_driveMotor.get()->GetGearRatio();       
         m_driveMotor.get()->Set(driveTarget);
     }
@@ -439,7 +439,7 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
         // Thetak+1 = Thetagyro,k+1
 
         auto delta  = currentRotations - startRotations;
-        auto circum = wpi::numbers::pi * m_wheelDiameter;
+        auto circum = std::numbers::pi * m_wheelDiameter;
 
         currentX = startX + cos(startAngle.to<double>()) * circum;
         currentY = startY + sin(startAngle.to<double>()) * circum;

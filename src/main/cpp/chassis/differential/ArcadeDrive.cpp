@@ -18,7 +18,6 @@
 #include <memory>
 
 // FRC includes
-#include <frc/drive/Vector2d.h>
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 

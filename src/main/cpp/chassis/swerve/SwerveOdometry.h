@@ -16,12 +16,13 @@
 #pragma once
 
 //FRC Includes
-#include <frc/estimator/SwerveDrivePoseEstimator.h>
+#include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/estimator/SwerveDrivePoseEstimator.h>
 
 //Team302 Includes
-#include <chassis/ChassisFactory.h>
 #include <chassis/swerve/SwerveChassis.h>
+#include <chassis/ChassisFactory.h>
 
 class SwerveOdometry
 {
@@ -51,7 +52,7 @@ class SwerveOdometry
 
         /// @brief Get the kinematics object
         /// @return frc::SwerveDriveKinematics<4> - kinematics object
-        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const {return m_kinematics;};
+        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const;
 
     private:
         SwerveChassis* m_chassis;
@@ -73,10 +74,5 @@ class SwerveOdometry
 
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
-        frc::SwerveDrivePoseEstimator<4> m_poseEstimator{  frc::Rotation2d(), 
-                                                           frc::Pose2d(), 
-                                                           m_kinematics,
-                                                           {0.1, 0.1, 0.1},   // state standard deviations
-                                                           {0.05},            // local measurement standard deviations
-                                                           {0.1, 0.1, 0.1} }; // vision measurement standard deviations
+        frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
 };

@@ -26,11 +26,11 @@
 #include <memory>
 
 #include <chassis/IChassis.h>
+#include <chassis/swerve/SwerveChassis.h>
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <chassis/swerve/SwerveModule.h>
-#include <chassis/swerve/SwerveChassis.h>
 #include <chassis/differential/DifferentialChassis.h>
 
 namespace ctre

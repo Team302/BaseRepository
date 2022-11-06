@@ -18,8 +18,6 @@
 //C++ Libraries
 #include <memory>
 
-#include <frc/drive/Vector2d.h>
-
 //Team 302 includes
 #include <chassis/differential/DifferentialChassis.h>
 #include <TeleopControl.h>
@@ -40,6 +38,5 @@ class ArcadeDrive : public IState
     private:
         inline TeleopControl* GetController() const { return m_controller; }
         std::shared_ptr<DifferentialChassis>        m_chassis;
-        TeleopControl*                              m_controller;
-        frc::Vector2d                               m_offset;     
+        TeleopControl*                              m_controller;    
 };

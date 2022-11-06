@@ -59,6 +59,8 @@ SwerveChassis::SwerveChassis
     m_swerveOrientation[SwerveEnums::MAINTAIN] = new ISwerveDriveOrientation(SwerveEnums::HeadingOption::MAINTAIN);
     //..... continue
 
+    m_currentOrientation = m_swerveOrientation[SwerveEnums::MAINTAIN];
+
     m_swerveDriveStates[SwerveDriveState::RobotDrive] =  new RobotDrive(SwerveDriveState::RobotDrive, 
                                                             ChassisMovement{}, 
                                                             *m_swerveOrientation[SwerveEnums::MAINTAIN]);

@@ -27,6 +27,8 @@
 #include <chassis/swerve/ISwerveDriveOrientation.h>
 #include <chassis/swerve/SwerveEnums.h>
 #include <chassis/swerve/SwerveModule.h>
+#include <chassis/IChassis.h>
+
 #include <chassis/swerve/SwerveOdometry.h>
 
 class SwerveChassis : public IChassis

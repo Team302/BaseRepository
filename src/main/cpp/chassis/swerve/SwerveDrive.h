@@ -18,8 +18,6 @@
 //C++ Libraries
 #include <memory>
 
-#include <frc/drive/Vector2d.h>
-
 //Team 302 includes
 #include <chassis/DragonTargetFinder.h> //target finder point to target centet
 #include <chassis/swerve/SwerveChassis.h>
@@ -44,6 +42,5 @@ class SwerveDrive : public IState
         inline TeleopControl* GetController() const { return m_controller; }
         std::shared_ptr<SwerveChassis>      m_chassis;
         TeleopControl*                      m_controller;
-        bool                                m_usePWLinearProfile;
-        frc::Vector2d                       m_offset;     
+        bool                                m_usePWLinearProfile;  
 };
