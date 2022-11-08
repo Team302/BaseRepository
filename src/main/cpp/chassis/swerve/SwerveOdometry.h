@@ -19,6 +19,7 @@
 #include <frc/geometry/Pose2d.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/kinematics/SwerveModulePosition.h>
 
 //Team302 Includes
 #include <chassis/swerve/SwerveChassis.h>
@@ -52,7 +53,7 @@ class SwerveOdometry
 
         /// @brief Get the kinematics object
         /// @return frc::SwerveDriveKinematics<4> - kinematics object
-        SwerveDriveKinematics<4> GetSwerveKinematics() const;
+        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const;
 
     private:
         SwerveChassis* m_chassis;
@@ -75,4 +76,9 @@ class SwerveOdometry
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
         frc::SwerveDrivePoseEstimator<4>* m_poseEstimator;
+
+        frc::SwerveModulePosition           m_flPosition;
+        frc::SwerveModulePosition           m_frPosition;
+        frc::SwerveModulePosition           m_blPosition;
+        frc::SwerveModulePosition           m_brPosition;
 };

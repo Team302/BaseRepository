@@ -13,9 +13,11 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+//C++ Includes
+#include <math.h>
+
 //FRC Includes
 #include <frc/geometry/Rotation2d.h>
-#include <frc/kinematics/SwerveModulePosition.h>
 #include <wpi/array.h>
 
 //Team302 Includes
@@ -37,7 +39,11 @@ SwerveOdometry::SwerveOdometry(
     m_frontLeft(m_chassis->GetFrontLeft()),
     m_frontRight(m_chassis->GetFrontRight()),
     m_backLeft(m_chassis->GetBackLeft()),
-    m_backRight(m_chassis->GetBackRight())
+    m_backRight(m_chassis->GetBackRight()),
+    m_flPosition(*new SwerveModulePosition()),
+    m_frPosition(*new SwerveModulePosition()),
+    m_blPosition(*new SwerveModulePosition()),
+    m_brPosition(*new SwerveModulePosition())
 {
     //default swerve module position
     SwerveModulePosition defaultSwervePose = {units::meter_t(0.0), frc::Rotation2d()};
@@ -64,12 +70,14 @@ void SwerveOdometry::UpdateOdometry()
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), "Odometry: Current X", currentPose.X().to<double>());
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), "Odometry: Current Y", currentPose.Y().to<double>());
 
-    //auto states = wpi::array<SwerveModuleState
-
-    m_poseEstimator->Update(rot2d, m_frontLeft.get()->GetState(),
+    m_poseEstimator->Update(rot2d, {m_frontLeft.get()->GetState(),
                                   m_frontRight.get()->GetState(), 
                                   m_backLeft.get()->GetState(),
-                                  m_backRight.get()->GetState());
+                                  m_backRight.get()->GetState()}, 
+                                    {m_frontLeft.get()->GetPosition(),
+                                    m_frontRight.get()->GetPosition(), 
+                                    m_backLeft.get()->GetPosition(),
+                                    m_backRight.get()->GetPosition()});
 
     auto updatedPose = m_poseEstimator->GetEstimatedPosition();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), "Odometry: Updated X", updatedPose.X().to<double>());
@@ -90,7 +98,11 @@ void SwerveOdometry::ResetPose
     const Rotation2d&   angle
 )
 {
-    m_poseEstimator->ResetPosition(pose, angle);
+    m_poseEstimator->ResetPosition(pose, angle,
+                                    {m_frontLeft.get()->GetPosition(),
+                                    m_frontRight.get()->GetPosition(), 
+                                    m_backLeft.get()->GetPosition(),
+                                    m_backRight.get()->GetPosition()});
     m_chassis->SetEncodersToZero();
 
     auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
