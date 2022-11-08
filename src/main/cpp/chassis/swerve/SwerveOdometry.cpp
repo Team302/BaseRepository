@@ -19,18 +19,16 @@
 //FRC Includes
 #include <frc/geometry/Rotation2d.h>
 #include <wpi/array.h>
+#include <units/length.h>
 
 //Team302 Includes
 #include <chassis/swerve/SwerveOdometry.h>
-
 #include <hw/factories/PigeonFactory.h>
-
 #include <utils/Logger.h>
 
 using namespace frc;
 
 SwerveOdometry::SwerveOdometry(
-
 ) : m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
     m_frontLeftLocation(m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
     m_frontRightLocation(m_chassis->GetWheelBase()/2.0, -1.0*m_chassis->GetTrack()/2.0),
@@ -46,13 +44,13 @@ SwerveOdometry::SwerveOdometry(
     m_brPosition(*new SwerveModulePosition())
 {
     //default swerve module position
-    SwerveModulePosition defaultSwervePose = {units::meter_t(0.0), frc::Rotation2d()};
+    SwerveModulePosition defaultSwervePose = {units::length::meter_t(0.0), frc::Rotation2d()};
     wpi::array<SwerveModulePosition, 4> swerveModulePositionArray = {defaultSwervePose, defaultSwervePose, defaultSwervePose, defaultSwervePose};
 
     /// @TODO: May want to create swervemodule locations in a different class, call getter here and in swerve chassis
 
-    m_poseEstimator = new frc::SwerveDrivePoseEstimator<4>(Rotation2d(), 
-                        frc::Pose2d(),
+    m_poseEstimator = new SwerveDrivePoseEstimator<4>(Rotation2d(), 
+                        Pose2d(),
                         swerveModulePositionArray,
                         m_kinematics,
                         {0.1, 0.1, 0.1},   // state standard deviations
