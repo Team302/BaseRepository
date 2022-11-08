@@ -44,10 +44,10 @@ void ResetPosition::Init(PrimitiveParams* params)
         deployDir += "/paths/" + pathToLoad;
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-        m_chassis->ResetPose(m_trajectory.InitialPose());
+        m_chassis.get()->GetOdometry()->ResetPosition(m_trajectory.InitialPose());
 
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosX"), m_chassis.get()->GetOdometry()->GetPose().X().to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: ResetPosY"), m_chassis.get()->GetOdometry()->GetPose().Y().to<double>());
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Reset Position"), string("Auton Info: InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());

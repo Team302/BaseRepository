@@ -74,7 +74,7 @@ void DriveStop::Run()
 		speeds.omega = units::degrees_per_second_t(0.0);
 		if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
         {
-            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+            m_chassis->Get SetTargetHeading(units::angle::degree_t(m_heading));
         }
 
 		m_chassis->Drive(speeds, 
