@@ -16,9 +16,9 @@
 
 #pragma once
 
-#include <wpi/numbers>
+#include <numbers>
 
-constexpr double PI = wpi::numbers::pi;
+constexpr double PI = std::numbers::pi;
 
 ///	 @class ConversionUtils
 ///  @brief	Collection to convert a number between different units
