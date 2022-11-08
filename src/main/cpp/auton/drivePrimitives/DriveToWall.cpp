@@ -40,6 +40,7 @@ using namespace frc;
 //Team302 includes
 #include <auton/drivePrimitives/DriveToWall.h>
 #include <chassis/ChassisFactory.h>
+#include <chassis/swerve/SwerveChassis.h>
 
 DriveToWall::DriveToWall() :
 	SuperDrive(),
