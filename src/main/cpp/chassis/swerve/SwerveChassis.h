@@ -23,13 +23,13 @@
 
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
-
+#include <chassis/swerve/SwerveOdometry.h>
 #include <chassis/swerve/ISwerveDriveOrientation.h>
 #include <chassis/swerve/SwerveEnums.h>
 #include <chassis/swerve/SwerveModule.h>
 #include <chassis/IChassis.h>
 
-#include <chassis/swerve/SwerveOdometry.h>
+
 
 class SwerveChassis : public IChassis
 {
@@ -61,7 +61,7 @@ class SwerveChassis : public IChassis
         );
 
         /// @brief Runs the current SwerveDriveState
-        void Drive();
+        void Drive() override;
 
         /// @brief Initializes the targetState, updates the current SwerveDriveState
         /// @param [in] SwerveDriveState    targetState - the new state that should be ran
@@ -80,6 +80,9 @@ class SwerveChassis : public IChassis
         std::shared_ptr<SwerveModule> GetFrontRight() const { return m_frontRight;}
         std::shared_ptr<SwerveModule> GetBackLeft() const { return m_backLeft;}
         std::shared_ptr<SwerveModule> GetBackRight() const { return m_backRight;};
+
+        inline IChassis::CHASSIS_TYPE GetType() const override {return IChassis::CHASSIS_TYPE::SWERVE;};
+        inline void Initialize() override {};
 
         /// @brief Returns the current SwerveDriveState
         /// @return SwerveDriveState* - current SwerveDriveState

@@ -30,6 +30,8 @@
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/ControlModes.h>
 
+#include <states/chassis/SwerveDriveState.h>
+
 // Third Party Includes
 
 
@@ -45,8 +47,7 @@ class IChassis
 {
 	public:
         enum CHASSIS_TYPE
-        {
-            DIFFERENTIAL, 
+        { 
             SWERVE
         };
 
@@ -76,29 +77,18 @@ class IChassis
 
         /// @brief      Run chassis 
         /// @returns    void
-        virtual void Drive
-        (
-            frc::ChassisSpeeds  chassisSpeeds,
-            CHASSIS_DRIVE_MODE  mode,
-            HEADING_OPTION      headingOption
-        ) = 0;
+        virtual void Drive() = 0;
+
+        /// @brief Drive the chassis
+        virtual void Drive(SwerveDriveState* targetState) = 0;
         
         virtual void Initialize() = 0;
-
-        virtual frc::Pose2d GetPose() const = 0;
-        virtual void ResetPose
-        (
-            const frc::Pose2d&      pose
-        ) = 0;
 
         virtual void UpdateOdometry() = 0;
         virtual units::length::inch_t GetWheelDiameter() const = 0;
         virtual units::length::inch_t GetTrack() const = 0;
         virtual units::velocity::meters_per_second_t GetMaxSpeed() const = 0;
         virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
-        virtual units::angle::degree_t GetYaw() const = 0;
-        virtual void SetTargetHeading(units::angle::degree_t targetYaw) = 0;
-        virtual void SetEncodersToZero() = 0;
 
 	    IChassis() = default;
 	    virtual ~IChassis() = default;

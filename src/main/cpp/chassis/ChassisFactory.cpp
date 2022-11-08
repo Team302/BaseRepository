@@ -39,7 +39,6 @@
 
 #include <chassis/ChassisFactory.h>
 #include <chassis/ChassisSpeedCalcEnum.h>
-#include <chassis/differential/DifferentialChassis.h>
 #include <chassis/IChassis.h>
 #include <chassis/PoseEstimatorEnum.h>
 #include <chassis/swerve/SwerveChassis.h>
@@ -94,22 +93,6 @@ IChassis* ChassisFactory::CreateChassis
 {
     switch ( type )
     {
-        case ChassisFactory::CHASSIS_TYPE::TANK_CHASSIS:
-        {
-            auto leftMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::DIFFERENTIAL_LEFT_MAIN);
-            auto rightMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::DIFFERENTIAL_RIGHT_MAIN);
-            m_chassis = new DifferentialChassis(leftMotor,
-                                                rightMotor,
-                                                track,
-                                                maxVelocity,
-                                                maxAngularSpeed,
-                                                wheelDiameter,
-                                                networkTableName,
-                                                controlFileName);
-
-        }
-        break;
-
         case ChassisFactory::CHASSIS_TYPE::MECANUM_CHASSIS:
         {
             // todo plug in mecanum drive
@@ -124,8 +107,7 @@ IChassis* ChassisFactory::CreateChassis
                                            backRight, 
                                            wheelDiameter,
                                            wheelBase, 
-                                           track, 
-                                           odometryComplianceCoefficient,
+                                           track,
                                            maxVelocity, 
                                            maxAngularSpeed, 
                                            maxAcceleration,
