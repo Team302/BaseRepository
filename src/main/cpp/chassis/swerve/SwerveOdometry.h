@@ -19,8 +19,9 @@
 
 #include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/SwerveModulePosition.h>
-#include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
+#include <frc/kinematics/SwerveDriveKinematics.h>
+
 
 //Team302 Includes
 #include <chassis/swerve/SwerveChassis.h>
@@ -57,7 +58,7 @@ class SwerveOdometry
 
         /// @brief Get the kinematics object
         /// @return frc::SwerveDriveKinematics<4> - kinematics object
-        frc::SwerveDriveKinematics<4> GetSwerveKinematics();
+        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const;
         
 
     private:
