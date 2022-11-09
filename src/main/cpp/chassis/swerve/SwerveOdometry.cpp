@@ -25,24 +25,28 @@
 #include <chassis/swerve/SwerveOdometry.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
+#include <chassis/ChassisFactory.h>
 
 using namespace frc;
 
 SwerveOdometry::SwerveOdometry(
-) : m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
-    m_frontLeftLocation(m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
-    m_frontRightLocation(m_chassis->GetWheelBase()/2.0, -1.0*m_chassis->GetTrack()/2.0),
-    m_backLeftLocation(-1.0*m_chassis->GetWheelBase()/2.0, m_chassis->GetTrack()/2.0),
-    m_backRightLocation(-1.0*m_chassis->GetWheelBase()/2.0, -1.0*m_chassis->GetTrack()/2.0),
-    m_frontLeft(m_chassis->GetFrontLeft()),
-    m_frontRight(m_chassis->GetFrontRight()),
-    m_backLeft(m_chassis->GetBackLeft()),
-    m_backRight(m_chassis->GetBackRight()),
-    m_flPosition(*new SwerveModulePosition()),
+) : m_flPosition(*new SwerveModulePosition()),
     m_frPosition(*new SwerveModulePosition()),
     m_blPosition(*new SwerveModulePosition()),
     m_brPosition(*new SwerveModulePosition())
 {
+    SwerveChassis* chassis = ChassisFactory::GetChassisFactory()->GetSwerveChassis();
+
+    m_frontLeftLocation = frc::Translation2d(chassis->GetWheelBase()/2.0, chassis->GetTrack()/2.0);
+    m_frontRightLocation = frc::Translation2d(chassis->GetWheelBase()/2.0, -1.0*chassis->GetTrack()/2.0);
+    m_backLeftLocation = frc::Translation2d(-1.0*chassis->GetWheelBase()/2.0, chassis->GetTrack()/2.0);
+    m_backRightLocation = frc::Translation2d(-1.0*chassis->GetWheelBase()/2.0, -1.0*chassis->GetTrack()/2.0);
+
+    m_frontLeft = chassis->GetFrontLeft();
+    m_frontRight = chassis->GetFrontRight();
+    m_backLeft = chassis->GetBackLeft();
+    m_backRight = chassis->GetBackRight();
+
     //default swerve module position
     SwerveModulePosition defaultSwervePose = {units::length::meter_t(0.0), frc::Rotation2d()};
     wpi::array<SwerveModulePosition, 4> swerveModulePositionArray = {defaultSwervePose, defaultSwervePose, defaultSwervePose, defaultSwervePose};
@@ -101,7 +105,8 @@ void SwerveOdometry::ResetPose
                                     m_frontRight.get()->GetPosition(), 
                                     m_backLeft.get()->GetPosition(),
                                     m_backRight.get()->GetPosition()});
-    m_chassis->SetEncodersToZero();
+                                    
+    ChassisFactory::GetChassisFactory()->GetSwerveChassis()->SetEncodersToZero();
 
     auto pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
 

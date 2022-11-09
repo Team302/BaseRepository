@@ -17,9 +17,11 @@
 
 //C++ Includes
 #include <memory>
+#include <map>
 
 //FRC Includes
 #include <frc/geometry/Pose2d.h>
+#include <units/angular_acceleration.h>
 
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
@@ -34,6 +36,8 @@
 class SwerveChassis : public IChassis
 {
     public:
+        ~SwerveChassis() = default;
+
         /// @brief Construct a SwerveChassis
         /// @param [in] std::shared_ptr<SwerveModule>           frontleft:          front left swerve module
         /// @param [in] std::shared_ptr<SwerveModule>           frontright:         front right swerve module
@@ -57,7 +61,7 @@ class SwerveChassis : public IChassis
 			units::velocity::meters_per_second_t                        maxSpeed,
 			units::radians_per_second_t                                 maxAngularSpeed,
 			units::acceleration::meters_per_second_squared_t            maxAcceleration,
-			units::angular_acceleration::radians_per_second_squared_t   maxAngularAcceleration
+			units::angular_acceleration::radians_per_second_squared_t  maxAngularAcceleration
         );
 
         /// @brief Runs the current SwerveDriveState
@@ -66,6 +70,9 @@ class SwerveChassis : public IChassis
         /// @brief Initializes the targetState, updates the current SwerveDriveState
         /// @param [in] SwerveDriveState    targetState - the new state that should be ran
         void Drive(SwerveDriveState* targetState);
+
+        /// @brief Set all the swerve module encoders to zero
+        void SetEncodersToZero();
 
         /// Getters
 

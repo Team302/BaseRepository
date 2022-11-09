@@ -21,7 +21,7 @@
 class Point2d
 {
     public:
-        Point2d() = delete;
+        Point2d();
 
         Point2d(units::meter_t x, units::meter_t y) {X= x; Y= y;};
         Point2d(const Point2d& other) {X = other.X; Y = other.Y;};

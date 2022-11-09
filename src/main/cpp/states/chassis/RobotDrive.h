@@ -18,7 +18,6 @@
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
 #include <chassis/ChassisFactory.h>
-#include <chassis/swerve/SwerveChassis.h>
 
 class RobotDrive : public SwerveDriveState
 {

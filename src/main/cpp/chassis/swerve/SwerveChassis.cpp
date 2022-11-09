@@ -14,6 +14,7 @@
 //====================================================================================================================================================
 
 //FRC Includes
+#include <wpi/array.h>
 
 //Team 302 Includes
 #include <chassis/swerve/SwerveChassis.h>
@@ -48,6 +49,8 @@ SwerveChassis::SwerveChassis
     m_maxAngularSpeed(maxAngularSpeed), 
     m_maxAcceleration(maxAcceleration), //Not used at the moment
     m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
+    m_swerveDriveStates(),
+    m_swerveOrientation(),
     m_odometry(new SwerveOdometry())
 {
     m_frontLeft->ZeroAlignModule();
@@ -66,6 +69,14 @@ SwerveChassis::SwerveChassis
                                                             *m_swerveOrientation[SwerveEnums::MAINTAIN]);
 
     //...... continue doing this, waiting to finish until I determine if this is right idea
+}
+
+void SwerveChassis::SetEncodersToZero()
+{
+    m_frontLeft.get()->SetEncodersToZero();
+    m_frontRight.get()->SetEncodersToZero();
+    m_backLeft.get()->SetEncodersToZero();
+    m_backRight.get()->SetEncodersToZero();
 }
 
 void SwerveChassis::Drive()

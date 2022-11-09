@@ -16,21 +16,18 @@
 #pragma once
 
 //FRC Includes
-
 #include <frc/geometry/Pose2d.h>
-#include <frc/kinematics/SwerveModulePosition.h>
+//#include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
-#include <frc/kinematics/SwerveDriveKinematics.h>
-
+//#include <frc/kinematics/SwerveDriveKinematics.h>
 
 //Team302 Includes
-#include <chassis/swerve/SwerveChassis.h>
-#include <chassis/ChassisFactory.h>
+#include <chassis/swerve/SwerveModule.h>
 
 class SwerveOdometry
 {
     public:
-        SwerveOdometry() = default;
+        SwerveOdometry();
         ~SwerveOdometry() = default;
 
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
@@ -62,8 +59,6 @@ class SwerveOdometry
         
 
     private:
-        SwerveChassis* m_chassis;
-
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
         frc::Translation2d m_backLeftLocation;

@@ -15,6 +15,12 @@
 
 #include <utils/Point2d.h>
 
+Point2d::Point2d()
+{
+    X = units::meter_t(0.0);
+    Y = units::meter_t(0.0);
+}
+
 Point2d Point2d::operator+(const Point2d& other)
 {
     return Point2d( X + other.X, Y + other.Y);
