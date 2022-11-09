@@ -27,20 +27,21 @@
 // forward declares
 class DragonServo;
 
-class Mech1Servo : public Mech
+class Mech2Servos : public Mech
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 servo 
         /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
-        Mech1Servo
+        Mech2Servos
         (
             MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            DragonServo*                                servo
+            DragonServo*                                servo,
+            DragonServo*                                servo2
         );
-	    Mech1Servo() = delete;
-	    virtual ~Mech1Servo() = default;
+	    Mech2Servos() = delete;
+	    virtual ~Mech2Servos() = default;
 
 
         /// @brief      Move servo to the desired angle
@@ -51,7 +52,16 @@ class Mech1Servo : public Mech
             double angle       
         );
 
+        /// @brief      Move servo to the desired angle
+        /// @param [in] double angle: Target angle in degrees
+        /// @return     void
+        void SetAngle2
+        (
+            double angle       
+        );
+
         double GetAngle() const;
+        double GetAngle2() const;
         
 
         /// @brief log data to the network table if it is activated and time period has past
@@ -59,6 +69,7 @@ class Mech1Servo : public Mech
 
     private:
         DragonServo*                                m_servo;
+        DragonServo*                                m_servo2;
 
 };
 
