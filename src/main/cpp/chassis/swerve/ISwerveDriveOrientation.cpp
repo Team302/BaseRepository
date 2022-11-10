@@ -13,29 +13,21 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
 //Team302 Includes
-#include <chassis/swerve/SwerveEnums.h>
-#include <chassis/swerve/ChassisMovement.h>
+#include <chassis/swerve/ISwerveDriveOrientation.h>
+#include <chassis/swerve/SwerveOdometry.h>
 
-class ISwerveDriveOrientation
+ISwerveDriveOrientation::ISwerveDriveOrientation(SwerveEnums::HeadingOption headingOption
+) : m_headingOption(headingOption)
 {
-    public:
-        ISwerveDriveOrientation(SwerveEnums::HeadingOption headingOption);
+    
+}
 
-        /// @brief Updated incoming chassis speeds to do heading action, precursor to SwerveDriveState
-        /// @param [in] ChassisMovement& chassisMovement - Incomign chassis speeds to edit for heading option
-        void virtual UpdateChassisSpeeds(ChassisMovement& chassisMovement);
+units::angular_velocity::degrees_per_second_t ISwerveDriveOrientation::CalcHeadingCorrection(units::radians_per_second_t rot, double kP)
+{
+    auto currentAngle = GetPose().Rotation().Degrees();
+    auto errorAngle = AngleUtils::GetEquivAngle(AngleUtils::GetDeltaAngle(currentAngle, rot));
+    auto correction = units::angular_velocity::degrees_per_second_t(errorAngle.to<double>()*kP);
 
-        /// @brief Calculate heading correction
-        /// @param [in] rot - incoming rotation to correct for
-        /// @param [in] kP - porportional constant to correct with
-        void CalcHeadingCorrection(units::radians_per_second_t rot, double kP);
-
-        /// @brief Returns the heading option
-        /// @return SwerveEnums::HeadingOption - current heading option
-        SwerveEnums::HeadingOption GetHeadingOption() const {return m_headingOption;};
-    protected:
-        SwerveEnums::HeadingOption      m_headingOption;
-};
+    return correction;
+}
