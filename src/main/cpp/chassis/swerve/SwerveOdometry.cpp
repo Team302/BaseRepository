@@ -29,6 +29,16 @@
 
 using namespace frc;
 
+SwerveOdometry* SwerveOdometry::m_instance = nullptr; // initialize the instance variable to nullptr
+SwerveOdometry* SwerveOdometry::GetInstance()
+{
+    if ( SwerveOdometry::m_instance == nullptr )
+    {
+        SwerveOdometry::m_instance = new SwerveOdometry();
+    }
+    return SwerveOdometry::m_instance;
+}
+
 SwerveOdometry::SwerveOdometry(
 ) : m_flPosition(*new SwerveModulePosition()),
     m_frPosition(*new SwerveModulePosition()),

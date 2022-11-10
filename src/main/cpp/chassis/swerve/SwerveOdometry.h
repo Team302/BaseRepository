@@ -30,6 +30,10 @@ class SwerveOdometry
         SwerveOdometry();
         ~SwerveOdometry() = default;
 
+        /// @brief Get instance of SwerveOdometry
+        /// @return SwerveOdometry* - SwerveOdometry instance
+        SwerveOdometry* GetInstance();
+
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
         void UpdateOdometry();
 
@@ -82,4 +86,6 @@ class SwerveOdometry
         frc::SwerveModulePosition           m_frPosition;
         frc::SwerveModulePosition           m_blPosition;
         frc::SwerveModulePosition           m_brPosition;
+
+        static SwerveOdometry*                     m_instance;
 };
