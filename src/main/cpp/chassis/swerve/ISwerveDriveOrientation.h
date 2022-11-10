@@ -31,11 +31,14 @@ class ISwerveDriveOrientation
         /// @brief Calculate heading correction
         /// @param [in] rot - incoming rotation to correct for
         /// @param [in] kP - porportional constant to correct with
-        void CalcHeadingCorrection(units::radians_per_second_t rot, double kP);
+        units::angular_velocity::degrees_per_second_t CalcHeadingCorrection(units::radians_per_second_t rot, double kP);
 
         /// @brief Returns the heading option
         /// @return SwerveEnums::HeadingOption - current heading option
         SwerveEnums::HeadingOption GetHeadingOption() const {return m_headingOption;};
     protected:
         SwerveEnums::HeadingOption      m_headingOption;
+        units::angle::degree_t          m_storedYaw;
+
+        const double m_kPMaintainHeadingControl = 1.5;
 };

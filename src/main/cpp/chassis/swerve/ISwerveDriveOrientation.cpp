@@ -16,6 +16,7 @@
 //Team302 Includes
 #include <chassis/swerve/ISwerveDriveOrientation.h>
 #include <chassis/swerve/SwerveOdometry.h>
+#include <utils/AngleUtils.h>
 
 ISwerveDriveOrientation::ISwerveDriveOrientation(SwerveEnums::HeadingOption headingOption
 ) : m_headingOption(headingOption)
@@ -25,7 +26,7 @@ ISwerveDriveOrientation::ISwerveDriveOrientation(SwerveEnums::HeadingOption head
 
 units::angular_velocity::degrees_per_second_t ISwerveDriveOrientation::CalcHeadingCorrection(units::radians_per_second_t rot, double kP)
 {
-    auto currentAngle = GetPose().Rotation().Degrees();
+    auto currentAngle = SwerveOdometry::GetInstance()->GetPose().Rotation().Degrees();
     auto errorAngle = AngleUtils::GetEquivAngle(AngleUtils::GetDeltaAngle(currentAngle, rot));
     auto correction = units::angular_velocity::degrees_per_second_t(errorAngle.to<double>()*kP);
 

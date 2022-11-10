@@ -15,6 +15,7 @@
 
 //Team302 Includes
 #include <states/chassis/orientation/MaintainHeading.h>
+#include <chassis/swerve/SwerveOdometry.h>
 
 MaintainHeading::MaintainHeading(ISwerveDriveOrientation swerveDriveOrientation
 ) : ISwerveDriveOrientation(swerveDriveOrientation)
@@ -30,11 +31,18 @@ void MaintainHeading::UpdateChassisSpeeds(ChassisMovement& chassisMovement)
     units::meters_per_second_t yspeed = chassisMovement.chassisSpeeds.vy;
     units::radians_per_second_t rot = chassisMovement.chassisSpeeds.omega;
 
-    rot = units::radians_per_second_t(0.0);
-    if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
+    if(abs(rot.to<double>()) == 0.0)
     {
-        correction = CalcHeadingCorrection(m_storedYaw, kPMaintainHeadingControl);
+        rot = units::radians_per_second_t(0.0);
+        if (abs(xspeed.to<double>()) > 0.0 || abs(yspeed.to<double>() > 0.0))
+        {
+            correction = CalcHeadingCorrection(m_storedYaw, m_kPMaintainHeadingControl);
+        }
+    }
+    else
+    {
+        m_storedYaw = SwerveOdometry::GetInstance()->GetPose().Rotation().Degrees();
     }
 
-    rot -= correction; //was negative
+    rot -= correction;
 }
