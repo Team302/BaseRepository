@@ -41,4 +41,5 @@ class ISwerveDriveOrientation
         units::angle::degree_t          m_storedYaw;
 
         const double m_kPMaintainHeadingControl = 1.5;
+        const double m_kPGoalHeadingControl = 6.0;
 };

@@ -14,3 +14,21 @@
 //====================================================================================================================================================
 
 #pragma once
+
+//Team302 Includes
+#include <chassis/swerve/ISwerveDriveOrientation.h>
+#include <chassis/DragonTargetFinder.h>
+#include <hw/DragonLimelight.h>
+
+class FaceGoalHeading : public ISwerveDriveOrientation
+{
+    public:
+        FaceGoalHeading(ISwerveDriveOrientation swerveDriveOrientation);
+
+        void UpdateChassisSpeeds(ChassisMovement& chassisMovement) override;
+
+    private:
+        DragonTargetFinder     m_targetFinder;
+
+        DragonLimelight*        m_limelight;
+};
