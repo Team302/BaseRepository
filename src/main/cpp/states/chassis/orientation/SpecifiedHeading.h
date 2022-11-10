@@ -14,3 +14,16 @@
 //====================================================================================================================================================
 
 #pragma once
+
+//Team302 Includes
+#include <chassis/swerve/ISwerveDriveOrientation.h>
+
+class SpecifiedHeading : public ISwerveDriveOrientation
+{
+    public:
+        SpecifiedHeading(ISwerveDriveOrientation swerveDriveOrientation, units::angle::degree_t targetAngle);
+
+        void UpdateChassisSpeeds(ChassisMovement& chassisMovement) override;
+    private:
+        units::angle::degree_t      m_targetAngle;
+};
