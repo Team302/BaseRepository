@@ -65,7 +65,8 @@ SwerveChassis::SwerveChassis
 
     m_currentOrientation = m_swerveOrientation[SwerveEnums::MAINTAIN];
 
-    m_swerveDriveStates[SwerveDriveState::RobotDrive] =  new RobotDrive(SwerveDriveState::RobotDrive, 
+    m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE] =  new RobotDrive(
+                                                            SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE, 
                                                             ChassisMovement{}, 
                                                             *m_swerveOrientation[SwerveEnums::MAINTAIN]);
 
@@ -78,6 +79,14 @@ void SwerveChassis::SetEncodersToZero()
     m_frontRight.get()->SetEncodersToZero();
     m_backLeft.get()->SetEncodersToZero();
     m_backRight.get()->SetEncodersToZero();
+}
+
+void SwerveChassis::ZeroAlignSwerveModules()
+{
+    m_frontLeft->ZeroAlignModule();
+    m_frontRight->ZeroAlignModule();
+    m_backLeft->ZeroAlignModule();
+    m_backRight->ZeroAlignModule();
 }
 
 void SwerveChassis::Drive()
@@ -117,4 +126,14 @@ void SwerveChassis::ResetPose(frc::Pose2d pose)
 void SwerveChassis::UpdateOdometry()
 {
     m_odometry->UpdateOdometry();
+}
+
+ISwerveDriveOrientation* SwerveChassis::GetOrientation(SwerveEnums::HeadingOption orientationOption)
+{
+    return m_swerveOrientation[orientationOption];
+}
+
+SwerveDriveState* SwerveChassis::GetDriveState(SwerveEnums::SwerveDriveStateType stateType)
+{
+    return m_swerveDriveStates[stateType];
 }

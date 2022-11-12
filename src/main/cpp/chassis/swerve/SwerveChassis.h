@@ -74,6 +74,9 @@ class SwerveChassis : public IChassis
         /// @brief Set all the swerve module encoders to zero
         void SetEncodersToZero();
 
+        /// @brief Align the swerve modules to face "0" or forward
+        void ZeroAlignSwerveModules();
+
         /// Getters
 
         units::length::inch_t GetWheelDiameter() const {return m_wheelDiameter; }  
@@ -97,7 +100,7 @@ class SwerveChassis : public IChassis
 
         /// @brief Get the specified SwerveDriveState
         /// @return SwerveDriveState* - specified state
-        SwerveDriveState* GetDriveState(SwerveDriveState::SwerveDriveStateType stateType);
+        SwerveDriveState* GetDriveState(SwerveEnums::SwerveDriveStateType stateType);
 
         /// @brief Get current estimated chassis position as Pose2d
         /// @return frc::Pose2d - current chassis position
@@ -116,7 +119,11 @@ class SwerveChassis : public IChassis
 
         /// @brief Get the current chassis orientation "state"
         /// @return ISwerveDriveOrientation* - current orientation
-        ISwerveDriveOrientation* GetOrientation() const {return m_currentOrientation;};
+        ISwerveDriveOrientation* GetCurrentOrientation() const {return m_currentOrientation;};
+
+        /// @brief Get the specified chassis orientation "state"
+        /// @return ISwerveDriveOrientation* - specified orientation
+        ISwerveDriveOrientation* GetOrientation(SwerveEnums::HeadingOption orientationOption);
     
     private:
         std::shared_ptr<SwerveModule>                                       m_frontLeft;
