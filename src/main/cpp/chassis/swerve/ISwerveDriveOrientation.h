@@ -36,6 +36,9 @@ class ISwerveDriveOrientation
         /// @brief Returns the heading option
         /// @return SwerveEnums::HeadingOption - current heading option
         SwerveEnums::HeadingOption GetHeadingOption() const {return m_headingOption;};
+
+        /// @brief Set the stored heading for the orientation options
+        void SetStoredHeading(units::angle::degree_t heading);
     protected:
         SwerveEnums::HeadingOption      m_headingOption;
         units::angle::degree_t          m_storedYaw;

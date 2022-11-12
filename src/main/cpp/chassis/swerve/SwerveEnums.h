@@ -27,12 +27,12 @@ class SwerveEnums
 
         enum SwerveDriveStateType
         {
-            RobotDrive,
-            FieldDrive,
-            TrajectoryDrive,
-            PolarDrive,
-            HoldDrive,
-            StopDrive
+            ROBOT_DRIVE,
+            FIELD_DRIVE,
+            TRAJECTORY_DRIVE,
+            POLAR_DRIVE,
+            HOLD_DRIVE,
+            STOP_DRIVE
         };
     
         enum NoMovementOption

@@ -32,3 +32,8 @@ units::angular_velocity::degrees_per_second_t ISwerveDriveOrientation::CalcHeadi
 
     return correction;
 }
+
+void ISwerveDriveOrientation::SetStoredHeading(units::angle::degree_t heading)
+{
+    m_storedYaw = heading;
+}
