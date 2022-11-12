@@ -17,9 +17,9 @@
 
 //FRC Includes
 #include <frc/geometry/Pose2d.h>
-//#include <frc/kinematics/SwerveModulePosition.h>
+#include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
-//#include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/kinematics/SwerveDriveKinematics.h>
 
 //Team302 Includes
 #include <chassis/swerve/SwerveModule.h>
@@ -27,7 +27,12 @@
 class SwerveOdometry
 {
     public:
-        SwerveOdometry();
+        SwerveOdometry(std::shared_ptr<SwerveModule> frontLeft,
+                        std::shared_ptr<SwerveModule> frontRight,
+                        std::shared_ptr<SwerveModule> backLeft,
+                        std::shared_ptr<SwerveModule> backRight,
+                        units::length::meter_t wheelTrack,
+                        units::length::meter_t wheelBase);
         ~SwerveOdometry() = default;
 
         /// @brief Get instance of SwerveOdometry
@@ -36,6 +41,10 @@ class SwerveOdometry
 
         /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
         void UpdateOdometry();
+
+        /// @brief Get the kinematics object
+        /// @return frc::SwerveDriveKinematics<4> - kinematics object
+        frc::SwerveDriveKinematics<4>* GetSwerveDriveKinematics() const {return m_kinematics;};
 
         /// @brief Reset the current chassis pose based on the provided pose and rotation
         /// @param [in] const Pose2d&       pose        Current XY position
@@ -57,11 +66,6 @@ class SwerveOdometry
         /// @return frc::Pose2d - current estimated chassis pose
         frc::Pose2d GetPose() const;
 
-        /// @brief Get the kinematics object
-        /// @return frc::SwerveDriveKinematics<4> - kinematics object
-        frc::SwerveDriveKinematics<4> GetSwerveKinematics() const;
-        
-
     private:
         frc::Translation2d m_frontLeftLocation;
         frc::Translation2d m_frontRightLocation;
@@ -73,11 +77,6 @@ class SwerveOdometry
         std::shared_ptr<SwerveModule>                               m_backLeft;
         std::shared_ptr<SwerveModule>                               m_backRight;
 
-        frc::SwerveDriveKinematics<4> m_kinematics{m_frontLeftLocation, 
-                                                   m_frontRightLocation, 
-                                                   m_backLeftLocation, 
-                                                   m_backRightLocation};
-
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
         frc::SwerveDrivePoseEstimator<4>* m_poseEstimator;
@@ -87,5 +86,12 @@ class SwerveOdometry
         frc::SwerveModulePosition           m_blPosition;
         frc::SwerveModulePosition           m_brPosition;
 
+        frc::SwerveDriveKinematics<4>* m_kinematics;
+
         static SwerveOdometry*                     m_instance;
+
+        //StdDevs = Standard Deviations
+        /*wpi::array<double, 3>               m_stateStdDevs;
+        wpi::array<double, 1>               m_localMeasurementStdDevs;
+        wpi::array<double, 3>               m_visionMeasurementStdDevs;*/
 };

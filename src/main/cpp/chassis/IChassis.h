@@ -31,6 +31,7 @@
 #include <mechanisms/controllers/ControlModes.h>
 
 #include <states/chassis/SwerveDriveState.h>
+#include <chassis/swerve/SwerveOdometry.h>
 
 // Third Party Includes
 

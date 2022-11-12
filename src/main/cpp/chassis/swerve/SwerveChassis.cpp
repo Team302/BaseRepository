@@ -50,9 +50,10 @@ SwerveChassis::SwerveChassis
     m_maxAcceleration(maxAcceleration), //Not used at the moment
     m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
     m_swerveDriveStates(),
-    m_swerveOrientation(),
-    m_odometry(new SwerveOdometry())
+    m_swerveOrientation()
 {
+    m_odometry = new SwerveOdometry(m_frontLeft, m_frontRight, m_backLeft, m_backRight, m_track, m_wheelBase);
+
     m_frontLeft->ZeroAlignModule();
     m_frontRight->ZeroAlignModule();
     m_backLeft->ZeroAlignModule();
@@ -82,8 +83,8 @@ void SwerveChassis::SetEncodersToZero()
 void SwerveChassis::Drive()
 {
     auto states = wpi::array(m_currentDriveState->CalcSwerveModuleStates());
-    /*
-    auto kinematics = m_odometry->GetSwerveKinematics();
+
+    /*auto kinematics = m_odometry->GetSwerveDriveKinematics();
     kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
     auto [fl,fr,bl,br] = states;
@@ -91,6 +92,29 @@ void SwerveChassis::Drive()
     m_frontLeft.get()->SetDesiredState(fl);
     m_frontRight.get()->SetDesiredState(fr);
     m_backLeft.get()->SetDesiredState(bl);
-    m_backRight.get()->SetDesiredState(br);
-    */
+    m_backRight.get()->SetDesiredState(br);*/
+}
+
+void SwerveChassis::Drive(SwerveDriveState* targetState)
+{
+    m_currentDriveState = targetState;
+
+    m_currentDriveState->Init();
+    Drive();
+}
+
+//Seems redundant to have method like this (getpose, reset pose) when we cana access odometry with GetOdometry
+frc::Pose2d SwerveChassis::GetPose()
+{
+    return m_odometry->GetPose();
+}
+
+void SwerveChassis::ResetPose(frc::Pose2d pose)
+{
+    m_odometry->ResetPose(pose);
+}
+
+void SwerveChassis::UpdateOdometry()
+{
+    m_odometry->UpdateOdometry();
 }

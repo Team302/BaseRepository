@@ -116,7 +116,7 @@ class SwerveChassis : public IChassis
 
         /// @brief Get the current chassis orientation "state"
         /// @return ISwerveDriveOrientation* - current orientation
-        ISwerveDriveOrientation* GetOrientation();
+        ISwerveDriveOrientation* GetOrientation() const {return m_currentOrientation;};
     
     private:
         std::shared_ptr<SwerveModule>                                       m_frontLeft;
