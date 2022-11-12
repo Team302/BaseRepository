@@ -31,7 +31,7 @@ class ISwerveDriveOrientation
         /// @brief Calculate heading correction
         /// @param [in] rot - incoming rotation to correct for
         /// @param [in] kP - porportional constant to correct with
-        units::angular_velocity::degrees_per_second_t CalcHeadingCorrection(units::radians_per_second_t rot, double kP);
+        units::angular_velocity::degrees_per_second_t CalcHeadingCorrection(units::angle::degree_t targetAngle, double kP);
 
         /// @brief Returns the heading option
         /// @return SwerveEnums::HeadingOption - current heading option

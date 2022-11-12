@@ -24,10 +24,10 @@ ISwerveDriveOrientation::ISwerveDriveOrientation(SwerveEnums::HeadingOption head
     
 }
 
-units::angular_velocity::degrees_per_second_t ISwerveDriveOrientation::CalcHeadingCorrection(units::radians_per_second_t rot, double kP)
+units::angular_velocity::degrees_per_second_t ISwerveDriveOrientation::CalcHeadingCorrection(units::angle::degree_t targetAngle, double kP)
 {
     auto currentAngle = SwerveOdometry::GetInstance()->GetPose().Rotation().Degrees();
-    auto errorAngle = AngleUtils::GetEquivAngle(AngleUtils::GetDeltaAngle(currentAngle, rot));
+    auto errorAngle = AngleUtils::GetEquivAngle(AngleUtils::GetDeltaAngle(currentAngle, targetAngle));
     auto correction = units::angular_velocity::degrees_per_second_t(errorAngle.to<double>()*kP);
 
     return correction;
