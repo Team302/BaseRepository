@@ -24,6 +24,16 @@ class SwerveEnums
             TOWARD_GOAL,
             SPECIFIED_ANGLE
         };
+
+        enum SwerveDriveStateType
+        {
+            RobotDrive,
+            FieldDrive,
+            TrajectoryDrive,
+            PolarDrive,
+            HoldDrive,
+            StopDrive
+        };
     
         enum NoMovementOption
         {

@@ -21,27 +21,18 @@
 //Team302 Includes
 #include <chassis/swerve/ISwerveDriveOrientation.h>
 #include <chassis/swerve/ChassisMovement.h>
+#include <chassis/swerve/SwerveEnums.h>
 
 
 
 class SwerveDriveState
 {
     public:
-        enum SwerveDriveStateType
-        {
-            RobotDrive,
-            FieldDrive,
-            TrajectoryDrive,
-            PolarDrive,
-            HoldDrive,
-            StopDrive
-        };
-
-        SwerveDriveState(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
+        SwerveDriveState(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
 
         /// @brief Get the state type
         /// @return SwerveDriveStateType - type of state
-        SwerveDriveStateType GetStateType() const {return m_stateType;};
+        SwerveEnums::SwerveDriveStateType GetStateType() const {return m_stateType;};
 
         /// @brief Get the current ChassisMovement object
         /// @return ChassisMovement - current ChassisMovement
@@ -67,7 +58,7 @@ class SwerveDriveState
         void UpdateOrientationOption(ISwerveDriveOrientation orientation);
 
     protected:
-        SwerveDriveStateType        m_stateType;
+        SwerveEnums::SwerveDriveStateType        m_stateType;
         ChassisMovement             m_chassisMovement;
         ISwerveDriveOrientation     m_orientation;
 };
