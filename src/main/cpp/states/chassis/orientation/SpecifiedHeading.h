@@ -24,6 +24,8 @@ class SpecifiedHeading : public ISwerveDriveOrientation
         SpecifiedHeading(ISwerveDriveOrientation swerveDriveOrientation, units::angle::degree_t targetAngle);
 
         void UpdateChassisSpeeds(ChassisMovement& chassisMovement) override;
+
+        void SetTargetHeading(units::angle::degree_t targetAngle);
     private:
         units::angle::degree_t      m_targetAngle;
 };

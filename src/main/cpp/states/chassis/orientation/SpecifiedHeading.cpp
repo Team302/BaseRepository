@@ -23,6 +23,11 @@ SpecifiedHeading::SpecifiedHeading(ISwerveDriveOrientation swerveDriveOrientatio
 
 }
 
+void SpecifiedHeading::SetTargetHeading(units::angle::degree_t targetAngle)
+{
+    m_targetAngle = targetAngle;
+}
+
 void SpecifiedHeading::UpdateChassisSpeeds(ChassisMovement& chassisMovement)
 {
     chassisMovement.chassisSpeeds.omega -= CalcHeadingCorrection(m_targetAngle, m_kPMaintainHeadingControl);
