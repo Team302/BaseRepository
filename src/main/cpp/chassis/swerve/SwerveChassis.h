@@ -143,7 +143,7 @@ class SwerveChassis : public IChassis
         //std::vector<SwerveDriveState*>          m_swerveDriveStates;
         SwerveDriveState*                                                   m_currentDriveState;
 
-        std::map<SwerveDriveState::SwerveDriveStateType, SwerveDriveState*> m_swerveDriveStates;
+        std::map<SwerveEnums::SwerveDriveStateType, SwerveDriveState*> m_swerveDriveStates;
 
         //std::vector<ISwerveDriveOrientation*>   m_swerveOrientation;
         std::map<SwerveEnums::HeadingOption, ISwerveDriveOrientation*>      m_swerveOrientation;

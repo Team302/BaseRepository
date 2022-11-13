@@ -24,6 +24,8 @@
 #include <chassis/swerve/SwerveEnums.h>
 
 
+/// @brief This is used to give all neccessary data to SwerveDriveStates
+
 struct ChassisMovement
 {
     frc::ChassisSpeeds  chassisSpeeds;

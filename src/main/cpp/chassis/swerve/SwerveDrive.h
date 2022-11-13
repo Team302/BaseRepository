@@ -25,6 +25,7 @@
 #include <TeleopControl.h>
 #include <hw/DragonPigeon.h>
 #include <mechanisms/base/IState.h>
+#include <chassis/swerve/ChassisMovement.h>
 
 class SwerveDrive : public IState
 {
@@ -43,4 +44,6 @@ class SwerveDrive : public IState
         std::shared_ptr<SwerveChassis>      m_chassis;
         TeleopControl*                      m_controller;
         bool                                m_usePWLinearProfile;  
+
+        ChassisMovement                     m_chassisMovement;
 };

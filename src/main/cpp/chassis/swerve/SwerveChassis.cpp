@@ -108,6 +108,8 @@ void SwerveChassis::Drive(SwerveDriveState* targetState)
 {
     m_currentDriveState = targetState;
 
+    /// @todo add chassismovement member variable and take in chassismovement as param
+
     m_currentDriveState->Init();
     Drive();
 }

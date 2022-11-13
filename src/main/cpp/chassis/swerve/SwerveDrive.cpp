@@ -30,6 +30,7 @@
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
+#include <chassis/swerve/SwerveEnums.h>
 
 using namespace std;
 using namespace frc;
@@ -38,7 +39,8 @@ using namespace frc;
 SwerveDrive::SwerveDrive() : IState(),
                              m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
                              m_controller(TeleopControl::GetInstance()),
-                             m_usePWLinearProfile(false)
+                             m_usePWLinearProfile(false),
+                             m_chassisMovement(ChassisMovement{})
 {
     if (m_controller == nullptr)
     {
@@ -80,16 +82,13 @@ void SwerveDrive::Run()
     auto controller = GetController();
     if (controller != nullptr)
     {
-        IChassis::CHASSIS_DRIVE_MODE mode = IChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
-        IChassis::HEADING_OPTION headingOpt = IChassis::HEADING_OPTION::MAINTAIN;
+        SwerveEnums::SwerveDriveStateType mode = SwerveEnums::SwerveDriveStateType::FIELD_DRIVE;
+        SwerveEnums::HeadingOption headingOpt = SwerveEnums::HeadingOption::MAINTAIN;
+        SwerveEnums::NoMovementOption stopOption = SwerveEnums::NoMovementOption::STOP;
         if (controller->IsButtonPressed(TeleopControl::FINDTARGET))
         {
-            headingOpt = IChassis::HEADING_OPTION::TOWARD_GOAL;
+            headingOpt = SwerveEnums::HeadingOption::TOWARD_GOAL;
         }                                       
-        else if (controller->IsButtonPressed(TeleopControl::DRIVE_TO_SHOOTING_SPOT))
-        {
-            headingOpt = IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE;
-        }
         
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::REZERO_PIGEON))
         {
@@ -97,17 +96,30 @@ void SwerveDrive::Run()
             auto m_pigeon = factory->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
             m_pigeon->ReZeroPigeon(0, 0);
             m_chassis.get()->ZeroAlignSwerveModules();
-            m_chassis.get()->ReZero();
+
+            //Set stored yaw for orientation options to 0
+            m_chassis.get()->GetOrientation(headingOpt)->SetStoredHeading(units::angle::degree_t(0.0));
         }
 
         if (controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::HOLD_POSITION))
         {
-            m_chassis.get()->DriveHoldPosition();
+            stopOption = SwerveEnums::NoMovementOption::HOLD_POSITION;
+            mode = SwerveEnums::SwerveDriveStateType::STOP_DRIVE;
+        }
+        else
+        {
+            stopOption = SwerveEnums::NoMovementOption::STOP;
         }
 
         auto drive = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_DRIVE);
         auto steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
         auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
+
+        //Get selected drive mode state
+        SwerveDriveState* targetState = m_chassis.get()->GetDriveState(mode);
+        
+        //Convert all values into a ChassisMovement struct
+        ChassisMovement chassisMovement = {m_chassis.get()->GetMaxSpeed() * drive,  }
 
         m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
     }
