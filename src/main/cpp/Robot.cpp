@@ -12,7 +12,6 @@
 #include <auton/CyclePrimitives.h>
 #include <chassis/ChassisFactory.h>
 #include <chassis/IChassis.h>
-#include <chassis/differential/ArcadeDrive.h>
 #include <chassis/swerve/SwerveDrive.h>
 #include <TeleopControl.h>
 #include <hw/DragonLimelight.h>
@@ -46,7 +45,6 @@ void Robot::RobotInit()
     if (m_chassis != nullptr)
     {
          m_swerve = m_chassis->GetType() == IChassis::CHASSIS_TYPE::SWERVE ? new SwerveDrive() : nullptr;
-         m_arcade = m_chassis->GetType() == IChassis::CHASSIS_TYPE::DIFFERENTIAL ? new ArcadeDrive() : nullptr;
     }
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
         
@@ -116,10 +114,6 @@ void Robot::TeleopInit()
         {
             m_swerve->Init();
         }
-        else if (m_arcade != nullptr)
-        {
-            m_arcade->Init();
-        }
     }
     StateMgrHelper::RunCurrentMechanismStates();
 
@@ -134,10 +128,6 @@ void Robot::TeleopPeriodic()
         if (m_swerve != nullptr)
         {
             m_swerve->Run();
-        }
-        else if (m_arcade != nullptr)
-        {
-            m_arcade->Run();
         }
     }
     StateMgrHelper::RunCurrentMechanismStates();

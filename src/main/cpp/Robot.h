@@ -21,7 +21,6 @@
 
 class CyclePrimitives;
 class TeleopControl;
-class ArcadeDrive;
 class SwerveDrive;
 class DragonLimelight;
 class IChassis;
@@ -46,6 +45,5 @@ class Robot : public frc::TimedRobot
         CyclePrimitives*      m_cyclePrims;
         frc::Timer*           m_timer;
         SwerveDrive*          m_swerve;
-        ArcadeDrive*          m_arcade;
         DragonLimelight*      m_dragonLimeLight;
 };
