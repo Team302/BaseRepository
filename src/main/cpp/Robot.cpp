@@ -41,7 +41,6 @@ void Robot::RobotInit()
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetIChassis();
     m_swerve = nullptr;
-    m_arcade = nullptr;
     if (m_chassis != nullptr)
     {
          m_swerve = m_chassis->GetType() == IChassis::CHASSIS_TYPE::SWERVE ? new SwerveDrive() : nullptr;
