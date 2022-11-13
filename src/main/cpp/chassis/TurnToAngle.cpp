@@ -92,7 +92,7 @@ void TurnToAngle::Run()
 {
     if (m_chassis != nullptr)
     {
-        auto currentAngle = m_chassis->GetYaw();
+        auto currentAngle = m_chassis->GetOdometry()->GetPose().Rotation().Degrees();
         auto delta = AngleUtils::GetDeltaAngle(currentAngle, m_targetAngle);
         if (std::abs(delta.to<double>()) > m_angleTolerance.to<double>())
         {
