@@ -28,16 +28,16 @@
 #include <auton/drivePrimitives/DrivePath.h>
 #include <chassis/ChassisFactory.h>
 #include <utils/Logger.h>
-
+#include <states/chassis/orientation/SpecifiedHeading.h>
 
 using namespace std;
 using namespace frc;
 
 using namespace wpi::math;
 
-DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChassis()),
+DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
                          m_timer(make_unique<Timer>()),
-                         m_currentChassisPosition(m_chassis.get()->GetPose()),
+                         m_currentChassisPosition(m_chassis.get()->GetOdometry()->GetPose()),
                          m_trajectory(),
                          m_runHoloController(true),
                          m_ramseteController(),
@@ -46,7 +46,7 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                                           frc::ProfiledPIDController<units::radian>{0.1, 0, 0,
                                                                                     frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
                          //max velocity of 1 rotation per second and a max acceleration of 180 degrees per second squared.
-                         m_PrevPos(m_chassis.get()->GetPose()),
+                         m_PrevPos(m_chassis.get()->GetOdometry()->GetPose()),
                          m_PosChgTimer(make_unique<Timer>()),
                          m_timesRun(0),
                          m_targetPose(),
@@ -54,7 +54,7 @@ DrivePath::DrivePath() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChas
                          m_deltaY(0.0),
                          m_trajectoryStates(),
                          m_desiredState(),
-                         m_headingOption(IChassis::HEADING_OPTION::MAINTAIN),
+                         m_headingOption(SwerveEnums::HeadingOption::MAINTAIN),
                          m_heading(0.0),
                          m_maxTime(-1.0),
                          m_ntName("DrivePath")
@@ -120,7 +120,7 @@ void DrivePath::Init(PrimitiveParams *params)
 
         m_targetPose = targetState.pose;  //Target pose represents the pose that we want to be at, based on the target state from above
 
-        auto currPose = m_chassis.get()->GetPose(); //Grabs the current pose of the robot to compare to the target pose
+        auto currPose = m_chassis.get()->GetOdometry()->GetPose(); //Grabs the current pose of the robot to compare to the target pose
         auto trans = m_targetPose - currPose; //Translation / Delta of the target pose and current pose
 
         m_deltaX = trans.X().to<double>();  //Separates the delta "trans" from above into two variables for x and y
@@ -166,8 +166,8 @@ void DrivePath::Run()
                     break;
 
                 case IChassis::HEADING_OPTION::SPECIFIED_ANGLE:
-                    rotation = Rotation2d(units::angle::degree_t(m_heading));
-                    m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+                    SpecifiedHeading* specifiedHeading = (SpecifiedHeading*) m_chassis->GetOrientation(SwerveEnums::HeadingOption::SPECIFIED_ANGLE);
+                    specifiedHeading->SetTargetHeading(units::angle::degree_t(m_heading));
                     break;
 
                 case IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
@@ -226,7 +226,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
     
     if (!m_trajectoryStates.empty()) //If we have states... 
     {
-        auto curPos = m_chassis.get()->GetPose();
+        auto curPos = m_chassis.get()->GetOdometry()->GetPose();
         // allow a time out to be put into the xml
         auto currentTime = m_timer.get()->Get().to<double>();
         isDone = currentTime > m_maxTime && m_maxTime > 0.0;

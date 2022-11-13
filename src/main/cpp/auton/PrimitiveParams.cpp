@@ -28,7 +28,7 @@ PrimitiveParams::PrimitiveParams
     float                       						distance,
     float                       						xLoc,
     float                       						yLoc,
-	IChassis::HEADING_OPTION		    				headingOpt,
+	SwerveEnums::HeadingOption		    				headingOpt,
     float                       						heading,
     float                       						startDriveSpeed,
     float                       						endDriveSpeed,

@@ -23,6 +23,7 @@
 #include <chassis/ChassisFactory.h>
 #include <chassis/DragonTargetFinder.h>
 #include <chassis/IChassis.h>
+#include <chassis/swerve/SwerveEnums.h>
 
 //FRC,WPI Includes
 #include <frc/controller/HolonomicDriveController.h>
@@ -61,7 +62,7 @@ private:
 
 
 
-    std::shared_ptr<IChassis>               m_chassis;
+    std::shared_ptr<SwerveChassis>               m_chassis;
     std::unique_ptr<frc::Timer>             m_timer;
 
     frc::Pose2d                             m_currentChassisPosition;
@@ -79,7 +80,7 @@ private:
     double                                  m_deltaY;
     std::vector<frc::Trajectory::State>     m_trajectoryStates;
     frc::Trajectory::State                  m_desiredState;
-    IChassis::HEADING_OPTION                m_headingOption;
+    SwerveEnums::HeadingOption              m_headingOption;
     double                                  m_heading;
     DragonTargetFinder                      m_targetFinder;
     double                                  m_maxTime;

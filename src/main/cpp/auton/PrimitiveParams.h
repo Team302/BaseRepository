@@ -27,6 +27,7 @@
 // @ADDMECH include for your mechanism 
 
 #include <chassis/IChassis.h>
+#include <chassis/swerve/SwerveEnums.h>
 
 // Third Party Includes
 
@@ -42,7 +43,7 @@ class PrimitiveParams
                 float                                               distance,
                 float                                               xLoc,
                 float                                               yLoc,
-                IChassis::HEADING_OPTION                            headingOption,
+                SwerveEnums::HeadingOption                          headingOption,
                 float                                               heading,
                 float                                               startDriveSpeed,
                 float                                               endDriveSpeed,
@@ -60,7 +61,7 @@ class PrimitiveParams
         float GetDistance() const {return m_distance;};
         float GetXLocation() const {return m_xLoc;};
         float GetYLocation() const {return m_yLoc;};
-        IChassis::HEADING_OPTION GetHeadingOption() const {return m_headingOption;};
+        SwerveEnums::HeadingOption GetHeadingOption() const {return m_headingOption;};
         float GetHeading() const {return m_heading;};
         float GetDriveSpeed() const {return m_startDriveSpeed;};
         float GetEndDriveSpeed() const {return m_endDriveSpeed;};
@@ -80,7 +81,7 @@ class PrimitiveParams
         float                                               m_distance;
         float                                               m_xLoc;
         float                                               m_yLoc;
-        IChassis::HEADING_OPTION                            m_headingOption;
+        SwerveEnums::HeadingOption                          m_headingOption;
         float                                               m_heading;
         float                                               m_startDriveSpeed;
         float                                               m_endDriveSpeed;
