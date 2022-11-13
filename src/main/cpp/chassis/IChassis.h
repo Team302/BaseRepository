@@ -86,7 +86,7 @@ class IChassis
         virtual void Initialize() = 0;
 
         virtual void UpdateOdometry() = 0;
-        virtual SwerveOdometry* GetOdometry() = 0;
+        virtual SwerveOdometry* GetOdometry() const = 0;
         virtual units::length::inch_t GetWheelDiameter() const = 0;
         virtual units::length::inch_t GetTrack() const = 0;
         virtual units::velocity::meters_per_second_t GetMaxSpeed() const = 0;

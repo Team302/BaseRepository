@@ -108,7 +108,7 @@ class SwerveChassis : public IChassis
 
         /// @brief Get SwerveOdometry
         /// @return SwerveOdometry* - the chassis' odometry
-        SwerveOdometry* GetOdometry() const {return m_odometry;};
+        SwerveOdometry* GetOdometry() const override {return m_odometry;};
 
         /// @brief Set the current chassis position to the target pose
         /// @param [in] frc::Pose2d pose - target pose
