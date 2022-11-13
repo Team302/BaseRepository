@@ -22,6 +22,9 @@
 class ISwerveDriveOrientation
 {
     public:
+        ISwerveDriveOrientation() = delete;
+        ~ISwerveDriveOrientation() = default;
+
         ISwerveDriveOrientation(SwerveEnums::HeadingOption headingOption);
 
         /// @brief Updated incoming chassis speeds to do heading action, precursor to SwerveDriveState

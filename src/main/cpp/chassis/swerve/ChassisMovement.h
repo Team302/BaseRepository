@@ -30,7 +30,6 @@ struct ChassisMovement
 {
     frc::ChassisSpeeds  chassisSpeeds;
     frc::Trajectory     trajectory;
-    SwerveEnums::HeadingOption       headingOption;
     Point2d             centerOfRotationOffset;
     SwerveEnums::NoMovementOption    noMovementOption;
     SwerveEnums::AutonControllerType controllerType;

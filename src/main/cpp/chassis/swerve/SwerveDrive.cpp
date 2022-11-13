@@ -117,11 +117,23 @@ void SwerveDrive::Run()
 
         //Get selected drive mode state
         SwerveDriveState* targetState = m_chassis.get()->GetDriveState(mode);
+        ISwerveDriveOrientation* targetOrientation = m_chassis.get()->GetOrientation(headingOpt);
+
+        frc::ChassisSpeeds chassisSpeeds = {m_chassis.get()->GetMaxSpeed()  *drive,
+                                            m_chassis.get()->GetMaxSpeed() *steer,
+                                            m_chassis.get()->GetMaxAngularSpeed()  *rotate};
         
         //Convert all values into a ChassisMovement struct
-        ChassisMovement chassisMovement = {m_chassis.get()->GetMaxSpeed() * drive,  }
+        ChassisMovement chassisMovement = {chassisSpeeds, 
+                                            *new frc::Trajectory(), 
+                                            *new Point2d(),
+                                            stopOption,
+                                            SwerveEnums::AutonControllerType::HOLONOMIC};
 
-        m_chassis->Drive(drive, steer, rotate, mode, headingOpt);
+        targetState->UpdateChassisMovement(chassisMovement);
+        targetState->UpdateOrientationOption(*targetOrientation);
+
+        m_chassis->Drive(targetState);
     }
 }
 
