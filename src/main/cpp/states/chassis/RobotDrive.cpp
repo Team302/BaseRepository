@@ -60,16 +60,16 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
     auto vx = -1.0 * m_chassisMovement.chassisSpeeds.vy;
     auto omega = m_chassisMovement.chassisSpeeds.omega;
 
-    units::length::meter_t omegaL = omega.to<double>() * l / 2.0;
-    units::length::meter_t omegaW = omega.to<double>() * w / 2.0;
+    units::length::meter_t centerOfRotationW = (w / 2.0) - m_chassisMovement.centerOfRotationOffset.Y;
+    units::length::meter_t centerOfRotationL = (l / 2.0) - m_chassisMovement.centerOfRotationOffset.X;
 
-    units::velocity::meters_per_second_t centerOfRotationW = omegaW - m_chassisMovement.centerOfRotationOffset.Y;
-    units::velocity::meters_per_second_t centerOfRotationL = omegaL - m_chassisMovement.centerOfRotationOffset.X;
+    units::velocity::meters_per_second_t omegaW = omega.to<double>() * centerOfRotationW / 1_s;
+    units::velocity::meters_per_second_t omegaL = omega.to<double>() * centerOfRotationL / 1_s;
     
-    auto a = vx - centerOfRotationW;
-    auto b = vx + centerOfRotationW;
-    auto c = vy - centerOfRotationL;
-    auto d = vy + centerOfRotationL;
+    auto a = vx - omegaL;
+    auto b = vx + omegaL;
+    auto c = vy - omegaW;
+    auto d = vy + omegaW;
 
     // here we'll negate the angle to conform to the positive CCW convention
     m_flState.angle = units::angle::radian_t(atan2(b.to<double>(), d.to<double>()));
