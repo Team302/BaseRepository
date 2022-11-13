@@ -15,6 +15,9 @@
 
 #pragma once
 
+//C++ Includes
+#include <array>
+
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
 
