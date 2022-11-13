@@ -44,7 +44,7 @@ class SwerveOdometry
 
         /// @brief Get the kinematics object
         /// @return frc::SwerveDriveKinematics<4> - kinematics object
-        frc::SwerveDriveKinematics<4>* GetSwerveDriveKinematics() const {return m_kinematics;};
+        frc::SwerveDriveKinematics<4> GetSwerveDriveKinematics() const {return m_kinematics;};
 
         /// @brief Reset the current chassis pose based on the provided pose and rotation
         /// @param [in] const Pose2d&       pose        Current XY position
@@ -77,16 +77,24 @@ class SwerveOdometry
         std::shared_ptr<SwerveModule>                               m_backLeft;
         std::shared_ptr<SwerveModule>                               m_backRight;
 
+        frc::SwerveDriveKinematics<4> m_kinematics{m_frontLeftLocation, m_frontRightLocation,
+                                                    m_backLeftLocation, m_backRightLocation};
+
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
-        frc::SwerveDrivePoseEstimator<4>* m_poseEstimator;
+        frc::SwerveDrivePoseEstimator<4> m_poseEstimator{ frc::Rotation2d{},
+                                                            frc::Pose2d{},
+                                                            {m_frontLeft.get()->GetPosition(), m_frontRight.get()->GetPosition(),
+                                                             m_backLeft.get()->GetPosition(), m_backRight.get()->GetPosition()},
+                                                             m_kinematics,
+                                                             {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1},
+                                                             {0.05, 0.05, 0.05, 0.05, 0.05},
+                                                             {0.1, 0.1, 0.1}};
 
         frc::SwerveModulePosition           m_flPosition;
         frc::SwerveModulePosition           m_frPosition;
         frc::SwerveModulePosition           m_blPosition;
         frc::SwerveModulePosition           m_brPosition;
-
-        frc::SwerveDriveKinematics<4>* m_kinematics;
 
         static SwerveOdometry*                     m_instance;
 
