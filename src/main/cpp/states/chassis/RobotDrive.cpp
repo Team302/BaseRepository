@@ -20,7 +20,7 @@
 //Team302 Includes
 #include <states/chassis/RobotDrive.h>
 
-RobotDrive::RobotDrive(SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation
+RobotDrive::RobotDrive(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation
 ) : SwerveDriveState::SwerveDriveState(stateType, chassisMovement, swerveOrientation),
     m_flState(),
     m_frState(),
