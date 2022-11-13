@@ -107,6 +107,7 @@ void SwerveChassis::Drive()
 void SwerveChassis::Drive(SwerveDriveState* targetState)
 {
     m_currentDriveState = targetState;
+    m_currentOrientation = &targetState->GetDriveOrientation();
 
     m_currentDriveState->Init();
     Drive();
