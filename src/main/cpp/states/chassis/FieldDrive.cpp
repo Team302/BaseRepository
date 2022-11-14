@@ -37,3 +37,8 @@ std::array<frc::SwerveModuleState, 4> FieldDrive::CalcSwerveModuleStates()
     return m_robotDrive.CalcSwerveModuleStates();
 }
 
+void FieldDrive::Init()
+{
+    
+}
+
