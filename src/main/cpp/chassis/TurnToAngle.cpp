@@ -92,6 +92,20 @@ void TurnToAngle::Run()
 {
     if (m_chassis != nullptr)
     {
+        SwerveDriveState* targetState = m_chassis->GetDriveState(SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE);
+        ISwerveDriveOrientation* targetOrientation = m_chassis->GetOrientation(SwerveEnums::HeadingOption::MAINTAIN);
+
+        frc::ChassisSpeeds chassisSpeeds = {units::velocity::meters_per_second_t(0.0),
+                                            units::velocity::meters_per_second_t(0.0),
+                                            units::angular_velocity::radians_per_second_t(0.0)};
+
+        //Convert all values into a ChassisMovement struct
+        ChassisMovement chassisMovement = {chassisSpeeds, 
+                                            *new frc::Trajectory(), 
+                                            *new Point2d(),
+                                            SwerveEnums::NoMovementOption::STOP,
+                                            SwerveEnums::AutonControllerType::HOLONOMIC};
+
         auto currentAngle = m_chassis->GetOdometry()->GetPose().Rotation().Degrees();
         auto delta = AngleUtils::GetDeltaAngle(currentAngle, m_targetAngle);
         if (std::abs(delta.to<double>()) > m_angleTolerance.to<double>())
@@ -99,19 +113,18 @@ void TurnToAngle::Run()
             m_pid.SetSetpoint(m_targetAngle.to<double>());
             auto rotatePercent = m_pid.Calculate(currentAngle.to<double>());
             rotatePercent = clamp(rotatePercent, -1.0, 1.0);
-            m_chassis->Drive(0.0, 0.0, rotatePercent,
-                             IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						     IChassis::HEADING_OPTION::TOWARD_GOAL);
 
+            chassisMovement.chassisSpeeds.omega = rotatePercent * m_chassis->GetMaxAngularSpeed();
         }
         else
         {
             m_atTarget = true;
-            m_chassis->Drive(0.0, 0.0, 0.0,
-                             IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						     IChassis::HEADING_OPTION::TOWARD_GOAL);
-
         }
+
+        targetState->UpdateChassisMovement(chassisMovement);
+        targetState->UpdateOrientationOption(targetOrientation);
+
+        m_chassis->Drive(targetState);
     }
 }
 
