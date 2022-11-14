@@ -58,9 +58,6 @@ SwerveOdometry::SwerveOdometry(std::shared_ptr<SwerveModule> frontLeft,
     m_blPosition(*new SwerveModulePosition()),
     m_brPosition(*new SwerveModulePosition())
 {
-    //default swerve module position
-    SwerveModulePosition defaultSwervePose = {units::length::meter_t(0.0), frc::Rotation2d()};
-    wpi::array<SwerveModulePosition, 4> swerveModulePositionArray = {defaultSwervePose, defaultSwervePose, defaultSwervePose, defaultSwervePose};
 }
 
 /// @brief update the chassis odometry based on current states of the swerve modules and the pigeon
@@ -68,8 +65,6 @@ void SwerveOdometry::UpdateOdometry()
 {
     units::degree_t yaw{PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)->GetYaw()};
     Rotation2d rot2d {yaw}; 
-
-    auto currentPose = m_poseEstimator.GetEstimatedPosition();
 
     m_poseEstimator.Update(rot2d, {m_frontLeft.get()->GetState(),
                                   m_frontRight.get()->GetState(), 
@@ -79,8 +74,6 @@ void SwerveOdometry::UpdateOdometry()
                                     m_frontRight.get()->GetPosition(), 
                                     m_backLeft.get()->GetPosition(),
                                     m_backRight.get()->GetPosition()});
-
-    auto updatedPose = m_poseEstimator.GetEstimatedPosition();
 }
 
 Pose2d SwerveOdometry::GetPose() const
