@@ -131,7 +131,7 @@ void SwerveDrive::Run()
                                             SwerveEnums::AutonControllerType::HOLONOMIC};
 
         targetState->UpdateChassisMovement(chassisMovement);
-        targetState->UpdateOrientationOption(*targetOrientation);
+        targetState->UpdateOrientationOption(targetOrientation);
 
         m_chassis->Drive(targetState);
     }

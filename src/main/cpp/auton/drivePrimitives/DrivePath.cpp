@@ -147,8 +147,10 @@ void DrivePath::Run()
                                             SwerveEnums::AutonControllerType::HOLONOMIC};
 
         SwerveDriveState* targetState = m_chassis->GetDriveState(SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE);
+        ISwerveDriveOrientation* targetOrientation = m_chassis->GetOrientation(m_headingOption);
+
         targetState->UpdateChassisMovement(chassisMovement);
-        targetState->UpdateOrientationOption(m_headingOption); 
+        targetState->UpdateOrientationOption(targetOrientation); 
 
         m_chassis->Drive(targetState);
     }
@@ -167,9 +169,10 @@ void DrivePath::Run()
                                             SwerveEnums::AutonControllerType::HOLONOMIC};
 
         SwerveDriveState* targetState = m_chassis.get()->GetDriveState(SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE);
+        ISwerveDriveOrientation* targetOrientation = m_chassis->GetOrientation(m_headingOption);
 
         targetState->UpdateChassisMovement(chassisMovement);
-        targetState->UpdateOrientationOption(m_headingOption);
+        targetState->UpdateOrientationOption(targetOrientation);
 
         m_chassis->Drive(targetState);
     }
