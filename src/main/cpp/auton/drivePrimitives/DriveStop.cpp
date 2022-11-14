@@ -29,6 +29,7 @@
 #include <chassis/ChassisFactory.h>
 #include <mechanisms/controllers/ControlModes.h>
 #include <utils/Logger.h>
+#include <states/chassis/orientation/SpecifiedHeading.h>
 
 // Third Party Includes
 
@@ -45,7 +46,7 @@ using namespace frc;
 /// @brief constructor that creates/initializes the object
 DriveStop::DriveStop() : m_maxTime(0.0),
 						 m_currentTime(0.0),
-						 m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()),
+						 m_chassis( ChassisFactory::GetChassisFactory()->GetSwerveChassis()),
 						 m_timer( make_unique<Timer>() )
 {
 }
@@ -72,14 +73,23 @@ void DriveStop::Run()
 		speeds.vx = 0_mps;
 		speeds.vy = 0_mps;
 		speeds.omega = units::degrees_per_second_t(0.0);
-		if (m_headingOption == IChassis::HEADING_OPTION::SPECIFIED_ANGLE)
+		if (m_headingOption == SwerveEnums::HeadingOption::SPECIFIED_ANGLE)
         {
-            m_chassis->SetTargetHeading(units::angle::degree_t(m_heading));
+			SpecifiedHeading* specifiedHeading = (SpecifiedHeading*) m_chassis->GetOrientation(SwerveEnums::HeadingOption::SPECIFIED_ANGLE);
+            specifiedHeading->SetTargetHeading(units::angle::degree_t(m_heading));
         }
 
-		m_chassis->Drive(speeds, 
-						 IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						 m_headingOption);
+		//Convert all values into a ChassisMovement struct
+        ChassisMovement chassisMovement = {speeds, 
+                                            *new frc::Trajectory(), 
+                                            *new Point2d(),
+                                            SwerveEnums::NoMovementOption::STOP,
+                                            SwerveEnums::AutonControllerType::HOLONOMIC};
+
+		SwerveDriveState* targetState = m_chassis->GetDriveState(SwerveEnums::SwerveDriveStateType::STOP_DRIVE);
+		targetState->UpdateChassisMovement(chassisMovement);
+
+		m_chassis->Drive(targetState);
 	}
 	else
 	{
