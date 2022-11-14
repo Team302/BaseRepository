@@ -128,7 +128,7 @@ void CyclePrimitives::RunDriveStop()
 		                                   0.0,                 // distance
 		                                   0.0,                 // target x location
 		                                   0.0,                 // target y location
-										   IChassis::HEADING_OPTION::MAINTAIN,
+										   SwerveEnums::HeadingOption::MAINTAIN,
 		                                   0.0,                 // heading
 		                                   0.0,                 // start drive speed
 		                                   0.0,					// end drive speed
