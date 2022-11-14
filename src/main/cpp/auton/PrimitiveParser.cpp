@@ -58,14 +58,10 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     primStringToEnumMap["DRIVE_PATH"] = DRIVE_PATH;
     primStringToEnumMap["RESET_POSITION"] = RESET_POSITION;
 
-    map<string, IChassis::HEADING_OPTION> headingOptionMap;
-    headingOptionMap["MAINTAIN"] = IChassis::HEADING_OPTION::MAINTAIN;
-    headingOptionMap["TOWARD_GOAL"] = IChassis::HEADING_OPTION::TOWARD_GOAL;
-    headingOptionMap["TOWARD_GOAL_DRIVE"] = IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE;
-    headingOptionMap["TOWARD_GOAL_LAUNCHPAD"] = IChassis::HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD;
-    headingOptionMap["LEFT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL;
-    headingOptionMap["RIGHT_INTAKE_TOWARD_BALL"] = IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL;
-    headingOptionMap["SPECIFIED_ANGLE"] = IChassis::HEADING_OPTION::SPECIFIED_ANGLE;
+    map<string, SwerveEnums::HeadingOption> headingOptionMap;
+    headingOptionMap["MAINTAIN"] = SwerveEnums::HeadingOption::MAINTAIN;
+    headingOptionMap["TOWARD_GOAL"] = SwerveEnums::HeadingOption::TOWARD_GOAL;
+    headingOptionMap["SPECIFIED_ANGLE"] = SwerveEnums::HeadingOption::SPECIFIED_ANGLE;
     
     xml_document doc;
     xml_parse_result result = doc.load_file( fulldirfile.c_str() );
@@ -82,7 +78,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                     auto primitiveType = UNKNOWN_PRIMITIVE;
                     auto time = 15.0;
                     auto distance = 0.0;
-                    auto headingOption = IChassis::HEADING_OPTION::MAINTAIN;
+                    auto headingOption = SwerveEnums::HeadingOption::MAINTAIN;
                     auto heading = 0.0;
                     auto startDriveSpeed = 0.0;
                     auto endDriveSpeed = 0.0;
