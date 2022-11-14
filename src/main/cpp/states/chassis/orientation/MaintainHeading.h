@@ -23,7 +23,7 @@
 class MaintainHeading : public ISwerveDriveOrientation
 {
     public:
-        MaintainHeading(ISwerveDriveOrientation swerveDriveOrientation);
+        MaintainHeading(SwerveEnums::HeadingOption headingOption);
 
         void UpdateChassisSpeeds(ChassisMovement& chassisMovement) override;
 };

@@ -23,7 +23,7 @@
 class FaceGoalHeading : public ISwerveDriveOrientation
 {
     public:
-        FaceGoalHeading(ISwerveDriveOrientation swerveDriveOrientation);
+        FaceGoalHeading(SwerveEnums::HeadingOption headingOption);
 
         void UpdateChassisSpeeds(ChassisMovement& chassisMovement) override;
 

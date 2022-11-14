@@ -19,8 +19,8 @@
 
 #include <chassis/swerve/SwerveOdometry.h>
 
-FaceGoalHeading::FaceGoalHeading(ISwerveDriveOrientation swerveDriveOrientation
-) : ISwerveDriveOrientation(swerveDriveOrientation),
+FaceGoalHeading::FaceGoalHeading(SwerveEnums::HeadingOption headingOption
+) : ISwerveDriveOrientation(headingOption),
     m_limelight(LimelightFactory::GetLimelightFactory()->GetLimelight())
 {
 

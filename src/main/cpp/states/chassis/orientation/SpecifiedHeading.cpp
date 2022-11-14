@@ -16,8 +16,8 @@
 //Team302 Includes
 #include <states/chassis/orientation/SpecifiedHeading.h>
 
-SpecifiedHeading::SpecifiedHeading(ISwerveDriveOrientation swerveDriveOrientation, units::angle::degree_t targetAngle
-) : ISwerveDriveOrientation(swerveDriveOrientation),
+SpecifiedHeading::SpecifiedHeading(SwerveEnums::HeadingOption headingOption, units::angle::degree_t targetAngle
+) : ISwerveDriveOrientation(headingOption),
     m_targetAngle(targetAngle)
 {
 

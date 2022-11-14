@@ -29,7 +29,7 @@ class ISwerveDriveOrientation
 
         /// @brief Updated incoming chassis speeds to do heading action, precursor to SwerveDriveState
         /// @param [in] ChassisMovement& chassisMovement - Incomign chassis speeds to edit for heading option
-        void virtual UpdateChassisSpeeds(ChassisMovement& chassisMovement);
+        void virtual UpdateChassisSpeeds(ChassisMovement& chassisMovement) = 0;
 
         /// @brief Calculate heading correction
         /// @param [in] rot - incoming rotation to correct for
