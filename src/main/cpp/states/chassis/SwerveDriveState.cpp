@@ -16,7 +16,7 @@
 //Team302 Includes
 #include <states/chassis/SwerveDriveState.h>
 
-SwerveDriveState::SwerveDriveState(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation
+SwerveDriveState::SwerveDriveState(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation* swerveOrientation
 ) : m_chassisMovement(chassisMovement),
     m_orientation(swerveOrientation)
 {
@@ -28,7 +28,7 @@ void SwerveDriveState::UpdateChassisMovement(ChassisMovement chassisMovement)
     m_chassisMovement = chassisMovement;
 }
 
-void SwerveDriveState::UpdateOrientationOption(ISwerveDriveOrientation orientation)
+void SwerveDriveState::UpdateOrientationOption(ISwerveDriveOrientation* orientation)
 {
     m_orientation = orientation;
 }

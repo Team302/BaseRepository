@@ -28,7 +28,7 @@
 class SwerveDriveState
 {
     public:
-        SwerveDriveState(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
+        SwerveDriveState(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation* swerveOrientation);
 
         /// @brief Get the state type
         /// @return SwerveDriveStateType - type of state
@@ -40,7 +40,7 @@ class SwerveDriveState
 
         /// @brief Get the current swerve drive orientation
         /// @return ISwerveDriveOrientation - current orientation
-        ISwerveDriveOrientation GetDriveOrientation() const {return m_orientation;};
+        ISwerveDriveOrientation* GetDriveOrientation() const {return m_orientation;};
 
         /// @brief Initialize the state
         void virtual Init() = 0;
@@ -55,10 +55,10 @@ class SwerveDriveState
 
         /// @brief Update the orientation option for the state
         /// @param [in] ISwerveDriveOrientation orientation - new orientation
-        void UpdateOrientationOption(ISwerveDriveOrientation orientation);
+        void UpdateOrientationOption(ISwerveDriveOrientation* orientation);
 
     protected:
         SwerveEnums::SwerveDriveStateType        m_stateType;
         ChassisMovement             m_chassisMovement;
-        ISwerveDriveOrientation     m_orientation;
+        ISwerveDriveOrientation*     m_orientation;
 };

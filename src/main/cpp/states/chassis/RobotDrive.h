@@ -22,7 +22,7 @@
 class RobotDrive : public SwerveDriveState
 {
     public:
-        RobotDrive(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation swerveOrientation);
+        RobotDrive(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation* swerveOrientation);
 
         std::array<frc::SwerveModuleState, 4> CalcSwerveModuleStates() override;
 

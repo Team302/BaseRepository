@@ -68,7 +68,7 @@ SwerveChassis::SwerveChassis
     m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE] =  new RobotDrive(
                                                             SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE, 
                                                             ChassisMovement{}, 
-                                                            *m_swerveOrientation[SwerveEnums::MAINTAIN]);
+                                                            m_swerveOrientation[SwerveEnums::MAINTAIN]);
 
     //...... continue doing this, waiting to finish until I determine if this is right idea
 }
@@ -107,7 +107,7 @@ void SwerveChassis::Drive()
 void SwerveChassis::Drive(SwerveDriveState* targetState)
 {
     m_currentDriveState = targetState;
-    m_currentOrientation = &targetState->GetDriveOrientation();
+    m_currentOrientation = targetState->GetDriveOrientation();
 
     m_currentDriveState->Init();
     Drive();
