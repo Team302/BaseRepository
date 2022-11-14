@@ -87,7 +87,10 @@ void DriveStop::Run()
                                             SwerveEnums::AutonControllerType::HOLONOMIC};
 
 		SwerveDriveState* targetState = m_chassis->GetDriveState(SwerveEnums::SwerveDriveStateType::STOP_DRIVE);
+		ISwerveDriveOrientation* targetOrientation = m_chassis->GetOrientation(m_headingOption);
+		
 		targetState->UpdateChassisMovement(chassisMovement);
+		targetState->UpdateOrientationOption(targetOrientation);
 
 		m_chassis->Drive(targetState);
 	}
