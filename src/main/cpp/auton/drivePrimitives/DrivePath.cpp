@@ -132,78 +132,25 @@ void DrivePath::Init(PrimitiveParams *params)
 }
 void DrivePath::Run()
 {
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Running", "True");
 
     if (!m_trajectoryStates.empty()) //If we have a path parsed / have states to run
     {
-        // debugging
-        m_timesRun++;
-        
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "Times Ran", m_timesRun);
+        ChassisSpeeds chassisSpeeds = {units::velocity::meters_per_second_t(0.0),
+                                        units::velocity::meters_per_second_t(0.0),
+                                        units::angular_velocity::radians_per_second_t(0.0)};
 
-        // calculate where we are and where we want to be
-        CalcCurrentAndDesiredStates();
+        //Convert all values into a ChassisMovement struct
+        ChassisMovement chassisMovement = {chassisSpeeds, 
+                                            m_trajectory, 
+                                            *new Point2d(),
+                                            SwerveEnums::NoMovementOption::STOP,
+                                            SwerveEnums::AutonControllerType::HOLONOMIC};
 
-        // Use the controller to calculate the chassis speeds for getting there
-        ChassisSpeeds refChassisSpeeds;
-        if (m_runHoloController)
-        {
-            Rotation2d rotation = m_desiredState.pose.Rotation();
-            switch (m_headingOption)
-            {
-                case IChassis::HEADING_OPTION::MAINTAIN:
-                   rotation = m_currentChassisPosition.Rotation();
-                   break;
+        SwerveDriveState* targetState = m_chassis->GetDriveState(SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE);
+        targetState->UpdateChassisMovement(chassisMovement);
+        targetState->UpdateOrientationOption(m_headingOption); 
 
-                case IChassis::HEADING_OPTION::POLAR_HEADING:
-                    [[fallthrough]];
-                case IChassis::HEADING_OPTION::TOWARD_GOAL:
-                    [[fallthrough]];
-                case IChassis::HEADING_OPTION::TOWARD_GOAL_DRIVE:
-                    [[fallthrough]];
-                case IChassis::HEADING_OPTION::TOWARD_GOAL_LAUNCHPAD:
-                    rotation = Rotation2d(units::angle::degree_t(m_targetFinder.GetTargetAngleD(m_currentChassisPosition)));
-                    break;
-
-                case IChassis::HEADING_OPTION::SPECIFIED_ANGLE:
-                    SpecifiedHeading* specifiedHeading = (SpecifiedHeading*) m_chassis->GetOrientation(SwerveEnums::HeadingOption::SPECIFIED_ANGLE);
-                    specifiedHeading->SetTargetHeading(units::angle::degree_t(m_heading));
-                    break;
-
-                case IChassis::HEADING_OPTION::LEFT_INTAKE_TOWARD_BALL:
-                    [[fallthrough]];
-                case IChassis::HEADING_OPTION::RIGHT_INTAKE_TOWARD_BALL:
-                    // TODO: need to get info from camera
-                    rotation = m_desiredState.pose.Rotation();
-                    break;
-                
-                default:
-                    rotation = m_desiredState.pose.Rotation();
-                    break;
-            }
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose x", m_currentChassisPosition.X().to<double>());
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose y", m_currentChassisPosition.Y().to<double>());
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: current pose omega", m_currentChassisPosition.Rotation().Degrees().to<double>());
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose x", m_desiredState.pose.X().to<double>());
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose y", m_desiredState.pose.Y().to<double>());
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: desired pose omega", m_desiredState.pose.Rotation().Degrees().to<double>());
-            refChassisSpeeds = m_holoController.Calculate(m_currentChassisPosition, 
-                                                          m_desiredState, 
-                                                          m_desiredState.pose.Rotation());
-        }
-        else
-        {
-            refChassisSpeeds = m_ramseteController.Calculate(m_currentChassisPosition, 
-                                                             m_desiredState);
-        }
-        // debugging
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsX", refChassisSpeeds.vx());
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsY", refChassisSpeeds.vy());
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_ntName, "DrivePathValues: ChassisSpeedsZ", units::degrees_per_second_t(refChassisSpeeds.omega()).to<double>());
-
-        m_chassis->Drive(refChassisSpeeds,
-                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						 m_headingOption);
+        m_chassis->Drive(targetState);
     }
     else //If we don't have states to run, don't move the robot
     {
@@ -211,9 +158,20 @@ void DrivePath::Run()
         speeds.vx = 0_mps;
         speeds.vy = 0_mps;
         speeds.omega = units::angular_velocity::radians_per_second_t(0);
-        m_chassis->Drive(speeds,
-                         IChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED,
-						 IChassis::HEADING_OPTION::DEFAULT);
+
+        //Convert all values into a ChassisMovement struct
+        ChassisMovement chassisMovement = {speeds, 
+                                            *new frc::Trajectory(), 
+                                            *new Point2d(),
+                                            SwerveEnums::NoMovementOption::STOP,
+                                            SwerveEnums::AutonControllerType::HOLONOMIC};
+
+        SwerveDriveState* targetState = m_chassis.get()->GetDriveState(SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE);
+
+        targetState->UpdateChassisMovement(chassisMovement);
+        targetState->UpdateOrientationOption(m_headingOption);
+
+        m_chassis->Drive(targetState);
     }
 
 }
