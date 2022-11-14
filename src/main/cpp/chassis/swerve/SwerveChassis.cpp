@@ -25,6 +25,10 @@
 #include <states/chassis/StopDrive.h>
 #include <states/chassis/TrajectoryDrive.h>
 
+#include <states/chassis/orientation/MaintainHeading.h>
+#include <states/chassis/orientation/SpecifiedHeading.h>
+#include <states/chassis/orientation/FaceGoalHeading.h>
+
 SwerveChassis::SwerveChassis
 (
     std::shared_ptr<SwerveModule>                               frontLeft, 
@@ -60,7 +64,7 @@ SwerveChassis::SwerveChassis
     m_backRight->ZeroAlignModule();
 
     //Is this the best way to do this?
-    m_swerveOrientation[SwerveEnums::MAINTAIN] = new ISwerveDriveOrientation(SwerveEnums::HeadingOption::MAINTAIN);
+    m_swerveOrientation[SwerveEnums::MAINTAIN] = new MaintainHeading(SwerveEnums::HeadingOption::MAINTAIN);
     //..... continue
 
     m_currentOrientation = m_swerveOrientation[SwerveEnums::MAINTAIN];
