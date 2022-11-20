@@ -83,9 +83,9 @@ class SwerveOdometry
         // Gains are for example purposes only - must be determined for your own robot!
         //Clean up to get clearer information
         frc::SwerveDrivePoseEstimator<4> m_poseEstimator{ frc::Rotation2d{},
-                                                            frc::Pose2d{},
                                                             {m_frontLeft.get()->GetPosition(), m_frontRight.get()->GetPosition(),
                                                              m_backLeft.get()->GetPosition(), m_backRight.get()->GetPosition()},
+                                                             frc::Pose2d{},
                                                              m_kinematics,
                                                              {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1},
                                                              {0.05, 0.05, 0.05, 0.05, 0.05},
