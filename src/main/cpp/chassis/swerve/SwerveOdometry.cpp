@@ -90,12 +90,12 @@ void SwerveOdometry::ResetPose
     const Rotation2d&   angle
 )
 {
-    m_poseEstimator.ResetPosition(angle,
+    m_poseEstimator.ResetPosition(pose,
+                                    angle,
                                     {m_frontLeft.get()->GetPosition(),
                                     m_frontRight.get()->GetPosition(), 
                                     m_backLeft.get()->GetPosition(),
-                                    m_backRight.get()->GetPosition()},
-                                    pose);
+                                    m_backRight.get()->GetPosition()});
                                     
     ChassisFactory::GetChassisFactory()->GetSwerveChassis()->SetEncodersToZero();
 
