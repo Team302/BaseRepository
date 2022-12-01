@@ -79,13 +79,13 @@ double AnalogAxis::GetAxisValue()
         value = m_scale->Scale(value);
         value = m_inversion->ApplyInversion(value);
         
-        if (m_secondaryAxis != nullptr)
+        /*if (m_secondaryAxis != nullptr)
         {
             auto value2 = m_secondaryAxis->GetAxisValue();
             auto angle = atan2(value2, value);
             auto cosAngle = abs(cos(angle));
             value = cosAngle > 0 ? value / cosAngle : value;
-        }
+        }*/
         return value;
     }
     return 0.0;
