@@ -63,18 +63,28 @@ SwerveChassis::SwerveChassis
     m_backLeft->ZeroAlignModule();
     m_backRight->ZeroAlignModule();
 
-    //Is this the best way to do this?
-    m_swerveOrientation[SwerveEnums::MAINTAIN] = new MaintainHeading(SwerveEnums::HeadingOption::MAINTAIN);
-    //..... continue
+    //Create map of all swerve drive orientation types
+    m_swerveOrientation[SwerveEnums::HeadingOption::MAINTAIN] = new MaintainHeading(SwerveEnums::HeadingOption::MAINTAIN);
+    m_swerveOrientation[SwerveEnums::HeadingOption::SPECIFIED_ANGLE] = new SpecifiedHeading(SwerveEnums::HeadingOption::SPECIFIED_ANGLE, units::angle::degree_t(0.0));
+    m_swerveOrientation[SwerveEnums::HeadingOption::TOWARD_GOAL] = new FaceGoalHeading(SwerveEnums::HeadingOption::TOWARD_GOAL);
 
     m_currentOrientation = m_swerveOrientation[SwerveEnums::MAINTAIN];
 
+    //Create map of all swerve drive state types
     m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE] =  new RobotDrive(
                                                             SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE, 
                                                             ChassisMovement{}, 
                                                             m_swerveOrientation[SwerveEnums::MAINTAIN]);
-
-    //...... continue doing this, waiting to finish until I determine if this is right idea
+    m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::FIELD_DRIVE] = new FieldDrive(*dynamic_cast<RobotDrive*>(m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE]));
+    m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::HOLD_DRIVE] = new HoldDrive(
+                                                            SwerveEnums::SwerveDriveStateType::HOLD_DRIVE, 
+                                                            ChassisMovement{}, 
+                                                            m_swerveOrientation[SwerveEnums::MAINTAIN]);
+    m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::STOP_DRIVE] = new StopDrive(
+                                                            SwerveEnums::SwerveDriveStateType::STOP_DRIVE, 
+                                                            ChassisMovement{}, 
+                                                            m_swerveOrientation[SwerveEnums::MAINTAIN]);
+    m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::TRAJECTORY_DRIVE] = new TrajectoryDrive(*dynamic_cast<RobotDrive*>(m_swerveDriveStates[SwerveEnums::SwerveDriveStateType::ROBOT_DRIVE]));
 }
 
 void SwerveChassis::SetEncodersToZero()
