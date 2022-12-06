@@ -133,7 +133,7 @@ void SwerveDrive::Run()
         targetState->UpdateChassisMovement(chassisMovement);
         targetState->UpdateOrientationOption(targetOrientation);
 
-        m_chassis->Drive(targetState);
+        m_chassis.get()->Drive(targetState);
     }
 }
 
