@@ -77,7 +77,7 @@ SwerveModule::SwerveModule
     m_turnSensor(canCoder), 
     m_driveVelocityControlData(new ControlData()),
     m_drivePercentControlData(new ControlData()),
-    m_turnPositionControlData(new ControlData(  ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE,
+    m_turnPositionControlData(new ControlData(  ControlModes::CONTROL_TYPE::POSITION_DEGREES_ABSOLUTE,
                                                 ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
                                                 string("Turn Angle"),
                                                 turnP,
