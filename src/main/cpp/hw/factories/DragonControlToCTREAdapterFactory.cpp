@@ -146,9 +146,12 @@ DragonControlToCTREAdapter* DragonControlToCTREAdapterFactory::CreateAdapter
                 break;
 		}	
     }
-    string msg{"Invalid contrrol information "};
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
-    return new DragonPercentOutputToCTREAdapter(networkTableName, controllerSlot, controlInfo, calcStruc, controller);
+    else
+    {
+        string msg{"Invalid contrrol information "};
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("DragonControlToCTREAdapterFactory"), string("CreateAdapter"), msg);
+        return new DragonPercentOutputToCTREAdapter(networkTableName, controllerSlot, controlInfo, calcStruc, controller);
+    }
 }
 
 
