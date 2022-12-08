@@ -56,8 +56,8 @@
                       turn_max_acc="20"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="16"
-                    pdpID="16"
+                    canId="1"
+                    pdpID="1"
                     type="FALCON"
                     inverted="true"
                     sensorInverted="false"
@@ -75,8 +75,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="SWERVE_TURN"
-                    canId="17"
-                    pdpID="17"
+                    canId="0"
+                    pdpID="0"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -93,7 +93,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="17"
+		    <cancoder canId="0"
                             offset="-174.72"/>
         </swervemodule>
 
@@ -108,8 +108,8 @@
                       turn_max_acc="10"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="19"
-                    pdpID="19"
+                    canId="18"
+                    pdpID="18"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -127,8 +127,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor usage="SWERVE_TURN"
-                    canId="18"
-                    pdpID="18"
+                    canId="19"
+                    pdpID="19"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -145,7 +145,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="18"
+		    <cancoder canId="19"
                             offset="-113.906"/>
         </swervemodule>
 
@@ -159,8 +159,8 @@
                       turn_max_acc="10"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="12"
-                    pdpID="12"
+                    canId="8"
+                    pdpID="8"
                     type="FALCON"
                     inverted="true"
                     sensorInverted="false"
@@ -178,8 +178,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="SWERVE_TURN"
-                    canId="13"
-                    pdpID="13"
+                    canId="9"
+                    pdpID="9"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -196,7 +196,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="13"
+		    <cancoder canId="9"
                             offset="-174.199"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
@@ -209,8 +209,8 @@
                       turn_max_acc="10"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="11"
-                    pdpID="11"
+                    canId="10"
+                    pdpID="10"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -228,8 +228,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor usage="SWERVE_TURN"
-                    canId="10"
-                    pdpID="10"
+                    canId="11"
+                    pdpID="11"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -246,7 +246,7 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="10"
+		    <cancoder canId="11"
                             offset="176.133"/>
         </swervemodule>
        </chassis>  
