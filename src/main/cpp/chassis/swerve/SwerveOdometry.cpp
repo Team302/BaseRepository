@@ -52,11 +52,7 @@ SwerveOdometry::SwerveOdometry(std::shared_ptr<SwerveModule> frontLeft,
     m_frontLeft(frontLeft),
     m_frontRight(frontRight),
     m_backLeft(backLeft),
-    m_backRight(backRight),
-    m_flPosition(*new SwerveModulePosition()),
-    m_frPosition(*new SwerveModulePosition()),
-    m_blPosition(*new SwerveModulePosition()),
-    m_brPosition(*new SwerveModulePosition())
+    m_backRight(backRight)
 {
 }
 
@@ -66,11 +62,7 @@ void SwerveOdometry::UpdateOdometry()
     units::degree_t yaw{PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)->GetYaw()};
     Rotation2d rot2d {yaw}; 
 
-    m_poseEstimator.Update(rot2d, {m_frontLeft.get()->GetState(),
-                                  m_frontRight.get()->GetState(), 
-                                  m_backLeft.get()->GetState(),
-                                  m_backRight.get()->GetState()}, 
-                                    {m_frontLeft.get()->GetPosition(),
+    m_poseEstimator.Update(rot2d,  {m_frontLeft.get()->GetPosition(),
                                     m_frontRight.get()->GetPosition(), 
                                     m_backLeft.get()->GetPosition(),
                                     m_backRight.get()->GetPosition()});
@@ -90,12 +82,12 @@ void SwerveOdometry::ResetPose
     const Rotation2d&   angle
 )
 {
-    m_poseEstimator.ResetPosition(pose,
-                                    angle,
+    m_poseEstimator.ResetPosition(  angle,
                                     {m_frontLeft.get()->GetPosition(),
                                     m_frontRight.get()->GetPosition(), 
                                     m_backLeft.get()->GetPosition(),
-                                    m_backRight.get()->GetPosition()});
+                                    m_backRight.get()->GetPosition()},
+                                    pose);
                                     
     ChassisFactory::GetChassisFactory()->GetSwerveChassis()->SetEncodersToZero();
 
