@@ -40,6 +40,4 @@ class TrajectoryDrive : public RobotDrive
         frc::Trajectory::State              m_desiredState;
         std::vector<frc::Trajectory::State> m_trajectoryStates;
         std::unique_ptr<frc::Timer>             m_timer;
-
-        SwerveChassis*                      m_chassis;
 };

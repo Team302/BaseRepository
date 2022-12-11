@@ -26,7 +26,7 @@ RobotDrive::RobotDrive(SwerveEnums::SwerveDriveStateType stateType, ChassisMovem
     m_frState(),
     m_blState(),
     m_brState(),
-    m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis())
+    m_chassis()
 {
 
 }
@@ -53,11 +53,8 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
     // We will use these variable names in the code to help tie back to the document.
     // Variable names, though, will follow C++ standards and start with a lower case letter.
 
-    /// DEBUG
-    SwerveChassis* chassis = ChassisFactory::GetChassisFactory()->GetSwerveChassis();
-
-    auto l = chassis->GetWheelBase();
-    auto w = chassis->GetTrack();
+    auto l = m_chassis->GetWheelBase();
+    auto w = m_chassis->GetTrack();
 
     auto vy = 1.0 * m_chassisMovement.chassisSpeeds.vx;
     auto vx = -1.0 * m_chassisMovement.chassisSpeeds.vy;
@@ -105,9 +102,9 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
     }
 
     // normalize speeds if necessary (maxCalcSpeed > max attainable speed)
-    if ( maxCalcSpeed > chassis->GetMaxSpeed().to<double>() )
+    if ( maxCalcSpeed > m_chassis->GetMaxSpeed().to<double>() )
     {
-        auto ratio = chassis->GetMaxSpeed().to<double>() / maxCalcSpeed;
+        auto ratio = m_chassis->GetMaxSpeed().to<double>() / maxCalcSpeed;
         m_flState.speed *= ratio;
         m_frState.speed *= ratio;
         m_blState.speed *= ratio;
@@ -119,5 +116,5 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
 
 void RobotDrive::Init()
 {
-
+    m_chassis = ChassisFactory::GetChassisFactory()->GetSwerveChassis();
 }

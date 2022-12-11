@@ -26,8 +26,7 @@ TrajectoryDrive::TrajectoryDrive(RobotDrive robotDrive
                           frc::TrapezoidProfile<units::radian>::Constraints{0_rad_per_s, 0_rad_per_s / 1_s}}),
     m_desiredState(),
     m_trajectoryStates(m_trajectory.States()),
-    m_timer(std::make_unique<frc::Timer>()),
-    m_chassis(ChassisFactory::GetChassisFactory()->GetSwerveChassis())
+    m_timer(std::make_unique<frc::Timer>())
 {
 
 }
