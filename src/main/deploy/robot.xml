@@ -27,8 +27,8 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.1"
-                      turn_i="0.005"
+                      turn_p="0.00"
+                      turn_i="0.00"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -36,8 +36,8 @@
                       turn_max_acc="20"
                       turn_cruise_vel="50">
             <motor  usage="SWERVE_DRIVE"
-                    canId="0"
-                    pdpID="0"
+                    canId="1"
+                    pdpID="1"
                     type="FALCON"
                     inverted="true"
                     sensorInverted="false"
@@ -55,8 +55,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="SWERVE_TURN"
-                    canId="1"
-                    pdpID="1"
+                    canId="0"
+                    pdpID="0"
                     type="FALCON"
                     inverted="false"
                     sensorInverted="false"
@@ -73,14 +73,13 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-		    <cancoder canId="1"
-                            offset="140.449"/>
+		    <cancoder canId="0"
+                            offset="157.763"/>
         </swervemodule>
-
        
         <swervemodule type="LEFT_BACK"
-                      turn_p="0.1"
-                      turn_i="0.005"
+                      turn_p="0.0"
+                      turn_i="0.00"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -126,12 +125,12 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="19"
-                            offset="-15.908"/>
+                            offset="-53.525"/>
         </swervemodule>
 
         <swervemodule type="RIGHT_FRONT"
-                      turn_p="0.1"
-                      turn_i="0.005"
+                      turn_p="0.0"
+                      turn_i="0.00"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -177,11 +176,11 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="9"
-                            offset="33.750 "/>
+                            offset="41.045"/>
         </swervemodule>
         <swervemodule type="LEFT_FRONT"
-                      turn_p="0.1"
-                      turn_i="0.005"
+                      turn_p="0.0"
+                      turn_i="0.00"
                       turn_d="0.0"
                       turn_f="0.0"
                       turn_nominal_val="0.0"
@@ -227,8 +226,7 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
 		    <cancoder canId="11"
-                            offset="-130.693"/>
+                            offset="-106.347"/>
         </swervemodule>
-
        </chassis>  
 </robot>
