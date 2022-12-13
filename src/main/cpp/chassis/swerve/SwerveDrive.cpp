@@ -115,6 +115,10 @@ void SwerveDrive::Run()
         auto steer = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_STEER);
         auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SWERVE_DRIVE_ROTATE);
 
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Drive"), drive);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Steer"), steer);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Rotate"), rotate);
+
         //Get selected drive mode state
         SwerveDriveState* targetState = m_chassis.get()->GetDriveState(mode);
         ISwerveDriveOrientation* targetOrientation = m_chassis.get()->GetOrientation(headingOpt);
@@ -130,7 +134,14 @@ void SwerveDrive::Run()
                                             stopOption,
                                             SwerveEnums::AutonControllerType::HOLONOMIC};
 
+        
+
         targetState->UpdateChassisMovement(chassisMovement);
+
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Target State VX"), targetState->GetChassisMovement().chassisSpeeds.vx.to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Target State VY"), targetState->GetChassisMovement().chassisSpeeds.vy.to<double>());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SwerveDrive"), string("Target State Omega"), targetState->GetChassisMovement().chassisSpeeds.omega.to<double>());                                            
+
         targetState->UpdateOrientationOption(targetOrientation);
 
         m_chassis.get()->Drive(targetState);

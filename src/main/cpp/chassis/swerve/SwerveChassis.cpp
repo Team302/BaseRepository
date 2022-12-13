@@ -129,7 +129,12 @@ void SwerveChassis::Drive(SwerveDriveState* targetState)
     m_currentDriveState = targetState;
     m_currentOrientation = targetState->GetDriveOrientation();
 
-    m_currentDriveState->Init();
+    //m_currentDriveState->Init();
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("Target State Omega"), m_currentDriveState->GetChassisMovement().chassisSpeeds.omega.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("Target State VX"), m_currentDriveState->GetChassisMovement().chassisSpeeds.vx.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("Target State VY"), m_currentDriveState->GetChassisMovement().chassisSpeeds.vy.to<double>());
+    
     Drive();
 }
 
