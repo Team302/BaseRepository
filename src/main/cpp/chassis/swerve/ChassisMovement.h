@@ -32,5 +32,5 @@ struct ChassisMovement
     frc::Trajectory     trajectory;
     Point2d             centerOfRotationOffset;
     SwerveEnums::NoMovementOption    noMovementOption;
-    SwerveEnums::AutonControllerType controllerType;
+    SwerveEnums::AutonControllerType controllerType = SwerveEnums::AutonControllerType::HOLONOMIC;
 };

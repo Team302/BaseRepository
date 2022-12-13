@@ -95,6 +95,7 @@ DragonControlToCTREAdapter* DragonControlToCTREAdapterFactory::CreateAdapter
                 break;
 
 			case ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE:
+                return new DragonPositionDegreeToCTREAdapter(networkTableName, controllerSlot, controlInfo, calcStruc, controller);
                 break;
 
 			case ControlModes::CONTROL_TYPE::POSITION_DEGREES:

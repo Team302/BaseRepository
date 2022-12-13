@@ -29,6 +29,9 @@
 #include <states/chassis/orientation/SpecifiedHeading.h>
 #include <states/chassis/orientation/FaceGoalHeading.h>
 
+/// DEBUG
+#include <utils/Logger.h>`
+
 SwerveChassis::SwerveChassis
 (
     std::shared_ptr<SwerveModule>                               frontLeft, 
@@ -107,8 +110,8 @@ void SwerveChassis::Drive()
 {
     auto states = wpi::array(m_currentDriveState->CalcSwerveModuleStates());
 
-    auto kinematics = m_odometry->GetSwerveDriveKinematics();
-    kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
+    //auto kinematics = m_odometry->GetSwerveDriveKinematics();
+    //kinematics.DesaturateWheelSpeeds(&states, m_maxSpeed);
 
     auto [fl,fr,bl,br] = states;
 
@@ -116,6 +119,9 @@ void SwerveChassis::Drive()
     m_frontRight.get()->SetDesiredState(fr);
     m_backLeft.get()->SetDesiredState(bl);
     m_backRight.get()->SetDesiredState(br);
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BLState Angle"), bl.angle.Degrees().to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BRState Angle"), br.angle.Degrees().to<double>() );
 }
 
 void SwerveChassis::Drive(SwerveDriveState* targetState)
