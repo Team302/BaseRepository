@@ -120,8 +120,11 @@ void SwerveChassis::Drive()
     m_backLeft.get()->SetDesiredState(bl);
     m_backRight.get()->SetDesiredState(br);
 
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BLState Angle"), bl.angle.Degrees().to<double>() );
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BLState Speed"), br.speed.to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BLState Tgt Angle"), bl.angle.Degrees().to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("BRState Tgt Angle"), br.angle.Degrees().to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("FLState Tgt Angle"), fl.angle.Degrees().to<double>() );
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Swerve Chassis"), std::string("FRState Tgt Angle"), fr.angle.Degrees().to<double>() );
+    
 }
 
 void SwerveChassis::Drive(SwerveDriveState* targetState)
