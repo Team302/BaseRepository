@@ -274,10 +274,10 @@ void SwerveModule::SetDesiredState
 
     // Set Turn Target 
     
-    //SetTurnAngle(optimizedState.angle.Degrees());
+    SetTurnAngle(optimizedState.angle.Degrees());
 
     /// DEBUG  
-    SetTurnAngle(targetState.angle.Degrees());
+    //SetTurnAngle(targetState.angle.Degrees());
 
     // Set Drive Target 
     SetDriveSpeed(optimizedState.speed);
@@ -383,11 +383,6 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("turn motor id"), m_turnMotor.get()->GetID() );
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("target angle"), targetAngle.to<double>() );
 
-
-
-
-
-
     auto currAngle  = units::angle::degree_t(m_turnSensor->GetAbsolutePosition());
     auto deltaAngle = AngleUtils::GetDeltaAngle(currAngle, targetAngle);
 
@@ -404,9 +399,9 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         // 5592 counts on the falcon for 76.729 degree change on the CANCoder (wheel)
         //=============================================================================
         //double deltaTicks = (deltaAngle.to<double>() * 507 / 21.973); 
-        //double deltaTicks = deltaAngle.to<double>() * m_turnMotor.get()->GetCountsPerDegree();
-        //double currentTicks = sensors.GetIntegratedSensorAbsolutePosition();
-        //double desiredTicks = currentTicks + deltaTicks;
+        double deltaTicks = deltaAngle.to<double>() * m_turnMotor.get()->GetCountsPerDegree();
+        double currentTicks = sensors.GetIntegratedSensorAbsolutePosition();
+        double desiredTicks = currentTicks + deltaTicks;
 
 
 /*
@@ -415,7 +410,7 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("desiredTicks"), desiredTicks );
 */
         m_turnMotor.get()->SetControlConstants(0, m_turnPositionControlData);
-        m_turnMotor.get()->Set(targetAngle.to<double>());
+        m_turnMotor.get()->Set(desiredTicks);
     }
     else
     {
