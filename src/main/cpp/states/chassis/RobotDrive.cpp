@@ -20,6 +20,9 @@
 //Team302 Includes
 #include <states/chassis/RobotDrive.h>
 
+/// DEBUG
+#include <utils/Logger.h>
+
 RobotDrive::RobotDrive(SwerveEnums::SwerveDriveStateType stateType, ChassisMovement chassisMovement, ISwerveDriveOrientation* swerveOrientation
 ) : SwerveDriveState::SwerveDriveState(stateType, chassisMovement, swerveOrientation),
     m_flState(),
@@ -63,6 +66,9 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
     auto vx = -1.0 * m_chassisMovement.chassisSpeeds.vy;
     auto omega = m_chassisMovement.chassisSpeeds.omega;
 
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("vy"), vy.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("vx"), vx.to<double>());
+
     units::length::meter_t centerOfRotationW = (w / 2.0) - m_chassisMovement.centerOfRotationOffset.Y;
     units::length::meter_t centerOfRotationL = (l / 2.0) - m_chassisMovement.centerOfRotationOffset.X;
 
@@ -73,6 +79,11 @@ std::array<frc::SwerveModuleState, 4> RobotDrive::CalcSwerveModuleStates()
     auto b = vx + omegaL;
     auto c = vy - omegaW;
     auto d = vy + omegaW;
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("a"), a.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("b"), b.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("c"), c.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("Robot Drive"), std::string("d"), d.to<double>());
 
     // here we'll negate the angle to conform to the positive CCW convention
     m_flState.angle = units::angle::radian_t(atan2(b.to<double>(), d.to<double>()));
