@@ -50,7 +50,7 @@ void DragonPositionDegreeToCTREAdapter::Set
 {
     auto output = (m_calcStruc.countsPerDegree > 0.01) ? m_calcStruc.countsPerDegree*value : 
                                             (ConversionUtils::DegreesToCounts(value, m_calcStruc.countsPerRev) * m_calcStruc.gearRatio);
-    m_controller->Set(ctre::phoenix::motorcontrol::ControlMode::Position, output);
+    m_controller->Set(ctre::phoenix::motorcontrol::ControlMode::Position, value);
 }
 
 
