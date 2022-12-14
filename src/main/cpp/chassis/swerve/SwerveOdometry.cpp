@@ -27,6 +27,9 @@
 #include <utils/Logger.h>
 #include <chassis/ChassisFactory.h>
 
+/// DEBUG
+#include <utils/Logger.h>
+
 using namespace frc;
 
 SwerveOdometry* SwerveOdometry::m_instance = nullptr; // initialize the instance variable to nullptr
@@ -61,6 +64,11 @@ void SwerveOdometry::UpdateOdometry()
 {
     units::degree_t yaw{PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)->GetYaw()};
     Rotation2d rot2d {yaw}; 
+
+    /// DEBUG
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Odometry", "yaw", yaw.to<double>());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Odometry", "pitch", PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)->GetPitch());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, "Swerve Odometry", "roll", PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)->GetRoll());
 
     m_poseEstimator.Update(rot2d,  {m_frontLeft.get()->GetPosition(),
                                     m_frontRight.get()->GetPosition(), 
