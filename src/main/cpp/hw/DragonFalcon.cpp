@@ -102,6 +102,15 @@ DragonFalcon::DragonFalcon
 	}
 
 	error = m_talon.get()->ConfigVoltageCompSaturation(12.0, 0);
+
+	/// COME BACK TO THIS
+	error = m_talon.get()->ConfigIntegratedSensorAbsoluteRange(ctre::phoenix::sensors::AbsoluteSensorRange::Signed_PlusMinus180, 50);
+	if ( error != ErrorCode::OKAY )
+	{
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigIntegratedSensorAbsoluteRange"), string("error"));
+		error = ErrorCode::OKAY;
+	}
+
 	if ( error != ErrorCode::OKAY )
 	{
 		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, prompt, string("ConfigVoltageCompSaturation"), string("error"));
