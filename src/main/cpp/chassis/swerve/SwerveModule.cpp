@@ -44,6 +44,8 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
 #include <ctre/phoenix/sensors/CANCoder.h>
 
+/// DEBUG
+#include <utils/ConversionUtils.h>
 
 using namespace std;
 using namespace frc;
@@ -399,18 +401,21 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         // 5592 counts on the falcon for 76.729 degree change on the CANCoder (wheel)
         //=============================================================================
         //double deltaTicks = (deltaAngle.to<double>() * 507 / 21.973); 
-        double deltaTicks = deltaAngle.to<double>() * m_turnMotor.get()->GetCountsPerDegree();
-        double currentTicks = sensors.GetIntegratedSensorAbsolutePosition();
-        double desiredTicks = currentTicks + deltaTicks;
+        //double deltaTicks = deltaAngle.to<double>() * m_turnMotor.get()->GetCountsPerDegree();
+        //double deltaTicks = ConversionUtils::DegreesToCounts(deltaAngle.to<double>(), m_turnMotor.get()->GetCountsPerRev()) * m_turnMotor.get()->GetGearRatio();
+        
+        //double currentTicks = sensors.GetIntegratedSensorAbsolutePosition();
+        //double desiredTicks = currentTicks + deltaTicks;
+        units::angle::degree_t desiredAngle = currAngle + deltaAngle;
 
+        /// DEBUG
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("current angle"), currAngle.to<double>() );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("delta"), deltaAngle.to<double>() );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("desired"), desiredAngle.to<double>() * m_turnMotor.get()->GetCountsPerDegree() );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("current counts"), m_turnMotor.get()->GetCounts() );
 
-/*
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("currentTicks"), currentTicks );
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("deltaTicks"), deltaTicks );
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("desiredTicks"), desiredTicks );
-*/
         m_turnMotor.get()->SetControlConstants(0, m_turnPositionControlData);
-        m_turnMotor.get()->Set(desiredTicks);
+        m_turnMotor.get()->Set(desiredAngle.to<double>());
     }
     else
     {
