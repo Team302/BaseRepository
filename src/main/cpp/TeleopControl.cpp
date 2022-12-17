@@ -31,6 +31,8 @@
 #include <frc/DriverStation.h>
 #include <utils/Logger.h>
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
 using namespace frc;
 using namespace std;
 
@@ -90,6 +92,9 @@ void TeleopControl::Initialize()
 			m_numControllers++;
 		}
 	}
+
+	//add "button" so that number of TeleopControl can be re-initialized if a new controller is add
+	frc::SmartDashboard::PutBoolean("Reset TeleopControl?", false);
 
 
     // Initialize the items to not defined
