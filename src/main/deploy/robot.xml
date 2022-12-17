@@ -27,7 +27,7 @@
               controlFile="chassis.xml">
 			 
         <swervemodule type="RIGHT_BACK"
-                      turn_p="0.15"
+                      turn_p="0.075"
                       turn_i="0.0"
                       turn_d="0.0"
                       turn_f="0.0"
@@ -61,7 +61,7 @@
                     inverted="false"
                     sensorInverted="false"
                     feedbackDevice="INTERNAL"
-                    countsPerDegree="4.86"
+                    countsPerDegree="43.64"
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
