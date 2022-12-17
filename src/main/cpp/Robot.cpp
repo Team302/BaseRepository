@@ -23,6 +23,8 @@
 #include <RobotXmlParser.h>
 #include <mechanisms/StateMgrHelper.h>
 
+#include <frc/shuffleboard/Shuffleboard.h>
+
 using namespace std;
 
 void Robot::RobotInit() 
@@ -64,6 +66,17 @@ void Robot::RobotInit()
  */
 void Robot::RobotPeriodic() 
 {
+    //check if driver wants to re-initialize TeleopControl
+    if(frc::SmartDashboard::GetBoolean("Reset TeleopControl?", false) == true)
+    {
+        //If num of controllers = 0, re construct controllers
+        m_controller = TeleopControl::GetInstance();
+        // frc::SmartDashboard::PutBoolean("Reset TeleopControl?", false);
+
+        //Add indicator that button was successfully pressed
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("RobotPeriodic"), string("ControllerCheck"),string("Re-initialized TeleopControl for added controllers"));
+    }
+
     if (m_chassis != nullptr)
     {
         m_chassis->UpdateOdometry();
