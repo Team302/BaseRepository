@@ -391,7 +391,7 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("current angle"), currAngle.to<double>() );
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("delta angle"), deltaAngle.to<double>() );
 
-
+/*
     if ( abs(deltaAngle.to<double>()) > 1.0 )
     {
         auto motor = m_turnMotor.get()->GetSpeedController();
@@ -420,6 +420,31 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
     else
     {
         m_turnMotor.get()->SetControlConstants(0, m_turnPercentControlData);
+        m_turnMotor.get()->Set(0.0);
+    }*/
+
+    if ( abs(deltaAngle.to<double>()) > 1.0 )
+    {
+        auto motor = m_turnMotor.get()->GetSpeedController();
+        auto fx = dynamic_cast<WPI_TalonFX*>(motor.get());
+        auto sensors = fx->GetSensorCollection();
+        //=============================================================================
+        // 5592 counts on the falcon for 76.729 degree change on the CANCoder (wheel)
+        //=============================================================================
+        double deltaTicks = (deltaAngle.to<double>() * 5592 / 76.729); 
+        double currentTicks = sensors.GetIntegratedSensorPosition();
+        double desiredTicks = currentTicks + deltaTicks;
+
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("currentTicks"), currentTicks );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("deltaTicks"), deltaTicks );
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_nt, string("desiredTicks"), desiredTicks );
+
+        m_turnMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE);
+        m_turnMotor.get()->Set(desiredTicks);
+    }
+    else
+    {
+        m_turnMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
         m_turnMotor.get()->Set(0.0);
     }
 

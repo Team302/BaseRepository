@@ -19,10 +19,10 @@
 // C++ Includes
 #include <map>
 #include <memory>
+#include <string>
 
 // FRC includes
 #include <frc/motorcontrol/MotorController.h>
-#include <networktables/NetworkTable.h>
 
 // Team 302 includes
 #include <hw/usages/MotorControllerUsage.h>
@@ -32,10 +32,9 @@
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/motorcontrol/StatusFrame.h>
-#include <ctre/phoenix/motorcontrol/TalonFXSensorCollection.h>
 
 /// @interface IDragonMotorController
-/// @brief The general interface to motor controllers so that the specific mechanisms that use motors,
+/// @brief The general interface to motor mechanisms/controllers so that the specific mechanisms that use motors,
 ///        don't need to special case what motor controller is being used.
 class IDragonMotorController
 {
@@ -50,6 +49,7 @@ class IDragonMotorController
 
         enum MOTOR_TYPE
         {
+            UNKNOWN_MOTOR=-1,
             FALCON500,
             NEOMOTOR,
             NEO500MOTOR,  
@@ -67,7 +67,8 @@ class IDragonMotorController
             MODERNROBOTICS12VDCMOTOR,
             JOHNSONELECTRICALGEARMOTOR,
             TETRIXMAXTORQUENADOMOTOR,
-            NONE
+            NONE,
+            MAX_MOTOR_TYPES
         };
         // Getters
         /// @brief  Return the number of revolutions the output shaft has spun
@@ -94,18 +95,12 @@ class IDragonMotorController
         /// @return int - CAN ID
         virtual int GetID() const = 0;
 
-        /// @brief Return the motor's sensor collection
-        /// @return ctre::phoenix::motorcontrol::SensorCollection - SensorCollection
-        virtual void SetIntegratedSensorPosition(double newPos, double timeoutMs) const = 0;
-
         /// @brief  Return the speedcontroller 
         /// @return std::shared_ptr<frc::SpeedControll> - pointer to the speed controller object
         virtual std::shared_ptr<frc::MotorController> GetSpeedController() const = 0;
 
         // Setters
-        virtual void SetControlMode(ControlModes::CONTROL_TYPE mode) = 0;
         virtual void Set(double value) = 0;
-        virtual void Set(std::shared_ptr<nt::NetworkTable> nt, double value) = 0;
         virtual void SetRotationOffset(double rotations) = 0;
         virtual void SetVoltageRamping(double ramping, double closedLoopRamping = -1) = 0;
         virtual void EnableCurrentLimiting(bool enabled) = 0;
@@ -114,7 +109,7 @@ class IDragonMotorController
         virtual void SetSensorInverted(bool inverted) = 0;
 		virtual void SetDiameter( double diameter ) = 0;
         virtual void SetVoltage(  units::volt_t output ) = 0;
-        virtual ControlModes::CONTROL_TYPE GetControlMode() const = 0;
+        //virtual ControlModes::CONTROL_TYPE GetControlMode() const = 0;
         virtual double GetCounts() const = 0;
 
 
