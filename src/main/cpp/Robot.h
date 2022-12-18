@@ -25,6 +25,7 @@ class ArcadeDrive;
 class SwerveDrive;
 class DragonLimelight;
 class IChassis;
+class LiveXMLTuner;
 
 class Robot : public frc::TimedRobot 
 {
@@ -48,4 +49,5 @@ class Robot : public frc::TimedRobot
         SwerveDrive*          m_swerve;
         ArcadeDrive*          m_arcade;
         DragonLimelight*      m_dragonLimeLight;
+        LiveXMLTuner*         m_xmlTuner;
 };

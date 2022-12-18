@@ -22,6 +22,7 @@
 #include <utils/LoggerEnums.h>
 #include <RobotXmlParser.h>
 #include <mechanisms/StateMgrHelper.h>
+#include <utils/LiveXMLTuner.h>
 
 using namespace std;
 
@@ -36,6 +37,9 @@ void Robot::RobotInit()
     // Read the XML file to build the robot 
     auto XmlParser = new RobotXmlParser();
     XmlParser->ParseXML();
+
+    //Add LiveXMLTuner in case we want to test XML values on the file
+    m_xmlTuner = new LiveXMLTuner();
 
     // Get local copies of the teleop controller and the chassis
     m_controller = TeleopControl::GetInstance();
@@ -76,6 +80,9 @@ void Robot::RobotPeriodic()
         Logger::GetLogger()->LogData(data);
     }
     Logger::GetLogger()->PeriodicLog();
+
+    //Listen for button press and value changes
+    m_xmlTuner->ListenForUpdates();
 }
 
 /**
