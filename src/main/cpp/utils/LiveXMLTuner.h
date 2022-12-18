@@ -21,6 +21,9 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
 
+//Third Party Includes
+#include <pugixml/pugixml.hpp>
+
 class LiveXMLTuner
 {
     public:
@@ -34,10 +37,11 @@ class LiveXMLTuner
 
         void PopulateNetworkTable();
 
-        void ChassisPopulate(xml_node chassisNode);
-        void MechanismPopulate(xml_node mechNode);
-        void MotorPopulate(xml_node motorNode, std::shared_ptr<nt::NetworkTable> nt);
-        void SwerveModulePopulate(xml_node moduleNode, std::shared_ptr<nt::NetworkTable> nt);
+        void ChassisPopulate(pugi::xml_node chassisNode);
+        void MechanismPopulate(pugi::xml_node mechNode);
+        void MotorPopulate(pugi::xml_node motorNode, std::shared_ptr<nt::NetworkTable> nt);
+        void SwerveModulePopulate(pugi::xml_node moduleNode, std::shared_ptr<nt::NetworkTable> nt);
+        void CancoderPopulate(pugi::xml_node cancoderNode, std::shared_ptr<nt::NetworkTable> nt);
 
         bool CreateCopyOfXML();
         bool FindElements();

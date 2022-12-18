@@ -15,6 +15,8 @@
 
 //C++ Includes
 #include <memory>
+#include <iostream>
+#include <fstream>
 
 //FRC Includes
 #include <frc/shuffleboard/Shuffleboard.h>
@@ -26,9 +28,6 @@
 #include <units/angular_velocity.h>
 #include <units/acceleration.h>
 #include <units/angular_acceleration.h>
-
-//Third Party Includes
-#include <pugixml/pugixml.hpp>
 
 //Team302 Includes
 #include <utils/Logger.h>
@@ -90,30 +89,32 @@ void LiveXMLTuner::PopulateNetworkTable()
         //If parse is good
         if (result)
         {
-            /// Currently only doing mechanisms and chassis
-            // get the root node <robot>
-            xml_node parent = doc.root();
-            for (xml_node node = parent.first_child(); node; node = node.next_sibling())
+            if (!CreateCopyOfXML())
             {
-                // loop through the direct children of <robot> and add to appropriate network table
-                for (xml_node child = node.first_child(); child; child = child.next_sibling())
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, std::string("LiveXMLTuner"), std::string("PopulateNetworkTable"), std::string("Could not create copy of robot.xml, DO NOT EDIT"));
+            }
+            else
+            {
+                /// Currently only doing mechanisms and chassis
+                // get the root node <robot>
+                xml_node parent = doc.root();
+                for (xml_node node = parent.first_child(); node; node = node.next_sibling())
                 {
-                    if (std::strcmp(child.name(), "chassis") == 0)
+                    // loop through the direct children of <robot> and add to appropriate network table
+                    for (xml_node child = node.first_child(); child; child = child.next_sibling())
                     {
-                        ChassisPopulate(child);
-                        
-
-                        
-                    }
-                    else if (std::strcmp(child.name(), "mechanism") == 0)
-                    {
-                        MechanismPopulate(child);
+                        if (std::strcmp(child.name(), "chassis") == 0)
+                        {
+                            ChassisPopulate(child);  
+                        }
+                        else if (std::strcmp(child.name(), "mechanism") == 0)
+                        {
+                            MechanismPopulate(child);
+                        }
                     }
                 }
             }
         }
-
-        CreateCopyOfXML();
     }    
     catch(const std::exception& e)
     {
@@ -201,6 +202,7 @@ void LiveXMLTuner::MechanismPopulate(xml_node mechNode)
 {
     //create mechanism table
     std::shared_ptr<nt::NetworkTable> mechTable = m_liveXmlTable.get()->GetSubTable(std::string(mechNode.first_attribute().value()));
+    
     //add attributes to table
     for (xml_attribute attr = mechNode.first_attribute(); attr; attr = attr.next_attribute())
     {
@@ -208,8 +210,76 @@ void LiveXMLTuner::MechanismPopulate(xml_node mechNode)
         if (attrName.compare("type") == 0)
         {
             std::string typeStr = attr.as_string();
-            //create mechanism table
-            std::shared_ptr<nt::NetworkTable> mechanismTable = m_liveXmlTable.get()->GetSubTable(std::string(typeStr + " mechanism"));
+        }
+
+        for (xml_node child = mechNode.first_child(); child; child = child.next_sibling())
+        {
+            if ( strcmp( child.name(), "motor") == 0 )
+            {
+                MotorPopulate(child, mechTable);
+            }
+            else if ( strcmp( child.name(), "canCoder" ) == 0)
+            {
+            CancoderPopulate(child, mechTable);
+            }
         }
     }
+}
+
+void LiveXMLTuner::MotorPopulate(xml_node motorNode, std::shared_ptr<nt::NetworkTable> nt)
+{
+
+}
+
+void LiveXMLTuner::CancoderPopulate(xml_node cancoderNode, std::shared_ptr<nt::NetworkTable> nt)
+{
+
+}
+
+void LiveXMLTuner::SwerveModulePopulate(xml_node moduleNode, std::shared_ptr<nt::NetworkTable> nt)
+{
+
+}
+
+bool LiveXMLTuner::CreateCopyOfXML()
+{
+    bool result = false;
+    
+    //Create a copy of robot.xml in deploy directy, timestamped and in backups folder
+    auto deployDir = frc::filesystem::GetDeployDirectory();
+    std::string filename = deployDir + std::string("/robot.xml");
+    /*
+    //Creates directory deployDir/backups and -p just suppresses errors
+    //This directory will only be created once, this command is here in case the deploy directory
+    //does not have a backups folder
+    std::string commandStr = "mkdir " + deployDir + "/backups -p";
+    const char *command = commandStr.c_str();
+    if (std::system(command) == 0)
+    {
+        //copy robot.xml to backups and timestamp it
+        //timestamp will be easier in c++ 20, otherwise in the beta
+        //for now, only keep latest backup
+        commandStr = "cp " + filename + " " + deployDir + "/backups/robot.xml";
+        command = commandStr.c_str();
+
+        if (std::system(command) == 0)
+        {
+            result = true;
+        }
+    }*/
+
+    std::ifstream in (filename.c_str());
+
+    std::string outputFile = deployDir + "/backups/robot.xml";
+
+    std::ofstream out (outputFile.c_str());
+
+    out << in.rdbuf();
+
+    out.close();
+    in.close();
+
+    result = true;
+
+    return result;
 }
