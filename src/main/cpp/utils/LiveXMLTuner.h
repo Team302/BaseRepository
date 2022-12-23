@@ -20,6 +20,7 @@
 #include <memory>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
+#include <map>
 
 //Third Party Includes
 #include <pugixml/pugixml.hpp>
@@ -34,19 +35,43 @@ class LiveXMLTuner
         void ListenForUpdates();
     
     private:
-
+        /// @brief Populate network table with all the xml elements like chassis and mechanism, and their respective attributes
         void PopulateNetworkTable();
 
+        /// @brief Populates the chassis group with chassis values
         void ChassisPopulate(pugi::xml_node chassisNode);
+
+        /// @brief Populates the mechanism group with mechanism values
         void MechanismPopulate(pugi::xml_node mechNode);
+
+        /// @brief Populates the motor group with motor values
         void MotorPopulate(pugi::xml_node motorNode, std::shared_ptr<nt::NetworkTable> nt);
+
+        /// @brief Populates the swerve module group with swerve module values
         void SwerveModulePopulate(pugi::xml_node moduleNode, std::shared_ptr<nt::NetworkTable> nt);
+
+        /// @brief Populates the can coder group with can coder values
         void CancoderPopulate(pugi::xml_node cancoderNode, std::shared_ptr<nt::NetworkTable> nt);
 
+        /// @brief Backs up the current robot.xml in case of breaking changes or want to revert changes
         bool CreateCopyOfXML();
-        bool FindElements();
-        bool ModifyElement(std::string element, std::string newValue);
+
+        /// @brief Finds the keys of an element in the network table
+        void ModifyElements(std::shared_ptr<nt::NetworkTable> nt);
+
+        /// @brief Find xml_attribute given a network table path
+        /// @return pugI::xml_attribute - The specified attribute
+        //std::pair<nt::NetworkTableEntry, pugi::xml_attribute> FindAttribute(std::string path);
+        nt::NetworkTableEntry FindAttribute(std::string path);
+
+        /// @brief Modifies the xml file with elements found from FindElements()
+        /// @return bool - Success
+        bool ModifyXml(std::shared_ptr<nt::NetworkTable> nt, std::vector<std::string> keys);
 
         std::shared_ptr<nt::NetworkTable>   m_liveXmlTable;
         nt::NetworkTableEntry               m_enableButton;
+
+        std::map<std::string, pugi::xml_attribute> m_entryAttributeMap;
+
+        std::shared_ptr<nt::NetworkTable> m_chassisTable;
 };
