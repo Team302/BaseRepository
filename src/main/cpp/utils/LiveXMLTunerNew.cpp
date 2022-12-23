@@ -1,23 +1,7 @@
-/*//====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-// OR OTHER DEALINGS IN THE SOFTWARE.
-//====================================================================================================================================================
-
 //C++ Includes
 #include <memory>
 #include <iostream>
 #include <fstream>
-#include <map>
 
 //FRC Includes
 #include <frc/shuffleboard/Shuffleboard.h>
@@ -126,69 +110,22 @@ void LiveXMLTuner::PopulateNetworkTable()
 void LiveXMLTuner::ChassisPopulate(xml_node chassisNode)
 {
     //create chassis table
-    m_chassisTable = m_liveXmlTable.get()->GetSubTable(std::string(chassisNode.first_attribute().value()) + " chassis");
-
+    std::shared_ptr<nt::NetworkTable> chassisTable = m_liveXmlTable.get()->GetSubTable(std::string(chassisNode.first_attribute().value()) + " chassis");
+    
     //add attributes to table
     for (xml_attribute attr = chassisNode.first_attribute(); attr; attr = attr.next_attribute())
     {
-        std::string attrName (attr.name());
+        //currently we just put up the attribute value as a string
+        //may create a switch statement to put up as double, string, and bool to plot or change
+        std::string value = attr.as_string();
+        std::shared_ptr<nt::Value> ntValue;
+        ntValue.get()->MakeString(value);
 
-        if (  attrName.compare("wheelBase") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("wheelBase (inches)", attr.as_double());
+        //sends attribute value to network table
+        chassisTable.get()->PutValue(attr.name(), ntValue);
 
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("wheelBase (inches)")] = attr;
-        }
-        else if (  attrName.compare("track") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("track (inches)", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("track (inches)")] = attr;
-        }
-        else if (  attrName.compare("maxVelocity") == 0 )
-        {
-            units::velocity::feet_per_second_t fps(attr.as_double()/12.0);
-            auto maxVelocity = units::velocity::meters_per_second_t(fps);
-            m_chassisTable.get()->PutNumber("maxVelocity (meters per second)", maxVelocity.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxVelocity (meters per second)")] = attr;
-        }
-        else if (  attrName.compare("maxAngularVelocity") == 0 )
-        {
-            units::degrees_per_second_t degreesPerSec(attr.as_double());
-            auto maxAngularSpeed = units::radians_per_second_t(degreesPerSec);
-            m_chassisTable.get()->PutNumber("maxAngularSpeed (radians per second)", maxAngularSpeed.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAngularSpeed (radians per second)")] = attr;
-        }
-        else if (  attrName.compare("maxAcceleration") == 0 )
-        {
-            auto maxAcceleration = units::feet_per_second_t(attr.as_double()/12.0) / 1_s;
-            units::acceleration::meters_per_second_squared_t maxAccelMPS = maxAcceleration;
-            m_chassisTable.get()->PutNumber("maxAcceleration (meters per second squared)", maxAccelMPS.to<double>());
-            
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAcceleration (meters per second squared)")] = attr;
-        }
-        else if (  attrName.compare("maxAngularAcceleration") == 0 )
-        {
-            auto maxAngularAcceleration = units::degrees_per_second_t(attr.as_double()) / 1_s;
-            units::angular_acceleration::radians_per_second_squared_t maxAnglAccelRad = maxAngularAcceleration;
-            m_chassisTable.get()->PutNumber("maxAngularAcceleration (radians per second squared)", maxAnglAccelRad.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAngularAcceleration (radians per second squared)")] = attr;
-        }
-        else if (  attrName.compare("wheelDiameter") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("wheelDiameter (inches)", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("wheelDiameter (inches)")] = attr;
-        }
-        else if ( attrName.compare("odometryComplianceCoefficient") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("odometryComplianceCoefficient", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("odometryComplianceCoefficient")] = attr;
-        }
+        //updates entry map to have attribute and entry correlate
+        m_entryAttributeMap[chassisTable.get()->GetHierarchy(attr.name()).back()] = attr;
     }
 
     //populate swerve modules and any excess motors
@@ -198,11 +135,11 @@ void LiveXMLTuner::ChassisPopulate(xml_node chassisNode)
 
         if (childName.compare("motor") == 0)
         {
-            MotorPopulate(child, m_chassisTable);
+            MotorPopulate(child, chassisTable);
         }
         else if (childName.compare("swervemodule") == 0)
         {
-            SwerveModulePopulate(child, m_chassisTable);
+            SwerveModulePopulate(child, chassisTable);
         }
     }
 }
@@ -229,7 +166,7 @@ void LiveXMLTuner::MechanismPopulate(xml_node mechNode)
             }
             else if ( strcmp( child.name(), "canCoder" ) == 0)
             {
-            CancoderPopulate(child, mechTable);
+                CancoderPopulate(child, mechTable);
             }
         }
     }
@@ -275,7 +212,7 @@ bool LiveXMLTuner::CreateCopyOfXML()
         {
             result = true;
         }
-    }
+    }*/
 
     std::ifstream in (filename.c_str());
 
@@ -311,53 +248,3 @@ void LiveXMLTuner::ModifyElements(std::shared_ptr<nt::NetworkTable> nt)
         }
     }
 }
-
-bool LiveXMLTuner::ModifyXml(std::shared_ptr<nt::NetworkTable> nt, std::vector<std::string> keys)
-{
-    std::vector<std::string> hiearchy = nt.get()->GetHierarchy(keys.front());
-
-    //Gets the attribute path like /Shuffleboard/LiveXML/SWERVE chassis/track (inches) 
-    std::string attributeStr = hiearchy.back();
-
-    //get pair from FindNode()
-    //std::pair<nt::NetworkTableEntry, pugi::xml_attribute> attributePair = FindAttribute(attributeStr);
-
-    nt::NetworkTableEntry ntEntry = FindAttribute(attributeStr);
-    if(ntEntry.GetValue()->GetString() == m_chassisAttributeMap[ntEntry].as_string())
-    {
-        m_chassisAttributeMap[ntEntry].set_value(std::string{ntEntry.GetValue()->GetString()}.c_str());   
-    }
-
-    //check if nt value is different from xml
-    //if true, set xml_attribute equal to nt value
-    // if(attributePair.first.GetValue()->GetString() == attributePair.second.as_string())
-    // {
-    //     attributePair.second.set_value(std::string{attributePair.first.GetValue()->GetString()}.c_str());
-    // }
-    
-    return true;
-}
-
-//std::pair<nt::NetworkTableEntry, pugi::xml_attribute> LiveXMLTuner::FindAttribute(std::string path)
-nt::NetworkTableEntry LiveXMLTuner::FindAttribute(std::string path)
-{
-    std::string attributeStr = "";
-
-    //Later I'll have to get this by parsing through path, rn it only works for chassis
-    std::string chassisString = "chassis/";
-
-    std::string testString = "";
-
-    for(int i = 0; i<path.length(); i++)
-    {
-        if(i > path.find(chassisString) + chassisString.length() - 1)
-        {
-            attributeStr+= path.at(std::size_t(i));
-        }
-    }
-
-    return m_chassisTable.get()->GetEntry(attributeStr);
-
-    /// @TODO
-    //Pair by path and value
-}*/
