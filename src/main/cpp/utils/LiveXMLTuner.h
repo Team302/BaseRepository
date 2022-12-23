@@ -70,6 +70,7 @@ class LiveXMLTuner
 
         std::shared_ptr<nt::NetworkTable>   m_liveXmlTable;
         nt::NetworkTableEntry               m_enableButton;
+        nt::NetworkTableEntry               m_submitButton;
 
         std::map<std::string, pugi::xml_attribute> m_entryAttributeMap;
 
