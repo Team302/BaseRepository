@@ -1,28 +1,13 @@
-/*//====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302 
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-// OR OTHER DEALINGS IN THE SOFTWARE.
-//====================================================================================================================================================
-
 //C++ Includes
 #include <memory>
 #include <iostream>
 #include <fstream>
-#include <map>
 
 //FRC Includes
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <networktables/NetworkTableEntry.h>
 #include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
 #include <networktables/TableEntryListener.h>
 #include <frc/Filesystem.h>
 #include <units/velocity.h>
@@ -40,47 +25,41 @@ LiveXMLTuner::LiveXMLTuner()
 {
     frc::Shuffleboard::GetTab("LiveXML");
 
-    frc::Shuffleboard::GetTab("LiveXML").Add("Enable LIVE XML Editing?", false).WithWidget(frc::BuiltInWidgets::kToggleButton).GetEntry();
+    m_enableButton = frc::Shuffleboard::GetTab("LiveXML").Add("Enable LIVE XML Editing?", false).WithWidget(frc::BuiltInWidgets::kToggleButton).GetEntry();
+    m_submitButton = frc::Shuffleboard::GetTab("LiveXML").Add("Submit Changes?", false).WithWidget(frc::BuiltInWidgets::kToggleButton).GetEntry();
 
     nt::NetworkTableInstance inst = nt::NetworkTableInstance::GetDefault();
 
     std::shared_ptr<nt::NetworkTable> shuffleboardTable = inst.GetTable("Shuffleboard");
     m_liveXmlTable = shuffleboardTable.get()->GetSubTable("LiveXML");
-
-    m_enableButton = m_liveXmlTable.get()->GetEntry("Enable LIVE XML Editing?");
 }
 
 void LiveXMLTuner::ListenForUpdates()
 {
-    if(m_enableButton.GetValue().get()->GetBoolean() == true)
+    if(m_enableButton.GetValue().get()->GetBoolean())
     {
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("LiveXMLTuner"), std::string("Listen"), "Button pressed");
         PopulateNetworkTable();
         m_enableButton.SetBoolean(false);
     }
 
-    //Explanation of below code
-    //nt::EntryListener is an std::function object
-    //This is used to create lambda functions, or code that can be assigned to variables
-    //"this" is enclosed in square brackets to allow LiveXMLTuner methods to be called inside this function
-    //the parantheses that follow are just the signature of the nt::EntryListener function
-    //code inside the curly brackets is ran when the value changes
-    //NT_NOTIFY_NEW AND NT_NOTIFY_UPDATE are just flags for when this listener executes
-
-    m_liveXmlTable.get()->AddEntryListener([this] (nt::NetworkTable* table, 
-                                                std::string_view name,
-                                                nt::NetworkTableEntry entry,
-                                                std::shared_ptr<nt::Value> value, 
-                                                int flags) {
-
-    
-    }, NT_NOTIFY_NEW | NT_NOTIFY_UPDATE);
+    if(m_submitButton.GetValue().get()->GetBoolean())
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, std::string("LiveXMLTuner"), std::string("Submit"), "Button pressed");
+        ModifyElements(m_liveXmlTable);
+        m_submitButton.SetBoolean(false);
+    }
 }
 
 void LiveXMLTuner::PopulateNetworkTable()
 {
-    auto deployDir = frc::filesystem::GetDeployDirectory();
-    std::string filename = deployDir + std::string("/robot.xml");
+    //auto deployDir = frc::filesystem::GetDeployDirectory();
+    //std::string filename = deployDir + std::string("/robot.xml");
+
+    /// DEBUG
+    std::string deployDir = "D:\\Github\\Testing";
+    std::string filename = deployDir + std::string("\\robot.xml");
+    /// DEBUG
 
     try
     {
@@ -126,69 +105,20 @@ void LiveXMLTuner::PopulateNetworkTable()
 void LiveXMLTuner::ChassisPopulate(xml_node chassisNode)
 {
     //create chassis table
-    m_chassisTable = m_liveXmlTable.get()->GetSubTable(std::string(chassisNode.first_attribute().value()) + " chassis");
-
+    std::shared_ptr<nt::NetworkTable> chassisTable = m_liveXmlTable.get()->GetSubTable(std::string(chassisNode.first_attribute().value()) + " chassis");
+    
     //add attributes to table
     for (xml_attribute attr = chassisNode.first_attribute(); attr; attr = attr.next_attribute())
     {
-        std::string attrName (attr.name());
+        //currently we just put up the attribute value as a string
+        //may create a switch statement to put up as double, string, and bool to plot or change
+        std::string value = attr.as_string();
 
-        if (  attrName.compare("wheelBase") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("wheelBase (inches)", attr.as_double());
+        //sends attribute value to network table
+        chassisTable.get()->PutString(attr.name(), value);
 
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("wheelBase (inches)")] = attr;
-        }
-        else if (  attrName.compare("track") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("track (inches)", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("track (inches)")] = attr;
-        }
-        else if (  attrName.compare("maxVelocity") == 0 )
-        {
-            units::velocity::feet_per_second_t fps(attr.as_double()/12.0);
-            auto maxVelocity = units::velocity::meters_per_second_t(fps);
-            m_chassisTable.get()->PutNumber("maxVelocity (meters per second)", maxVelocity.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxVelocity (meters per second)")] = attr;
-        }
-        else if (  attrName.compare("maxAngularVelocity") == 0 )
-        {
-            units::degrees_per_second_t degreesPerSec(attr.as_double());
-            auto maxAngularSpeed = units::radians_per_second_t(degreesPerSec);
-            m_chassisTable.get()->PutNumber("maxAngularSpeed (radians per second)", maxAngularSpeed.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAngularSpeed (radians per second)")] = attr;
-        }
-        else if (  attrName.compare("maxAcceleration") == 0 )
-        {
-            auto maxAcceleration = units::feet_per_second_t(attr.as_double()/12.0) / 1_s;
-            units::acceleration::meters_per_second_squared_t maxAccelMPS = maxAcceleration;
-            m_chassisTable.get()->PutNumber("maxAcceleration (meters per second squared)", maxAccelMPS.to<double>());
-            
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAcceleration (meters per second squared)")] = attr;
-        }
-        else if (  attrName.compare("maxAngularAcceleration") == 0 )
-        {
-            auto maxAngularAcceleration = units::degrees_per_second_t(attr.as_double()) / 1_s;
-            units::angular_acceleration::radians_per_second_squared_t maxAnglAccelRad = maxAngularAcceleration;
-            m_chassisTable.get()->PutNumber("maxAngularAcceleration (radians per second squared)", maxAnglAccelRad.to<double>());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("maxAngularAcceleration (radians per second squared)")] = attr;
-        }
-        else if (  attrName.compare("wheelDiameter") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("wheelDiameter (inches)", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("wheelDiameter (inches)")] = attr;
-        }
-        else if ( attrName.compare("odometryComplianceCoefficient") == 0 )
-        {
-            m_chassisTable.get()->PutNumber("odometryComplianceCoefficient", attr.as_double());
-
-            m_chassisAttributeMap[m_chassisTable.get()->GetEntry("odometryComplianceCoefficient")] = attr;
-        }
+        //updates entry map to have attribute and entry correlate
+        m_entryAttributeMap[chassisTable.get()->GetHierarchy(attr.name()).back()] = attr;
     }
 
     //populate swerve modules and any excess motors
@@ -198,11 +128,11 @@ void LiveXMLTuner::ChassisPopulate(xml_node chassisNode)
 
         if (childName.compare("motor") == 0)
         {
-            MotorPopulate(child, m_chassisTable);
+            MotorPopulate(child, chassisTable);
         }
         else if (childName.compare("swervemodule") == 0)
         {
-            SwerveModulePopulate(child, m_chassisTable);
+            SwerveModulePopulate(child, chassisTable);
         }
     }
 }
@@ -229,7 +159,7 @@ void LiveXMLTuner::MechanismPopulate(xml_node mechNode)
             }
             else if ( strcmp( child.name(), "canCoder" ) == 0)
             {
-            CancoderPopulate(child, mechTable);
+                CancoderPopulate(child, mechTable);
             }
         }
     }
@@ -255,31 +185,25 @@ bool LiveXMLTuner::CreateCopyOfXML()
     bool result = false;
     
     //Create a copy of robot.xml in deploy directy, timestamped and in backups folder
-    auto deployDir = frc::filesystem::GetDeployDirectory();
-    std::string filename = deployDir + std::string("/robot.xml");
-    /*
-    //Creates directory deployDir/backups and -p just suppresses errors
-    //This directory will only be created once, this command is here in case the deploy directory
-    //does not have a backups folder
-    std::string commandStr = "mkdir " + deployDir + "/backups -p";
-    const char *command = commandStr.c_str();
-    if (std::system(command) == 0)
-    {
-        //copy robot.xml to backups and timestamp it
-        //timestamp will be easier in c++ 20, otherwise in the beta
-        //for now, only keep latest backup
-        commandStr = "cp " + filename + " " + deployDir + "/backups/robot.xml";
-        command = commandStr.c_str();
+    //auto deployDir = frc::filesystem::GetDeployDirectory();
+    //std::string filename = deployDir + std::string("/robot.xml");
+    
+    /// DEBUG
+    /// This is here so I can test at home
+    std::string deployDir = "D:\\Github\\Testing";
+    std::string filename = deployDir + std::string("\\robot.xml");
+    /// DEBUG
 
-        if (std::system(command) == 0)
-        {
-            result = true;
-        }
-    }
 
     std::ifstream in (filename.c_str());
 
-    std::string outputFile = deployDir + "/backups/robot.xml";
+    if(in.fail() || !in.is_open())
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, std::string("LiveXMLTuner"), std::string("CreateCopy"), std::string("Could not open file stream to xml"));
+    }
+
+    /// @TODO: Add timestamp to filename
+    std::string outputFile = deployDir + "\\robotsecond.xml";
 
     std::ofstream out (outputFile.c_str());
 
@@ -297,67 +221,94 @@ void LiveXMLTuner::ModifyElements(std::shared_ptr<nt::NetworkTable> nt)
 {
     //get the next level of tables, this will be things like chassis and indepedent mechanisms
     std::vector<std::string> subTables = nt.get()->GetSubTables();
+
+    //string to make sure we aren't modifying multiple times
+    std::string previousTable = "";
     
-    for(std::string curTable : subTables)
+    for(int i = 0; i < subTables.size(); i++)
     {
-        //check if there are lower tables in hierarchy
-        if(!nt.get()->GetSubTable(curTable).get()->GetSubTables().empty())
+        if(!(subTables[i] == previousTable))
         {
-            ModifyElements(nt);
-        }
-        else
-        {
-            ModifyXml(nt, nt.get()->GetKeys());
+            //check if there are lower tables in hierarchy
+            if(!nt.get()->GetSubTable(subTables[i]).get()->GetSubTables().empty())
+            {
+                ModifyElements(nt);
+            }
+            else //if there are no lower tables, modify the xml values
+            {
+                ModifyXml(nt->GetSubTable(subTables[i]), nt.get()->GetSubTable(subTables[i]).get()->GetKeys());
+            }
+            previousTable = subTables[i];
         }
     }
 }
 
 bool LiveXMLTuner::ModifyXml(std::shared_ptr<nt::NetworkTable> nt, std::vector<std::string> keys)
 {
-    std::vector<std::string> hiearchy = nt.get()->GetHierarchy(keys.front());
+    /// DEBUG
+    /// DEBUG
+    std::string deployDir = "D:\\Github\\Testing";
+    std::string filename = deployDir + std::string("\\robot.xml");
+    /// DEBUG
+    xml_document doc;
+    xml_parse_result result = doc.load_file(filename.c_str());
 
-    //Gets the attribute path like /Shuffleboard/LiveXML/SWERVE chassis/track (inches) 
-    std::string attributeStr = hiearchy.back();
-
-    //get pair from FindNode()
-    //std::pair<nt::NetworkTableEntry, pugi::xml_attribute> attributePair = FindAttribute(attributeStr);
-
-    nt::NetworkTableEntry ntEntry = FindAttribute(attributeStr);
-    if(ntEntry.GetValue()->GetString() == m_chassisAttributeMap[ntEntry].as_string())
+    for(int i = 0; i < keys.size(); i++)
     {
-        m_chassisAttributeMap[ntEntry].set_value(std::string{ntEntry.GetValue()->GetString()}.c_str());   
-    }
+        std::vector<std::string> hiearchy = nt.get()->GetHierarchy(keys[i]);
 
-    //check if nt value is different from xml
-    //if true, set xml_attribute equal to nt value
-    // if(attributePair.first.GetValue()->GetString() == attributePair.second.as_string())
-    // {
-    //     attributePair.second.set_value(std::string{attributePair.first.GetValue()->GetString()}.c_str());
-    // }
-    
+        //Gets the attribute path like /track (inches) 
+        std::string attributeStr = hiearchy.back();
+
+        // Remove the "/" at the beginning of the path toread network table values
+        std::string attributeNTStr = attributeStr.substr(1, attributeStr.size() - 1);
+
+        switch(nt.get()->GetValue(attributeNTStr)->type())
+        {
+            case NT_STRING:
+                //If the network table entry value and the stored xml value don't match, update xml value
+                if(nt.get()->GetValue(attributeNTStr)->GetString() != m_entryAttributeMap[attributeStr].as_string());
+                {
+                    bool success = m_entryAttributeMap[attributeStr].set_value(std::string{nt.get()->GetValue(attributeNTStr)->GetString()}.c_str());
+
+                    /// DEBUG
+                    std::cout << attributeStr << " attribute string" << std::endl;
+                    std::cout << m_entryAttributeMap[attributeStr].name() << " attribute name" << std::endl;
+                    std::cout << "Success?: " << std::to_string(success) << std::endl;
+                }
+                break;
+
+            case NT_DOUBLE:
+                //If the network table entry value and the stored xml value don't match, update xml value
+                if(nt.get()->GetValue(attributeNTStr)->GetDouble() != m_entryAttributeMap[attributeStr].as_double());
+                {
+                    bool success = m_entryAttributeMap[attributeStr].set_value(nt.get()->GetValue(attributeNTStr)->GetDouble());
+
+                    /// DEBUG
+                    std::cout << attributeStr << " attribute string" << std::endl;
+                    std::cout << m_entryAttributeMap[attributeStr].name() << " attribute name" << std::endl;
+                    std::cout << "Success?: " << std::to_string(success) << std::endl;
+                }
+                break;
+            
+            case NT_BOOLEAN:
+                //If the network table entry value and the stored xml value don't match, update xml value
+                if(nt.get()->GetValue(attributeNTStr)->GetBoolean() != m_entryAttributeMap[attributeStr].as_bool());
+                {
+                    bool success = m_entryAttributeMap[attributeStr].set_value(nt.get()->GetValue(attributeNTStr)->GetBoolean());
+
+                    /// DEBUG
+                    std::cout << attributeStr << " attribute string" << std::endl;
+                    std::cout << m_entryAttributeMap[attributeStr].name() << " attribute name" << std::endl;
+                    std::cout << "Success?: " << std::to_string(success) << std::endl;
+                }
+                break;
+
+            default:
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, std::string("LiveXMLTuner"), std::string("ModifyXml"), std::string("Network Table entry: " + nt.get()->GetEntry(attributeNTStr).GetName() + " does not have a supported type."));
+                break;
+        }
+    } 
+
     return true;
 }
-
-//std::pair<nt::NetworkTableEntry, pugi::xml_attribute> LiveXMLTuner::FindAttribute(std::string path)
-nt::NetworkTableEntry LiveXMLTuner::FindAttribute(std::string path)
-{
-    std::string attributeStr = "";
-
-    //Later I'll have to get this by parsing through path, rn it only works for chassis
-    std::string chassisString = "chassis/";
-
-    std::string testString = "";
-
-    for(int i = 0; i<path.length(); i++)
-    {
-        if(i > path.find(chassisString) + chassisString.length() - 1)
-        {
-            attributeStr+= path.at(std::size_t(i));
-        }
-    }
-
-    return m_chassisTable.get()->GetEntry(attributeStr);
-
-    /// @TODO
-    //Pair by path and value
-}*/

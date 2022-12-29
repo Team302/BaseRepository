@@ -59,11 +59,6 @@ class LiveXMLTuner
         /// @brief Finds the keys of an element in the network table
         void ModifyElements(std::shared_ptr<nt::NetworkTable> nt);
 
-        /// @brief Find xml_attribute given a network table path
-        /// @return pugI::xml_attribute - The specified attribute
-        //std::pair<nt::NetworkTableEntry, pugi::xml_attribute> FindAttribute(std::string path);
-        nt::NetworkTableEntry FindAttribute(std::string path);
-
         /// @brief Modifies the xml file with elements found from FindElements()
         /// @return bool - Success
         bool ModifyXml(std::shared_ptr<nt::NetworkTable> nt, std::vector<std::string> keys);
