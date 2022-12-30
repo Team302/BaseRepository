@@ -118,7 +118,7 @@ void LiveXMLTuner::ChassisPopulate(xml_node chassisNode)
         chassisTable.get()->PutString(attr.name(), value);
 
         //updates entry map to have attribute and entry correlate
-        m_entryAttributeMap[chassisTable.get()->GetHierarchy(attr.name()).back()] = attr;
+        m_entryAttributeMap.insert(std::make_pair(chassisTable.get()->GetHierarchy(attr.name()).back(), attr));
     }
 
     //populate swerve modules and any excess motors
